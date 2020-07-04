@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct DogGalleryApp: App {
+    private var container = DIContainer.defaultValue
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BreedListView()
+                .environment(\.injected, container)
         }
     }
 }
