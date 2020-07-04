@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D636CC3824B06424008B5685 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
 		D63C455724B019B800A0E152 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C455624B019B700A0E152 /* DIContainer.swift */; };
 		D63C456424B0215300A0E152 /* Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456324B0215300A0E152 /* Stubs.swift */; };
 		D63C456B24B034DD00A0E152 /* DogImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456A24B034DD00A0E152 /* DogImageView.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D636CC3724B06424008B5685 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		D63C455624B019B700A0E152 /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		D63C456324B0215300A0E152 /* Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubs.swift; sourceTree = "<group>"; };
 		D63C456A24B034DD00A0E152 /* DogImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImageView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				D6B2CCB224B00BF100C6B27C /* Assets.xcassets */,
 				D6B2CCB724B00BF100C6B27C /* Info.plist */,
 				D6B2CCB424B00BF100C6B27C /* Preview Content */,
+				D636CC3724B06424008B5685 /* String+.swift */,
 			);
 			path = DogGallery;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			files = (
 				D6B2CCCD24B00C6C00C6B27C /* ImageDataLoader.swift in Sources */,
 				D6B2CCD424B00C7900C6B27C /* HTTPClientError.swift in Sources */,
+				D636CC3824B06424008B5685 /* String+.swift in Sources */,
 				D6B2CCD624B00C7900C6B27C /* HTTPClient.swift in Sources */,
 				D63C456B24B034DD00A0E152 /* DogImageView.swift in Sources */,
 				D6B2CCDC24B011C000C6B27C /* BreedRow.swift in Sources */,

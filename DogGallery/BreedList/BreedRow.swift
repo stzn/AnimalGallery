@@ -24,9 +24,3 @@ struct BreedRow_Previews: PreviewProvider {
         BreedRow(breed: Breed.anyBreed)
     }
 }
-
-private extension String {
-    var firstLetterCapitalized: String {
-        prefix(1).capitalized + dropFirst()
-    }
-}

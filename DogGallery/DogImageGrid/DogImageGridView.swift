@@ -49,7 +49,7 @@ struct DogImageGridView: View {
                 }
             }
             .padding()
-            .navigationTitle(breed.name)
+            .navigationTitle(breed.name.firstLetterCapitalized)
             Spacer()
         }
         .onAppear {
