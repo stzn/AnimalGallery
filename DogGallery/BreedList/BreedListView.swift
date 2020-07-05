@@ -46,7 +46,7 @@ struct BreedListView: View {
     private var content: some View {
         Group {
             if model.error != nil {
-                Image(uiImage: UIImage(systemName: "xmark.octagon.fill")!)
+                Image(systemName: "xmark.octagon.fill")
             } else {
                 lazyList
             }
@@ -74,7 +74,6 @@ struct BreedListView: View {
             tag: breed, selection: $selection
         ) {
             BreedRow(breed: breed)
-            
         }
         .buttonStyle(PlainButtonStyle())
         .tag(breed)

@@ -9,11 +9,18 @@
 import SwiftUI
 
 struct BreedRow: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let breed: Breed
     var body: some View {
         VStack(alignment: .leading) {
-            Text(self.breed.name.firstLetterCapitalized)
-                .font(.headline)
+            HStack {
+                Text(self.breed.name.firstLetterCapitalized)
+                    .font(.headline)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+            }
             Divider()
         }
         .contentShape(Rectangle())

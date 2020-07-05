@@ -24,7 +24,7 @@ struct DogGalleryWidgetEntryView : View {
     @ViewBuilder
     var body: some View {
         ZStack(alignment: .center) {
-            Color.green
+            Color.white
             Image(uiImage: entry.dogImage.image)
                 .resizable()
                 .aspectRatio(1, contentMode: .fill)

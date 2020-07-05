@@ -57,7 +57,7 @@ struct DogImageView: View {
                     .aspectRatio(1, contentMode: .fit)
                     .clipped()
             default:
-                Image(uiImage: UIImage(systemName: "xmark.octagon.fill")!)
+                Image(systemName: "xmark.octagon.fill")
             }
         }
     }
