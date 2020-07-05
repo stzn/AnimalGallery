@@ -16,11 +16,21 @@ protocol WebAPI {
 }
 
 extension WebAPI {
-    func call<M: Decodable>(_ type: M.Type, _ request: URLRequest) -> AnyPublisher<M, Error> {
-        client.send(request: request)
-            .receive(on: queue)
-            .map(\.data)
-            .decode(type: M.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
+    func call<M: Decodable>(_ type: M.Type, _ request: URLRequest, completion: @escaping (Result<M, Error>) -> Void) {
+        client.send(request: request) { result in
+            queue.async {
+                switch result {
+                case .success(let response):
+                    do {
+                        let json = try JSONDecoder().decode(M.self, from: response.data)
+                        completion(.success(json))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
     }
 }

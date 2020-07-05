@@ -8,6 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		D636CC3824B06424008B5685 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
+		D636CC4024B06756008B5685 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D636CC3F24B06756008B5685 /* WidgetKit.framework */; };
+		D636CC4224B06756008B5685 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D636CC4124B06756008B5685 /* SwiftUI.framework */; };
+		D636CC4524B06756008B5685 /* DogGalleryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC4424B06756008B5685 /* DogGalleryWidget.swift */; };
+		D636CC4724B06756008B5685 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D636CC4624B06756008B5685 /* Assets.xcassets */; };
+		D636CC4B24B06756008B5685 /* DogGalleryWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D636CC5024B0685C008B5685 /* DogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBE24B00C3400C6B27C /* DogImage.swift */; };
+		D636CC5624B06886008B5685 /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */; };
+		D636CC5724B06886008B5685 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
+		D636CC5824B06886008B5685 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD324B00C7900C6B27C /* Response.swift */; };
+		D636CC5924B06886008B5685 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */; };
+		D636CC5B24B068A4008B5685 /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBF24B00C3400C6B27C /* Breed.swift */; };
+		D636CC5E24B06F7A008B5685 /* RandomDogImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC5C24B068CD008B5685 /* RandomDogImageLoader.swift */; };
+		D636CC6124B10DCD008B5685 /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6024B10DCD008B5685 /* SharedTypes.swift */; };
+		D636CC6224B10DE1008B5685 /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6024B10DCD008B5685 /* SharedTypes.swift */; };
+		D636CC6424B10DF4008B5685 /* SharedVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6324B10DF4008B5685 /* SharedVariables.swift */; };
+		D636CC6524B10E12008B5685 /* SharedVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6324B10DF4008B5685 /* SharedVariables.swift */; };
+		D636CC6624B110BE008B5685 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
+		D636CC6824B118A9008B5685 /* StrokeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6724B118A9008B5685 /* StrokeText.swift */; };
+		D636CC6924B11955008B5685 /* StrokeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6724B118A9008B5685 /* StrokeText.swift */; };
+		D636CC6C24B15033008B5685 /* LeftTimeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */; };
 		D63C455724B019B800A0E152 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C455624B019B700A0E152 /* DIContainer.swift */; };
 		D63C456424B0215300A0E152 /* Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456324B0215300A0E152 /* Stubs.swift */; };
 		D63C456B24B034DD00A0E152 /* DogImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456A24B034DD00A0E152 /* DogImageView.swift */; };
@@ -31,8 +51,43 @@
 		D6B2CCDC24B011C000C6B27C /* BreedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCDB24B011C000C6B27C /* BreedRow.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D636CC4924B06756008B5685 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6B2CCA324B00BF000C6B27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D636CC3C24B06756008B5685;
+			remoteInfo = DogGalleryWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D636CC4F24B06757008B5685 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D636CC4B24B06756008B5685 /* DogGalleryWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		D636CC3724B06424008B5685 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DogGalleryWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D636CC3F24B06756008B5685 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D636CC4124B06756008B5685 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		D636CC4424B06756008B5685 /* DogGalleryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogGalleryWidget.swift; sourceTree = "<group>"; };
+		D636CC4624B06756008B5685 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D636CC4824B06756008B5685 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D636CC5C24B068CD008B5685 /* RandomDogImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDogImageLoader.swift; sourceTree = "<group>"; };
+		D636CC6024B10DCD008B5685 /* SharedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTypes.swift; sourceTree = "<group>"; };
+		D636CC6324B10DF4008B5685 /* SharedVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedVariables.swift; sourceTree = "<group>"; };
+		D636CC6724B118A9008B5685 /* StrokeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeText.swift; sourceTree = "<group>"; };
+		D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftTimeTextView.swift; sourceTree = "<group>"; };
 		D63C455624B019B700A0E152 /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		D63C456324B0215300A0E152 /* Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubs.swift; sourceTree = "<group>"; };
 		D63C456A24B034DD00A0E152 /* DogImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImageView.swift; sourceTree = "<group>"; };
@@ -59,6 +114,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D636CC3A24B06756008B5685 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D636CC4224B06756008B5685 /* SwiftUI.framework in Frameworks */,
+				D636CC4024B06756008B5685 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6B2CCA824B00BF000C6B27C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,6 +133,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D636CC3E24B06756008B5685 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D636CC3F24B06756008B5685 /* WidgetKit.framework */,
+				D636CC4124B06756008B5685 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D636CC4324B06756008B5685 /* DogGalleryWidget */ = {
+			isa = PBXGroup;
+			children = (
+				D636CC4424B06756008B5685 /* DogGalleryWidget.swift */,
+				D636CC4624B06756008B5685 /* Assets.xcassets */,
+				D636CC4824B06756008B5685 /* Info.plist */,
+				D636CC5C24B068CD008B5685 /* RandomDogImageLoader.swift */,
+				D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */,
+			);
+			path = DogGalleryWidget;
+			sourceTree = "<group>";
+		};
+		D636CC5F24B10DBA008B5685 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D636CC3724B06424008B5685 /* String+.swift */,
+				D636CC6024B10DCD008B5685 /* SharedTypes.swift */,
+				D636CC6324B10DF4008B5685 /* SharedVariables.swift */,
+				D636CC6724B118A9008B5685 /* StrokeText.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		D63C456924B0345700A0E152 /* DogImageGrid */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				D6B2CCAD24B00BF000C6B27C /* DogGallery */,
+				D636CC4324B06756008B5685 /* DogGalleryWidget */,
+				D636CC3E24B06756008B5685 /* Frameworks */,
 				D6B2CCAC24B00BF000C6B27C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				D6B2CCAB24B00BF000C6B27C /* DogGallery.app */,
+				D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +197,7 @@
 		D6B2CCAD24B00BF000C6B27C /* DogGallery */ = {
 			isa = PBXGroup;
 			children = (
+				D636CC5F24B10DBA008B5685 /* Shared */,
 				D63C456924B0345700A0E152 /* DogImageGrid */,
 				D63C455624B019B700A0E152 /* DIContainer.swift */,
 				D6B2CCD824B0113200C6B27C /* BreedList */,
@@ -108,7 +208,6 @@
 				D6B2CCB224B00BF100C6B27C /* Assets.xcassets */,
 				D6B2CCB724B00BF100C6B27C /* Info.plist */,
 				D6B2CCB424B00BF100C6B27C /* Preview Content */,
-				D636CC3724B06424008B5685 /* String+.swift */,
 			);
 			path = DogGallery;
 			sourceTree = "<group>";
@@ -166,6 +265,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D636CC3C24B06756008B5685 /* DogGalleryWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D636CC4C24B06757008B5685 /* Build configuration list for PBXNativeTarget "DogGalleryWidgetExtension" */;
+			buildPhases = (
+				D636CC3924B06756008B5685 /* Sources */,
+				D636CC3A24B06756008B5685 /* Frameworks */,
+				D636CC3B24B06756008B5685 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DogGalleryWidgetExtension;
+			productName = DogGalleryWidgetExtension;
+			productReference = D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		D6B2CCAA24B00BF000C6B27C /* DogGallery */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D6B2CCBA24B00BF100C6B27C /* Build configuration list for PBXNativeTarget "DogGallery" */;
@@ -173,10 +289,12 @@
 				D6B2CCA724B00BF000C6B27C /* Sources */,
 				D6B2CCA824B00BF000C6B27C /* Frameworks */,
 				D6B2CCA924B00BF000C6B27C /* Resources */,
+				D636CC4F24B06757008B5685 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D636CC4A24B06756008B5685 /* PBXTargetDependency */,
 			);
 			name = DogGallery;
 			productName = DogGallery;
@@ -192,6 +310,9 @@
 				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
+					D636CC3C24B06756008B5685 = {
+						CreatedOnToolsVersion = 12.0;
+					};
 					D6B2CCAA24B00BF000C6B27C = {
 						CreatedOnToolsVersion = 12.0;
 					};
@@ -211,11 +332,20 @@
 			projectRoot = "";
 			targets = (
 				D6B2CCAA24B00BF000C6B27C /* DogGallery */,
+				D636CC3C24B06756008B5685 /* DogGalleryWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D636CC3B24B06756008B5685 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D636CC4724B06756008B5685 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6B2CCA924B00BF000C6B27C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -228,12 +358,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D636CC3924B06756008B5685 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D636CC6524B10E12008B5685 /* SharedVariables.swift in Sources */,
+				D636CC6C24B15033008B5685 /* LeftTimeTextView.swift in Sources */,
+				D636CC5B24B068A4008B5685 /* Breed.swift in Sources */,
+				D636CC5624B06886008B5685 /* HTTPClientError.swift in Sources */,
+				D636CC5E24B06F7A008B5685 /* RandomDogImageLoader.swift in Sources */,
+				D636CC6924B11955008B5685 /* StrokeText.swift in Sources */,
+				D636CC6224B10DE1008B5685 /* SharedTypes.swift in Sources */,
+				D636CC5024B0685C008B5685 /* DogImage.swift in Sources */,
+				D636CC5824B06886008B5685 /* Response.swift in Sources */,
+				D636CC6624B110BE008B5685 /* String+.swift in Sources */,
+				D636CC5924B06886008B5685 /* URLSessionHTTPClient.swift in Sources */,
+				D636CC5724B06886008B5685 /* HTTPClient.swift in Sources */,
+				D636CC4524B06756008B5685 /* DogGalleryWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6B2CCA724B00BF000C6B27C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D636CC6824B118A9008B5685 /* StrokeText.swift in Sources */,
 				D6B2CCCD24B00C6C00C6B27C /* ImageDataLoader.swift in Sources */,
 				D6B2CCD424B00C7900C6B27C /* HTTPClientError.swift in Sources */,
+				D636CC6424B10DF4008B5685 /* SharedVariables.swift in Sources */,
 				D636CC3824B06424008B5685 /* String+.swift in Sources */,
 				D6B2CCD624B00C7900C6B27C /* HTTPClient.swift in Sources */,
 				D63C456B24B034DD00A0E152 /* DogImageView.swift in Sources */,
@@ -248,6 +400,7 @@
 				D6B2CCCC24B00C6C00C6B27C /* BreedListLoader.swift in Sources */,
 				D6B2CCDA24B0114C00C6B27C /* BreedListView.swift in Sources */,
 				D6B2CCC024B00C3400C6B27C /* DogImage.swift in Sources */,
+				D636CC6124B10DCD008B5685 /* SharedTypes.swift in Sources */,
 				D6B2CCAF24B00BF000C6B27C /* DogGalleryApp.swift in Sources */,
 				D63C455724B019B800A0E152 /* DIContainer.swift in Sources */,
 				D6B2CCD524B00C7900C6B27C /* URLSessionHTTPClient.swift in Sources */,
@@ -257,7 +410,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D636CC4A24B06756008B5685 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D636CC3C24B06756008B5685 /* DogGalleryWidgetExtension */;
+			targetProxy = D636CC4924B06756008B5685 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		D636CC4D24B06757008B5685 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8VFCZLW2Z;
+				INFOPLIST_FILE = DogGalleryWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.DogGallery.DogGalleryWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D636CC4E24B06757008B5685 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8VFCZLW2Z;
+				INFOPLIST_FILE = DogGalleryWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.DogGallery.DogGalleryWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D6B2CCB824B00BF100C6B27C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -377,6 +580,7 @@
 		D6B2CCBB24B00BF100C6B27C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -399,6 +603,7 @@
 		D6B2CCBC24B00BF100C6B27C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -421,6 +626,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D636CC4C24B06757008B5685 /* Build configuration list for PBXNativeTarget "DogGalleryWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D636CC4D24B06757008B5685 /* Debug */,
+				D636CC4E24B06757008B5685 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D6B2CCA624B00BF000C6B27C /* Build configuration list for PBXProject "DogGallery" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

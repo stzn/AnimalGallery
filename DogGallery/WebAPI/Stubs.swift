@@ -12,14 +12,19 @@ import UIKit
 private let stubImage = UIImage(systemName: "tray")!.pngData()!
 
 struct StubImageDataLoader: ImageDataLoader {
+    private final class Task: HTTPClientTask {
+        func cancel() {
+        }
+    }
+
     private let data: Data
     init(data: Data = stubImage) {
         self.data = data
     }
-    func load(from url: URL) -> AnyPublisher<Data, Error> {
-        Just(data)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+
+    func load(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask {
+        completion(.success(data))
+        return Task()
     }
 }
 
@@ -28,10 +33,9 @@ struct StubBreedListLoader: BreedListLoader {
     init(breeds: [Breed] = [.anyBreed, .anyBreed, .anyBreed]) {
         self.breeds = breeds
     }
-    func load() -> AnyPublisher<[Breed], Error> {
-        Just(breeds)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+
+    func load(completion: @escaping (Result<[Breed], Error>) -> Void) {
+        completion(.success(breeds))
     }
 }
 
@@ -40,9 +44,8 @@ struct StubDogImageListLoader: DogImageListLoader {
     init(images: [DogImage] = [.anyDogImage, .anyDogImage, .anyDogImage]) {
         self.images = images
     }
-    func load(of breed: BreedType) -> AnyPublisher<[DogImage], Error> {
-        Just(images)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+
+    func load(of breed: BreedType, completion: @escaping (Result<[DogImage], Error>) -> Void) {
+        completion(.success(images))
     }
 }

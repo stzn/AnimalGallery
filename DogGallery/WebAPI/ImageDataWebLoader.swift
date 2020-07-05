@@ -16,11 +16,39 @@ final class ImageDataWebLoader: ImageDataLoader {
         self.client = client
     }
 
-    func load(from url: URL) -> AnyPublisher<Data, Error> {
-        client.send(request: URLRequest(url: url))
-            .map { $0.data }
-            .mapError { $0 as Error }
-            .subscribe(on: queue)
-            .eraseToAnyPublisher()
+    private final class Task: HTTPClientTask {
+        private var completion: ((Result<Data, Error>) -> Void)?
+        var wrapped: HTTPClientTask?
+        init(_ completion: @escaping ((Result<Data, Error>) -> Void)) {
+            self.completion = completion
+        }
+
+        func completion(with result: Result<Data, Error>) {
+            completion?(result)
+        }
+
+        func cancel() {
+            preventFurtherCompletion()
+            wrapped?.cancel()
+        }
+
+        func preventFurtherCompletion() {
+            completion = nil
+        }
+    }
+
+    func load(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask {
+        let task = Task(completion)
+        task.wrapped = client.send(request: URLRequest(url: url)) { [weak self] result in
+            self?.queue.async {
+                switch result {
+                case .success(let response):
+                    completion(.success(response.data))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+        return task
     }
 }

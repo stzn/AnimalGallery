@@ -16,20 +16,18 @@ final class DogImageGridViewModel: ObservableObject {
     @Published var dogImages: [DogImage] = []
     @Published var error: Error? = nil
     
-    private var cancellables = Set<AnyCancellable>()
-
     func loadBreeds(of type: BreedType,
                     dogImageListLoader: DogImageListLoader) {
-        dogImageListLoader.load(of: type)
-            .receive(on: DispatchQueue.main)
-            .sink { completed in
-                if case .failure(let error) = completed {
-                    self.error = error
+        dogImageListLoader.load(of: type) { result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let dogImages):
+                    self?.dogImages = dogImages
+                case .failure(let error):
+                    self?.error = error
                 }
-            } receiveValue: { value in
-                self.dogImages = value
             }
-            .store(in: &cancellables)
+        }
     }
 }
 

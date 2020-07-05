@@ -5,25 +5,30 @@
 //  Created by Shinzan Takata on 2020/07/04.
 //
 
-import Combine
 import SwiftUI
 
 final class DogImageViewModel: ObservableObject {
     @Published var imageData: Data? = nil
     @Published var error: Error? = nil
 
-    private var cancellables = Set<AnyCancellable>()
+    var task: HTTPClientTask?
+
     func loadImageData(from url: URL, loader: ImageDataLoader) {
-        loader.load(from: url)
-            .receive(on: DispatchQueue.main)
-            .sink { finished in
-                if case .failure(let error) = finished {
-                    self.error = error
+        task = loader.load(from: url) { result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let data):
+                    self?.imageData = data
+                case .failure(let error):
+                    self?.error = error
                 }
-            } receiveValue: { value in
-                self.imageData = value
             }
-            .store(in: &cancellables)
+        }
+    }
+
+    func cancel() {
+        task?.cancel()
+        task = nil
     }
 }
 

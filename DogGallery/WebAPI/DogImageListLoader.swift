@@ -10,5 +10,5 @@ import Combine
 import Foundation
 
 protocol DogImageListLoader {
-    func load(of breed: BreedType) -> AnyPublisher<[DogImage], Error>
+    func load(of breed: BreedType, completion: @escaping (Result<[DogImage], Error>) -> Void)
 }

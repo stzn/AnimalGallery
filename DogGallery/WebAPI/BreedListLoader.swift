@@ -10,5 +10,5 @@ import Combine
 import Foundation
 
 protocol BreedListLoader {
-    func load() -> AnyPublisher<[Breed], Error>
+    func load(completion: @escaping (Result<[Breed], Error>) -> Void)
 }

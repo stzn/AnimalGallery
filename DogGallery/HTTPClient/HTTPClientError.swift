@@ -13,6 +13,7 @@ enum HTTPClientError : Error {
     case invalidResponse(URLResponse?)
     case requestError(Int)
     case serverError(Int)
+    case noData
     case unknown(Error)
 
 }

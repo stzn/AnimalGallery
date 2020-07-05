@@ -6,9 +6,8 @@
 //  Copyright © 2020 shiz. All rights reserved.
 //
 
-import Combine
 import Foundation
 
 protocol ImageDataLoader {
-    func load(from url: URL) -> AnyPublisher<Data, Error>
+    func load(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask
 }

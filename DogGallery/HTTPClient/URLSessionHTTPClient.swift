@@ -6,8 +6,9 @@
 //  Copyright © 2020 shiz. All rights reserved.
 //
 
-import Combine
 import Foundation
+
+extension URLSessionDataTask: HTTPClientTask {}
 
 struct URLSessionHTTPClient: HTTPClient {
     private let session: URLSession
@@ -15,18 +16,25 @@ struct URLSessionHTTPClient: HTTPClient {
         self.session = session
     }
 
-    func send(request: URLRequest) -> AnyPublisher<Response, Error> {
-        session.dataTaskPublisher(for: request)
-            .tryMap { (data, response) in
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    throw HTTPClientError.invalidResponse(response)
-                }
-                if let apiError = HTTPClientError.error(from: httpResponse) {
-                    throw apiError
-                } else {
-                    return Response(data: data, response: httpResponse)
-                }
-        }.eraseToAnyPublisher()
+    @discardableResult
+    func send(request: URLRequest, completion: @escaping (Result<Response, Error>) -> Void) -> HTTPClientTask {
+        let task = session.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(HTTPClientError.invalidResponse(response)))
+                return
+            }
+            if let apiError = HTTPClientError.error(from: httpResponse) {
+                completion(.failure(apiError))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(HTTPClientError.noData))
+                return
+            }
+            completion(.success(Response(data: data, response: httpResponse)))
+        }
+        task.resume()
+        return task
     }
 }
 

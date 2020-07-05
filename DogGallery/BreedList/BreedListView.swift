@@ -14,16 +14,16 @@ final class BreedListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     func loadBreeds(breedListLoader: BreedListLoader) {
-        breedListLoader.load()
-            .receive(on: DispatchQueue.main)
-            .sink { completed in
-                if case .failure(let error) = completed {
-                    self.error = error
+        breedListLoader.load { result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let breeds):
+                    self?.breeds = breeds
+                case .failure(let error):
+                    self?.error = error
                 }
-            } receiveValue: { value in
-                self.breeds = value
             }
-            .store(in: &cancellables)
+        }
     }
 }
 
@@ -73,7 +73,20 @@ struct BreedListView: View {
 }
 
 struct BreedListView_Previews: PreviewProvider {
+    private static let devices = [
+        "iPhone SE",
+        "iPhone 11",
+        "iPad Pro (11-inch) (2nd generation)",
+    ]
+
     static var previews: some View {
-        BreedListView()
+        ForEach(devices, id: \.self) { name in
+            Group {
+                BreedListView()
+                    .previewDevice(PreviewDevice(rawValue: name))
+                    .previewDisplayName(name)
+                    .colorScheme(.light)
+            }
+        }
     }
 }

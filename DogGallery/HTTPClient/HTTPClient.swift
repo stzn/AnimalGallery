@@ -6,9 +6,13 @@
 //  Copyright © 2020 shiz. All rights reserved.
 //
 
-import Combine
 import Foundation
 
+protocol HTTPClientTask {
+    func cancel()
+}
+
 protocol HTTPClient {
-    func send(request: URLRequest) -> AnyPublisher<Response, Error>
+    @discardableResult
+    func send(request: URLRequest, completion: @escaping (Result<Response, Error>) -> Void) -> HTTPClientTask
 }

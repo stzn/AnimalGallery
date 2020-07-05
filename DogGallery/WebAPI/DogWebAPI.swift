@@ -9,10 +9,8 @@
 import Combine
 import Foundation
 
-typealias BreedType = String
-
 final class DogWebAPI: WebAPI {
-    let baseURL = URL(string: "https://dog.ceo/api")!
+    let baseURL = dogAPIbaseURL
     let client: HTTPClient
     let queue = DispatchQueue(label: "DogWebAPI")
     init(client: HTTPClient) {
@@ -26,11 +24,17 @@ extension DogWebAPI: BreedListLoader {
         let status: String
     }
 
-    func load() -> AnyPublisher<[Breed], Error> {
-        call(BreedListAPIModel.self, URLRequest(url: baseURL.appendingPathComponent("breeds/list/all")))
-            .map { $0.message.keys.map(Breed.init) }
-            .subscribe(on: queue)
-            .eraseToAnyPublisher()
+    func load(completion: @escaping (Result<[Breed], Error>) -> Void) {
+        call(BreedListAPIModel.self,
+             URLRequest(url: baseURL.appendingPathComponent("breeds/list/all"))) { result in
+            switch result {
+            case .success(let model):
+                let breeds = model.message.keys.map(Breed.init)
+                completion(.success(breeds))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 
@@ -40,11 +44,20 @@ extension DogWebAPI: DogImageListLoader {
         let status: String
     }
 
-    func load(of breed: BreedType) -> AnyPublisher<[DogImage], Error> {
-        call(DogImageListAPIModel.self, URLRequest(url: baseURL.appendingPathComponent("/breed/\(breed)/images")))
-            .map(convert(from:))
-            .subscribe(on: queue)
-            .eraseToAnyPublisher()
+    func load(of breed: BreedType, completion: @escaping (Result<[DogImage], Error>) -> Void) {
+        call(DogImageListAPIModel.self,
+             URLRequest(url: baseURL.appendingPathComponent("/breed/\(breed)/images"))) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let model):
+                let breeds = self.convert(from: model)
+                completion(.success(breeds))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 
     private func convert(from model: DogImageListAPIModel) -> [DogImage] {
