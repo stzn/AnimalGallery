@@ -117,13 +117,3 @@ struct DogImageTimeline: IntentTimelineProvider {
             SystemSoundID(kSystemSoundID_Vibrate)) { }
     }
 }
-
-
-struct DogGalleryWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            DogGalleryWidgetEntryView(entry: .init(date: Date(), dogImage: placeholder))
-                .previewContext(WidgetPreviewContext(family: .systemMedium))
-        }
-    }
-}

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct DogGalleryWidgetEntryView : View {
     var entry: DogImageTimeline.Entry
@@ -78,8 +79,11 @@ struct DogGalleryWidgetEntryView : View {
     }
 }
 
-struct DogGalleryWidgetEntryView_Previews: PreviewProvider {
+struct DogGalleryWidget_Previews: PreviewProvider {
     static var previews: some View {
-        DogGalleryWidgetEntryView(entry: .init(date: Date(), dogImage: placeholder))
+        Group {
+            DogGalleryWidgetEntryView(entry: .init(date: Date(), dogImage: placeholder))
+                .previewContext(WidgetPreviewContext(family: .systemMedium))
+        }
     }
 }
