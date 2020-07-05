@@ -11,10 +11,8 @@ final class DogImageViewModel: ObservableObject {
     @Published var imageData: Data? = nil
     @Published var error: Error? = nil
 
-    var task: HTTPClientTask?
-
-    func loadImageData(from url: URL, loader: ImageDataLoader) {
-        task = loader.load(from: url) { result in
+    func loadImageData(from url: URL, loader: ImageDataLoader) -> HTTPClientTask {
+        loader.load(from: url) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let data):
@@ -25,15 +23,11 @@ final class DogImageViewModel: ObservableObject {
             }
         }
     }
-
-    func cancel() {
-        task?.cancel()
-        task = nil
-    }
 }
 
 struct DogImageView: View {
     @ObservedObject var model = DogImageViewModel()
+    @Binding var tasks: [HTTPClientTask]
 
     let imageDataLoader: ImageDataLoader
     let dogImage: DogImage
@@ -41,8 +35,9 @@ struct DogImageView: View {
     var body: some View {
         content
             .onAppear {
-                model.loadImageData(from: dogImage.imageURL,
-                                    loader: imageDataLoader)
+                let task = model.loadImageData(
+                    from: dogImage.imageURL, loader: imageDataLoader)
+                tasks.append(task)
             }
     }
 
@@ -65,7 +60,8 @@ struct DogImageView: View {
 
 struct DogImageView_Previews: PreviewProvider {
     static var previews: some View {
-        DogImageView(imageDataLoader: StubImageDataLoader(),
+        DogImageView(tasks: .constant([]),
+                     imageDataLoader: StubImageDataLoader(),
                      dogImage: DogImage.anyDogImage)
     }
 }
