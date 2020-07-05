@@ -1,5 +1,5 @@
 //
-//  RandomDogImageLoader.swift
+//  DogImageLoader.swift
 //  DogGallery
 //
 //  Created by Shinzan Takata on 2020/07/04.
@@ -8,12 +8,7 @@
 import SwiftUI
 import WidgetKit
 
-struct WidgetDogImage {
-    var name: String
-    var image: Image
-}
-
-enum RandomDogImageLoader {
+enum DogImageLoader {
     static func loadRandom(completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
         struct WidgetDogImageModel: Decodable {
             let message: String
@@ -68,5 +63,35 @@ enum RandomDogImageLoader {
 
     private static func extractBreed(from url: URL) -> String {
         url.deletingLastPathComponent().lastPathComponent.firstLetterCapitalized
+    }
+
+    static func loadRandomInBreed(_ breed: Breed,
+                                  completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
+        struct DogImagesModel: Decodable {
+            let message: [String]
+            let status: String
+        }
+
+        let url = dogAPIbaseURL.appendingPathComponent("/breed/\(breed.name)/images")
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let response = response as? HTTPURLResponse,
+                  200..<299 ~= response.statusCode else {
+                return
+            }
+
+            guard let data = data,
+                  let model = try? JSONDecoder().decode(DogImagesModel.self, from: data),
+                  let urlString = model.message.first,
+                  let url = URL(string: urlString) else {
+                return
+            }
+
+            loadDogImage(from: url, completion: completion)
+        }.resume()
     }
 }

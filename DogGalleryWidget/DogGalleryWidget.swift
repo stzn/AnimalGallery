@@ -9,90 +9,15 @@ import WidgetKit
 import SwiftUI
 import AudioToolbox
 
-struct PlaceholderView : View {
-    var body: some View {
-        DogGalleryWidgetEntryView(
-            entry: .init(date: Date(), dogImage: placeholder))
-    }
-}
-
-struct DogGalleryWidgetEntryView : View {
-    var entry: DogImageTimeline.Entry
-
-    @Environment(\.widgetFamily) var family
-
-    @ViewBuilder
-    var body: some View {
-        switch family {
-        case .systemMedium:
-            ZStack {
-                Color.gray
-                HStack {
-                    entry.dogImage.image
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fill)
-                        .clipped()
-                    VStack {
-                        nameText
-                        timeLeftText
-                    }
-                    .padding()
-                }
-            }
-        default:
-            ZStack(alignment: .center) {
-                Color.white
-                entry.dogImage.image
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fill)
-                    .clipped()
-                VStack {
-                    Spacer()
-                    nameText
-                    timeLeftText
-                }
-                .padding(.bottom)
-            }
-        }
-    }
-
-    private var nameText: some View {
-        switch family {
-        case .systemSmall:
-            return StrokeText(text: entry.dogImage.name,
-                       width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.body)
-        default:
-            return StrokeText(text: entry.dogImage.name,
-                       width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.largeTitle)
-        }
-    }
-
-    private var timeLeftText: some View {
-        switch family {
-        case .systemSmall:
-            return LeftTimeTextView(
-                date: entry.nextDate,
-                style: .timer, width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.body)
-        default:
-            return LeftTimeTextView(date: entry.nextDate, style: .timer, width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.largeTitle)
-        }
-    }
-}
-
 @main
 struct DogGalleryWidget: Widget {
     private let kind: String = "DogGalleryWidget"
 
     public var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: DogImageTimeline(), placeholder: PlaceholderView()) { entry in
+        IntentConfiguration(kind: kind,
+                            intent: DynamicBreedSelectionIntent.self,
+                            provider: DogImageTimeline(),
+                            placeholder: PlaceholderView()) { entry in
             DogGalleryWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Dog Image")
@@ -107,36 +32,85 @@ struct DogImageEntry: TimelineEntry {
     let dogImage: WidgetDogImage
 }
 
-private let placeholder = WidgetDogImage(name: "sample", image: Image(uiImage: UIImage(named: "placeholder")!))
-private let error = WidgetDogImage(name: "error", image: Image(systemName: "mic"))
-
-struct DogImageTimeline: TimelineProvider {
+struct DogImageTimeline: IntentTimelineProvider {
+    typealias Intent = DynamicBreedSelectionIntent
     typealias Entry = DogImageEntry
 
-    func snapshot(with context: Context, completion: @escaping (DogImageEntry) -> ()) {
-        let entry = DogImageEntry(date: Date(), dogImage: placeholder)
+    func snapshot(for configuration: Intent, with context: Context,
+                  completion: @escaping (Entry) -> ()) {
+        let entry = Entry(date: Date(), dogImage: placeholder)
         completion(entry)
     }
 
-    func timeline(with context: Context, completion: @escaping (Timeline<DogImageEntry>) -> ()) {
+    func timeline(for configuration: Intent, with context: Context,
+                  completion: @escaping (Timeline<Entry>) -> ()) {
+        let identifier = configuration.intentBreed?.identifier ?? "random"
         let entryDate = Date()
         let refreshDate = Calendar.current.date(
             byAdding: .minute, value: 60, to: entryDate)!
-        RandomDogImageLoader.loadRandom { result in
+
+        if identifier == "random" {
+            loadRandom(entryDate: entryDate) { result in
+                switch result {
+                case .success(let entry):
+                    completion(
+                        .init(entries: [entry], policy: .after(refreshDate))
+                    )
+                case .failure:
+                    let error = Entry(date: entryDate, dogImage: errorImage)
+                    completion(
+                        .init(entries: [error], policy: .atEnd)
+                    )
+                }
+            }
+        } else {
+            loadRandomInBreed(breed: Breed(name: identifier),
+                              entryDate: entryDate) { result in
+                switch result {
+                case .success(let entry):
+                    completion(
+                        .init(entries: [entry], policy: .after(refreshDate))
+                    )
+                case .failure:
+                    let error = Entry(date: entryDate, dogImage: errorImage)
+                    completion(
+                        .init(entries: [error], policy: .atEnd)
+                    )
+                }
+            }
+        }
+    }
+
+    private func loadRandom(entryDate: Date,
+                            completion: @escaping (Result<Entry, Error>) -> Void) {
+        DogImageLoader.loadRandom { result in
             switch result {
             case .success(let image):
                 notifyUpdate()
                 completion(
-                    .init(entries: [.init(date: entryDate, dogImage: image)],
-                          policy: .after(refreshDate))
+                    .success(Entry(date: entryDate, dogImage: image))
                 )
-            case .failure:
-                completion(
-                    .init(entries: [.init(date: entryDate, dogImage: error)],
-                          policy: .atEnd))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
+
+    private func loadRandomInBreed(breed: Breed, entryDate: Date,
+                                   completion: @escaping (Result<Entry, Error>) -> Void) {
+        DogImageLoader.loadRandomInBreed(breed) { result in
+            switch result {
+            case .success(let image):
+                notifyUpdate()
+                completion(
+                    .success(Entry(date: entryDate, dogImage: image))
+                )
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
 
     private func notifyUpdate() {
         AudioServicesPlayAlertSoundWithCompletion(
