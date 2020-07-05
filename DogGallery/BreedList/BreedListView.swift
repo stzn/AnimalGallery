@@ -30,17 +30,12 @@ final class BreedListViewModel: ObservableObject {
 struct BreedListView: View {
     @Environment(\.injected) var container: DIContainer
     @ObservedObject var model = BreedListViewModel()
+    @State private var selection: Breed?
 
     var body: some View {
         NavigationView {
-            Group {
-                if model.error != nil {
-                    Text("error")
-                } else {
-                    list
-                }
-            }
-            .navigationTitle("BreedList")
+            content
+                .navigationTitle("BreedList")
         }
         .onAppear {
             model.loadBreeds(
@@ -48,7 +43,17 @@ struct BreedListView: View {
         }
     }
 
-    private var list: some View {
+    private var content: some View {
+        Group {
+            if model.error != nil {
+                Image(uiImage: UIImage(systemName: "xmark.octagon.fill")!)
+            } else {
+                lazyList
+            }
+        }
+    }
+
+    private var lazyList: some View {
         ScrollView {
             LazyVStack {
                 ForEach(model.breeds) {
@@ -65,10 +70,14 @@ struct BreedListView: View {
             destination: DogImageGridView(
                 breed: breed,
                 dogImageListLoader: container.loaders.dogImageListLoader,
-                imageDataLoader: container.loaders.imageDataLoader)) {
+                imageDataLoader: container.loaders.imageDataLoader),
+            tag: breed, selection: $selection
+        ) {
             BreedRow(breed: breed)
+            
         }
         .buttonStyle(PlainButtonStyle())
+        .tag(breed)
     }
 }
 

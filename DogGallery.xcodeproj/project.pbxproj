@@ -203,7 +203,6 @@
 				D6B2CCD824B0113200C6B27C /* BreedList */,
 				D6B2CCCF24B00C7900C6B27C /* HTTPClient */,
 				D6B2CCC224B00C6C00C6B27C /* WebAPI */,
-				D6B2CCBD24B00C3400C6B27C /* Models */,
 				D6B2CCAE24B00BF000C6B27C /* DogGalleryApp.swift */,
 				D6B2CCB224B00BF100C6B27C /* Assets.xcassets */,
 				D6B2CCB724B00BF100C6B27C /* Info.plist */,
@@ -218,13 +217,6 @@
 				D6B2CCB524B00BF100C6B27C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		D6B2CCBD24B00C3400C6B27C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		D6B2CCC224B00C6C00C6B27C /* WebAPI */ = {

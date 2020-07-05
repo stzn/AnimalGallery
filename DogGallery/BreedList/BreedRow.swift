@@ -16,6 +16,7 @@ struct BreedRow: View {
                 .font(.headline)
             Divider()
         }
+        .contentShape(Rectangle())
     }
 }
 

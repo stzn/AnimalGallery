@@ -23,20 +23,18 @@ struct DogGalleryWidgetEntryView : View {
 
     @ViewBuilder
     var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .center) {
-                Color.green
-                Image(uiImage: entry.dogImage.image)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fill)
-                    .clipped()
-                VStack {
-                    Spacer()
-                    nameText
-                    timeLeftText
-                }
-                .padding(.bottom)
+        ZStack(alignment: .center) {
+            Color.green
+            Image(uiImage: entry.dogImage.image)
+                .resizable()
+                .aspectRatio(1, contentMode: .fill)
+                .clipped()
+            VStack {
+                Spacer()
+                nameText
+                timeLeftText
             }
+            .padding(.bottom)
         }
     }
 
