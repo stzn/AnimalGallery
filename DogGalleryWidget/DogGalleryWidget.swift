@@ -30,9 +30,8 @@ struct DogGalleryWidgetEntryView : View {
                 HStack {
                     entry.dogImage.image
                         .resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                        .cornerRadius(10)
-                        .padding()
+                        .aspectRatio(1, contentMode: .fill)
+                        .clipped()
                     VStack {
                         nameText
                         timeLeftText
