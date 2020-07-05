@@ -23,48 +23,67 @@ struct DogGalleryWidgetEntryView : View {
 
     @ViewBuilder
     var body: some View {
-        ZStack(alignment: .center) {
-            Color.white
-            Image(uiImage: entry.dogImage.image)
-                .resizable()
-                .aspectRatio(1, contentMode: .fill)
-                .clipped()
-            VStack {
-                Spacer()
-                nameText
-                timeLeftText
+        switch family {
+        case .systemMedium:
+            ZStack {
+                Color.gray
+                HStack {
+                    entry.dogImage.image
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .cornerRadius(10)
+                        .padding()
+                    VStack {
+                        nameText
+                        timeLeftText
+                    }
+                    .padding()
+                }
             }
-            .padding(.bottom)
+        default:
+            ZStack(alignment: .center) {
+                Color.white
+                entry.dogImage.image
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fill)
+                    .clipped()
+                VStack {
+                    Spacer()
+                    nameText
+                    timeLeftText
+                }
+                .padding(.bottom)
+            }
         }
     }
 
     private var nameText: some View {
         switch family {
-        case .systemLarge:
-            return StrokeText(text: entry.dogImage.name,
-                       width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.largeTitle)
-        default:
+        case .systemSmall:
             return StrokeText(text: entry.dogImage.name,
                        width: 1, color: .white)
                 .foregroundColor(.black)
                 .font(.body)
+        default:
+            return StrokeText(text: entry.dogImage.name,
+                       width: 1, color: .white)
+                .foregroundColor(.black)
+                .font(.largeTitle)
         }
     }
 
     private var timeLeftText: some View {
         switch family {
-        case .systemLarge:
-            return LeftTimeTextView(date: entry.nextDate, style: .timer, width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.largeTitle)
-        default:
+        case .systemSmall:
             return LeftTimeTextView(
                 date: entry.nextDate,
                 style: .timer, width: 1, color: .white)
                 .foregroundColor(.black)
                 .font(.body)
+        default:
+            return LeftTimeTextView(date: entry.nextDate, style: .timer, width: 1, color: .white)
+                .foregroundColor(.black)
+                .font(.largeTitle)
         }
     }
 }
@@ -89,7 +108,8 @@ struct DogImageEntry: TimelineEntry {
     let dogImage: WidgetDogImage
 }
 
-private let placeholder = WidgetDogImage(name: "sample", image: UIImage(named: "placeholder")!)
+private let placeholder = WidgetDogImage(name: "sample", image: Image(uiImage: UIImage(named: "placeholder")!))
+private let error = WidgetDogImage(name: "error", image: Image(systemName: "mic"))
 
 struct DogImageTimeline: TimelineProvider {
     typealias Entry = DogImageEntry
@@ -101,7 +121,8 @@ struct DogImageTimeline: TimelineProvider {
 
     func timeline(with context: Context, completion: @escaping (Timeline<DogImageEntry>) -> ()) {
         let entryDate = Date()
-        let refreshDate = Calendar.current.date(byAdding: .minute, value: 1, to: entryDate)!
+        let refreshDate = Calendar.current.date(
+            byAdding: .minute, value: 60, to: entryDate)!
         RandomDogImageLoader.loadRandom { result in
             switch result {
             case .success(let image):
@@ -111,7 +132,9 @@ struct DogImageTimeline: TimelineProvider {
                           policy: .after(refreshDate))
                 )
             case .failure:
-                completion(.init(entries: [], policy: .never))
+                completion(
+                    .init(entries: [.init(date: entryDate, dogImage: error)],
+                          policy: .atEnd))
             }
         }
     }
@@ -127,7 +150,7 @@ struct DogGalleryWidget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             DogGalleryWidgetEntryView(entry: .init(date: Date(), dogImage: placeholder))
-                .previewContext(WidgetPreviewContext(family: .systemSmall))
+                .previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }
 }

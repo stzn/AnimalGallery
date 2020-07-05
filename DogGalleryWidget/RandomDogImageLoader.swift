@@ -10,7 +10,7 @@ import WidgetKit
 
 struct WidgetDogImage {
     var name: String
-    var image: UIImage
+    var image: Image
 }
 
 enum RandomDogImageLoader {
@@ -62,7 +62,7 @@ enum RandomDogImageLoader {
                 return
             }
             let breed = extractBreed(from: url)
-            completion(.success(WidgetDogImage(name: breed, image: image)))
+            completion(.success(WidgetDogImage(name: breed, image: Image(uiImage: image))))
         }.resume()
     }
 
