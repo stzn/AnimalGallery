@@ -61,6 +61,9 @@ struct BreedListView: View {
                         .padding()
                 }
                 Spacer()
+            }.onOpenURL { url in
+                let name = url.lastPathComponent
+                self.selection = Breed(name: name)
             }
         }
     }

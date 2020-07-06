@@ -31,6 +31,7 @@ struct DogGalleryWidgetEntryView : View {
                     .padding()
                 }
             }
+            .widgetURL(URL(string: "dogs:///\(entry.dogImage.name.lowercased())")!)
         default:
             ZStack(alignment: .bottom) {
                 Color.white
@@ -44,6 +45,7 @@ struct DogGalleryWidgetEntryView : View {
                 }
                 .padding()
             }
+            .widgetURL(URL(string: "dogs:///\(entry.dogImage.name.lowercased())")!)
         }
     }
 
