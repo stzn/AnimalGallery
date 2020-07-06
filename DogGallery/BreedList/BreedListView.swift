@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import WidgetKit
 
 final class BreedListViewModel: ObservableObject {
     @Published var breeds: [Breed] = []
@@ -33,12 +34,14 @@ final class BreedListViewModel: ObservableObject {
 struct BreedListView: View {
     @Environment(\.injected) var container: DIContainer
     @ObservedObject var model = BreedListViewModel()
-    @State private var selection: Breed?
 
     var body: some View {
         NavigationView {
             content
                 .navigationTitle("BreedList")
+                .navigationBarItems(trailing: Button("Reload") {
+                    WidgetCenter.shared.reloadAllTimelines()
+                })
         }
         .onAppear {
             model.loadBreeds(
