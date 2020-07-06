@@ -18,7 +18,8 @@ final class BreedListViewModel: ObservableObject {
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let breeds):
-                    self?.breeds = breeds
+                    let ordered = breeds.sorted(by: { $0.name < $1.name })
+                    self?.breeds = ordered
                 case .failure(let error):
                     self?.error = error
                 }

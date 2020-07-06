@@ -14,8 +14,9 @@ class IntentHandler: INExtension, DynamicBreedSelectionIntentHandling {
         BreedListLoader.load { result in
             switch result {
             case .success(let breeds):
+                let ordered = breeds.sorted(by: { $0.displayString < $1.displayString })
                 let collection = INObjectCollection(
-                    items: [randomIntent] + breeds)
+                    items: [randomIntent] + ordered)
                 completion(collection, nil)
             case .failure(let error):
                 completion(nil, error)
