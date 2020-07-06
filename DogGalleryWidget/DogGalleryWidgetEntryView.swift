@@ -32,18 +32,17 @@ struct DogGalleryWidgetEntryView : View {
                 }
             }
         default:
-            ZStack(alignment: .center) {
+            ZStack(alignment: .bottom) {
                 Color.white
                 entry.dogImage.image
                     .resizable()
                     .aspectRatio(1, contentMode: .fill)
                     .clipped()
-                VStack {
-                    Spacer()
+                VStack(spacing: 0) {
                     nameText
                     timeLeftText
                 }
-                .padding(.bottom)
+                .padding()
             }
         }
     }
@@ -71,10 +70,14 @@ struct DogGalleryWidgetEntryView : View {
                 style: .timer, width: 1, color: .white)
                 .foregroundColor(.black)
                 .font(.body)
+                .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
         default:
             return LeftTimeTextView(date: entry.nextDate, style: .timer, width: 1, color: .white)
                 .foregroundColor(.black)
                 .font(.largeTitle)
+                .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
