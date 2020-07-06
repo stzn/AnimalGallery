@@ -87,7 +87,7 @@ struct DogGalleryWidgetEntryView : View {
 struct DogGalleryWidget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DogGalleryWidgetEntryView(entry: .init(date: Date(), dogImage: placeholder))
+            DogGalleryWidgetEntryView(entry: .init(date: Date(), nextDate: Date(), dogImage: placeholder))
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }

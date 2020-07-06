@@ -28,7 +28,7 @@ struct DogGalleryWidget: Widget {
 
 struct DogImageEntry: TimelineEntry {
     public var date: Date
-    let nextDate: Date = Calendar.current.date(byAdding: .minute, value: 60, to: Date())!
+    let nextDate: Date
     let dogImage: WidgetDogImage
 }
 
@@ -38,7 +38,10 @@ struct DogImageTimeline: IntentTimelineProvider {
 
     func snapshot(for configuration: Intent, with context: Context,
                   completion: @escaping (Entry) -> ()) {
-        let entry = Entry(date: Date(), dogImage: placeholder)
+        let currentDate = Date()
+        let entry = Entry(date: currentDate,
+                          nextDate: currentDate,
+                          dogImage: snapshotImage)
         completion(entry)
     }
 
@@ -49,46 +52,47 @@ struct DogImageTimeline: IntentTimelineProvider {
         let refreshDate = Calendar.current.date(
             byAdding: .minute, value: 60, to: entryDate)!
 
+        loadImage(for: identifier, entryDate: entryDate, refreshDate: refreshDate) { entry in
+            completion(.init(entries: [entry], policy: .after(refreshDate)))
+        }
+    }
+
+    private func loadImage(for identifier: String,
+                           entryDate: Date,
+                           refreshDate: Date,
+                           completion: @escaping (Entry) -> Void) {
         if identifier == "random" {
-            loadRandom(entryDate: entryDate) { result in
+            loadRandom { result in
                 switch result {
-                case .success(let entry):
-                    completion(
-                        .init(entries: [entry], policy: .after(refreshDate))
-                    )
+                case .success(let image):
+                    completion(.init(date: entryDate, nextDate: refreshDate, dogImage: image))
                 case .failure:
-                    let error = Entry(date: entryDate, dogImage: errorImage)
                     completion(
-                        .init(entries: [error], policy: .atEnd)
+                        Entry(date: entryDate, nextDate: refreshDate, dogImage: errorImage)
                     )
                 }
             }
         } else {
-            loadRandomInBreed(breed: Breed(name: identifier),
-                              entryDate: entryDate) { result in
+            loadRandomInBreed(Breed(name: identifier)) { result in
                 switch result {
-                case .success(let entry):
-                    completion(
-                        .init(entries: [entry], policy: .after(refreshDate))
-                    )
+                case .success(let image):
+                    completion(.init(date: entryDate, nextDate: refreshDate, dogImage: image))
                 case .failure:
-                    let error = Entry(date: entryDate, dogImage: errorImage)
                     completion(
-                        .init(entries: [error], policy: .atEnd)
+                        Entry(date: entryDate, nextDate: refreshDate, dogImage: errorImage)
                     )
                 }
             }
         }
     }
 
-    private func loadRandom(entryDate: Date,
-                            completion: @escaping (Result<Entry, Error>) -> Void) {
+    private func loadRandom(completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
         DogImageLoader.loadRandom { result in
             switch result {
             case .success(let image):
                 notifyUpdate()
                 completion(
-                    .success(Entry(date: entryDate, dogImage: image))
+                    .success(image)
                 )
             case .failure(let error):
                 completion(.failure(error))
@@ -96,14 +100,15 @@ struct DogImageTimeline: IntentTimelineProvider {
         }
     }
 
-    private func loadRandomInBreed(breed: Breed, entryDate: Date,
-                                   completion: @escaping (Result<Entry, Error>) -> Void) {
+    private func loadRandomInBreed(
+        _ breed: Breed,
+        completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
         DogImageLoader.loadRandomInBreed(breed) { result in
             switch result {
             case .success(let image):
                 notifyUpdate()
                 completion(
-                    .success(Entry(date: entryDate, dogImage: image))
+                    .success(image)
                 )
             case .failure(let error):
                 completion(.failure(error))

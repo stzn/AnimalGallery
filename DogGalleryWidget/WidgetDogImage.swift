@@ -12,6 +12,7 @@ struct WidgetDogImage {
     var image: Image
 }
 
-let placeholder = WidgetDogImage(name: "sample", image: Image(uiImage: UIImage(named: "placeholder")!))
+let snapshotImage = WidgetDogImage(name: "Loading...", image: Image(systemName: "clock"))
+let placeholder = WidgetDogImage(name: "...", image: Image(uiImage: UIImage(named: "placeholder")!))
 let errorImage = WidgetDogImage(name: "error", image: Image(systemName: "mic"))
 
