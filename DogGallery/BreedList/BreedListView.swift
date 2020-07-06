@@ -11,6 +11,8 @@ import SwiftUI
 final class BreedListViewModel: ObservableObject {
     @Published var breeds: [Breed] = []
     @Published var error: Error? = nil
+    @Published var selectedBreed: Breed? = nil
+
     private var cancellables = Set<AnyCancellable>()
 
     func loadBreeds(breedListLoader: BreedListLoader) {
@@ -64,7 +66,8 @@ struct BreedListView: View {
                 Spacer()
             }.onOpenURL { url in
                 let name = url.lastPathComponent
-                self.selection = Breed(name: name)
+                let breed = Breed(name: name)
+                self.model.selectedBreed = breed
             }
         }
     }
@@ -75,7 +78,7 @@ struct BreedListView: View {
                 breed: breed,
                 dogImageListLoader: container.loaders.dogImageListLoader,
                 imageDataLoader: container.loaders.imageDataLoader),
-            tag: breed, selection: $selection
+            tag: breed, selection: $model.selectedBreed
         ) {
             BreedRow(breed: breed)
         }
