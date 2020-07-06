@@ -85,9 +85,11 @@ enum DogImageLoader {
             }
 
             guard let data = data,
-                  let model = try? JSONDecoder().decode(DogImagesModel.self, from: data),
-                  let urlString = model.message.first,
-                  let url = URL(string: urlString) else {
+                  let model = try? JSONDecoder().decode(DogImagesModel.self, from: data) else {
+                return
+            }
+            let urlString = model.message[Int.random(in: 0..<model.message.count)]
+            guard let url = URL(string: urlString) else {
                 return
             }
 
