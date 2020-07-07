@@ -18,7 +18,7 @@ struct DogGalleryWidgetEntryView : View {
         switch family {
         case .systemMedium:
             ZStack {
-                Color.gray
+                Color.white
                 HStack {
                     entry.dogImage.image
                         .resizable()
@@ -71,15 +71,11 @@ struct DogGalleryWidgetEntryView : View {
                 date: entry.nextDate,
                 style: .timer, width: 1, color: .white)
                 .foregroundColor(.black)
-                .font(.body)
-                .lineLimit(1)
-                .fixedSize(horizontal: false, vertical: true)
+                .font(.system(.body, design: .monospaced))
         default:
             return LeftTimeTextView(date: entry.nextDate, style: .timer, width: 1, color: .white)
                 .foregroundColor(.black)
-                .font(.largeTitle)
-                .lineLimit(1)
-                .fixedSize(horizontal: false, vertical: true)
+                .font(.system(.largeTitle, design: .monospaced))
         }
     }
 }
