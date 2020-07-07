@@ -33,7 +33,7 @@ final class BreedListViewModel: ObservableObject {
 
 struct BreedListView: View {
     @Environment(\.injected) var container: DIContainer
-    @ObservedObject var model = BreedListViewModel()
+    @StateObject var model = BreedListViewModel()
 
     var body: some View {
         NavigationView {

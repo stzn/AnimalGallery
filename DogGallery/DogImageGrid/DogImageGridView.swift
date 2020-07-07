@@ -32,8 +32,7 @@ final class DogImageGridViewModel: ObservableObject {
 }
 
 struct DogImageGridView: View {
-    @ObservedObject var model = DogImageGridViewModel()
-    @State var loadingTasks: [HTTPClientTask] = []
+    @StateObject var model = DogImageGridViewModel()
 
     let breed: Breed
     let dogImageListLoader: DogImageListLoader
@@ -43,8 +42,7 @@ struct DogImageGridView: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(model.dogImages) {
-                    DogImageView(tasks: $loadingTasks,
-                                 imageDataLoader: imageDataLoader, dogImage: $0)
+                    DogImageView(imageDataLoader: imageDataLoader, dogImage: $0)
                 }
             }
             .padding()
@@ -54,8 +52,6 @@ struct DogImageGridView: View {
         .onAppear {
             model.loadBreeds(of: breed.name,
                              dogImageListLoader:dogImageListLoader)
-        }.onDisappear {
-            loadingTasks.forEach { $0.cancel() }
         }
     }
 }

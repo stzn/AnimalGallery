@@ -10,9 +10,14 @@ import SwiftUI
 final class DogImageViewModel: ObservableObject {
     @Published var imageData: Data? = nil
     @Published var error: Error? = nil
+    var task: HTTPClientTask?
 
-    func loadImageData(from url: URL, loader: ImageDataLoader) -> HTTPClientTask {
-        loader.load(from: url) { result in
+    deinit {
+        cancel()
+    }
+
+    func loadImageData(from url: URL, using loader: ImageDataLoader) {
+        task = loader.load(from: url) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let data):
@@ -23,21 +28,28 @@ final class DogImageViewModel: ObservableObject {
             }
         }
     }
+
+    func cancel() {
+        task?.cancel()
+    }
 }
 
 struct DogImageView: View {
-    @ObservedObject var model = DogImageViewModel()
-    @Binding var tasks: [HTTPClientTask]
+    @StateObject var model = DogImageViewModel()
 
-    let imageDataLoader: ImageDataLoader
-    let dogImage: DogImage
+    private let dogImage: DogImage
+    private let loader: ImageDataLoader
+
+    init(imageDataLoader: ImageDataLoader, dogImage: DogImage) {
+        self.dogImage = dogImage
+        self.loader = imageDataLoader
+    }
 
     var body: some View {
         content
             .onAppear {
-                let task = model.loadImageData(
-                    from: dogImage.imageURL, loader: imageDataLoader)
-                tasks.append(task)
+                model.loadImageData(
+                    from: dogImage.imageURL, using: loader)
             }
     }
 
@@ -60,8 +72,7 @@ struct DogImageView: View {
 
 struct DogImageView_Previews: PreviewProvider {
     static var previews: some View {
-        DogImageView(tasks: .constant([]),
-                     imageDataLoader: StubImageDataLoader(),
+        DogImageView(imageDataLoader: StubImageDataLoader(),
                      dogImage: DogImage.anyDogImage)
     }
 }
