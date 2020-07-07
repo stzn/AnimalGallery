@@ -73,7 +73,7 @@ struct DogImageView: View {
 struct DogImageView_Previews: PreviewProvider {
     static var previews: some View {
         DogImageView(imageDataLoader: StubImageDataLoader(),
-                     dogImage: DogImage.anyDogImage)
+                     dogImage: .anyDogImage)
     }
 }
 
