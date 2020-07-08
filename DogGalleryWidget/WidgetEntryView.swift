@@ -31,7 +31,7 @@ struct WidgetEntryView : View {
                     .padding()
                 }
             }
-            .widgetURL(URL(string: "dogs:///\(entry.image.breedName)")!)
+            .widgetURL(entry.widgetURL)
         default:
             ZStack(alignment: .bottom) {
                 Color.white
@@ -45,7 +45,7 @@ struct WidgetEntryView : View {
                 }
                 .padding()
             }
-            .widgetURL(URL(string: "dogs:///\(entry.image.breedName)")!)
+            .widgetURL(entry.widgetURL)
         }
     }
 
@@ -83,7 +83,7 @@ struct WidgetEntryView : View {
 struct Widget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            WidgetEntryView(entry: .init(date: Date(), nextDate: Date(), image: placeholder))
+            WidgetEntryView(entry: .init(date: Date(), type: .dog, nextDate: Date(), image: placeholder))
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }

@@ -14,7 +14,8 @@ struct CatGalleryWidget: Widget {
     public var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind,
                             intent: DynamicBreedSelectionIntent.self,
-                            provider: ImageTimeline(imageLoader: CatImageLoader()),
+                            provider: ImageTimeline(animaltype: .cat,
+                                                    imageLoader: CatImageLoader()),
                             placeholder: PlaceholderView()) { entry in
             WidgetEntryView(entry: entry)
         }

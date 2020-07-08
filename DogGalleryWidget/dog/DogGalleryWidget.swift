@@ -15,7 +15,8 @@ struct DogGalleryWidget: Widget {
     public var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind,
                             intent: DynamicBreedSelectionIntent.self,
-                            provider: ImageTimeline(imageLoader: DogImageLoader()),
+                            provider: ImageTimeline(animaltype: .dog,
+                                                    imageLoader: DogImageLoader()),
                             placeholder: PlaceholderView()) { entry in
             WidgetEntryView(entry: entry)
         }
@@ -23,10 +24,4 @@ struct DogGalleryWidget: Widget {
         .description("Have a break!")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
-}
-
-struct DogImageEntry: TimelineEntry {
-    public var date: Date
-    let nextDate: Date
-    let dogImage: WidgetImage
 }

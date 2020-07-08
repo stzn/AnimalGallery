@@ -20,8 +20,10 @@ struct ImageTimeline: IntentTimelineProvider {
     typealias Intent = DynamicBreedSelectionIntent
     typealias Entry = ImageEntry
 
+    private let animaltype: AnimalType
     private let imageLoader: ImageLoadable
-    init(imageLoader: ImageLoadable) {
+    init(animaltype: AnimalType, imageLoader: ImageLoadable) {
+        self.animaltype = animaltype
         self.imageLoader = imageLoader
     }
 
@@ -29,6 +31,7 @@ struct ImageTimeline: IntentTimelineProvider {
                   completion: @escaping (Entry) -> ()) {
         let currentDate = Date()
         let entry = Entry(date: currentDate,
+                          type: animaltype,
                           nextDate: currentDate,
                           image: snapshotImage)
         completion(entry)
