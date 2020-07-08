@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import WidgetKit
 
 enum DogImageLoader {
     static func loadRandom(completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {

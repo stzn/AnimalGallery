@@ -8,3 +8,4 @@
 import Foundation
 
 let dogAPIbaseURL = URL(string: "https://dog.ceo/api")!
+let catAPIbaseURL = URL(string: "https://api.thecatapi.com/v1")!

@@ -1,39 +1,39 @@
 //
-//  DogGalleryWidget.swift
-//  DogGalleryWidget
+//  CatGalleryWidget.swift
+//  DogGalleryWidgetExtension
 //
-//  Created by Shinzan Takata on 2020/07/04.
+//  Created by Shinzan Takata on 2020/07/08.
 //
 
 import WidgetKit
 import SwiftUI
 import AudioToolbox
 
-struct DogGalleryWidget: Widget {
-    private let kind: String = "DogGalleryWidget"
+struct CatGalleryWidget: Widget {
+    private let kind: String = "CatGalleryWidget"
 
     public var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind,
                             intent: DynamicBreedSelectionIntent.self,
-                            provider: DogImageTimeline(),
+                            provider: CatImageTimeline(),
                             placeholder: PlaceholderView()) { entry in
-            DogGalleryWidgetEntryView(entry: entry)
+            CatGalleryWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Dog Image")
+        .configurationDisplayName("Cat Image")
         .description("Have a break!")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
-struct DogImageEntry: TimelineEntry {
+struct CatImageEntry: TimelineEntry {
     public var date: Date
     let nextDate: Date
     let dogImage: WidgetDogImage
 }
 
-struct DogImageTimeline: IntentTimelineProvider {
+struct CatImageTimeline: IntentTimelineProvider {
     typealias Intent = DynamicBreedSelectionIntent
-    typealias Entry = DogImageEntry
+    typealias Entry = CatImageEntry
 
     func snapshot(for configuration: Intent, with context: Context,
                   completion: @escaping (Entry) -> ()) {
@@ -86,7 +86,7 @@ struct DogImageTimeline: IntentTimelineProvider {
     }
 
     private func loadRandom(completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
-        DogImageLoader.loadRandom { result in
+        CatImageLoader.loadRandom { result in
             switch result {
             case .success(let image):
                 notifyUpdate()
@@ -102,7 +102,7 @@ struct DogImageTimeline: IntentTimelineProvider {
     private func loadRandomInBreed(
         _ breed: Breed,
         completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
-        DogImageLoader.loadRandomInBreed(breed) { result in
+        CatImageLoader.loadRandomInBreed(breed) { result in
             switch result {
             case .success(let image):
                 notifyUpdate()
@@ -119,5 +119,14 @@ struct DogImageTimeline: IntentTimelineProvider {
     private func notifyUpdate() {
         AudioServicesPlayAlertSoundWithCompletion(
             SystemSoundID(kSystemSoundID_Vibrate)) { }
+    }
+}
+
+@main
+struct AnimalBundle: WidgetBundle {
+    @WidgetBundleBuilder
+    var body: some Widget {
+        DogGalleryWidget()
+        CatGalleryWidget()
     }
 }

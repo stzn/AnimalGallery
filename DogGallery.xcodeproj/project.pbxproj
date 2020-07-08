@@ -46,6 +46,9 @@
 		D63C456424B0215300A0E152 /* Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456324B0215300A0E152 /* Stubs.swift */; };
 		D63C456B24B034DD00A0E152 /* DogImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456A24B034DD00A0E152 /* DogImageView.swift */; };
 		D63C456D24B03CD000A0E152 /* DogImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456C24B03CD000A0E152 /* DogImageGridView.swift */; };
+		D67B138824B5073400A37BA9 /* CatGalleryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */; };
+		D67B138A24B507BB00A37BA9 /* CatGalleryWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138924B507BB00A37BA9 /* CatGalleryWidgetEntryView.swift */; };
+		D67B138C24B5084D00A37BA9 /* CatImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */; };
 		D6B2CCAF24B00BF000C6B27C /* DogGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCAE24B00BF000C6B27C /* DogGalleryApp.swift */; };
 		D6B2CCB324B00BF100C6B27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B2CCB224B00BF100C6B27C /* Assets.xcassets */; };
 		D6B2CCB624B00BF100C6B27C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B2CCB524B00BF100C6B27C /* Preview Assets.xcassets */; };
@@ -122,6 +125,9 @@
 		D63C456324B0215300A0E152 /* Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubs.swift; sourceTree = "<group>"; };
 		D63C456A24B034DD00A0E152 /* DogImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImageView.swift; sourceTree = "<group>"; };
 		D63C456C24B03CD000A0E152 /* DogImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImageGridView.swift; sourceTree = "<group>"; };
+		D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatGalleryWidget.swift; sourceTree = "<group>"; };
+		D67B138924B507BB00A37BA9 /* CatGalleryWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatGalleryWidgetEntryView.swift; sourceTree = "<group>"; };
+		D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatImageLoader.swift; sourceTree = "<group>"; };
 		D6B2CCAB24B00BF000C6B27C /* DogGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6B2CCAE24B00BF000C6B27C /* DogGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogGalleryApp.swift; sourceTree = "<group>"; };
 		D6B2CCB224B00BF100C6B27C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -201,6 +207,9 @@
 				D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */,
 				D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */,
 				D605CC8E24B270E300C2DA6D /* WidgetDogImage.swift */,
+				D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */,
+				D67B138924B507BB00A37BA9 /* CatGalleryWidgetEntryView.swift */,
+				D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */,
 			);
 			path = DogGalleryWidget;
 			sourceTree = "<group>";
@@ -451,17 +460,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D67B138A24B507BB00A37BA9 /* CatGalleryWidgetEntryView.swift in Sources */,
 				D636CC6524B10E12008B5685 /* SharedVariables.swift in Sources */,
 				D636CC6C24B15033008B5685 /* LeftTimeTextView.swift in Sources */,
 				D636CC5B24B068A4008B5685 /* Breed.swift in Sources */,
 				D636CC5624B06886008B5685 /* HTTPClientError.swift in Sources */,
 				D605CC8624B1D20E00C2DA6D /* DynamicBreedSelection.intentdefinition in Sources */,
+				D67B138824B5073400A37BA9 /* CatGalleryWidget.swift in Sources */,
 				D636CC5E24B06F7A008B5685 /* DogImageLoader.swift in Sources */,
 				D636CC6924B11955008B5685 /* StrokeText.swift in Sources */,
 				D636CC6224B10DE1008B5685 /* SharedTypes.swift in Sources */,
 				D636CC5024B0685C008B5685 /* DogImage.swift in Sources */,
 				D636CC5824B06886008B5685 /* Response.swift in Sources */,
 				D605CC8F24B270E300C2DA6D /* WidgetDogImage.swift in Sources */,
+				D67B138C24B5084D00A37BA9 /* CatImageLoader.swift in Sources */,
 				D636CC6624B110BE008B5685 /* String+.swift in Sources */,
 				D636CC5924B06886008B5685 /* URLSessionHTTPClient.swift in Sources */,
 				D636CC5724B06886008B5685 /* HTTPClient.swift in Sources */,
