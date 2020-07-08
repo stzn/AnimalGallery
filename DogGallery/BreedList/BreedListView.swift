@@ -54,12 +54,13 @@ struct BreedListView: View {
             if model.error != nil {
                 Image(systemName: "xmark.octagon.fill")
             } else {
-                lazyList
+                list
             }
         }
     }
 
-    private var lazyList: some View {
+    // use VStack for moving to detail page from deep link
+    private var list: some View {
         ScrollView {
             VStack {
                 ForEach(model.breeds) {
