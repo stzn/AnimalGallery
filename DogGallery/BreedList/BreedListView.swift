@@ -61,7 +61,7 @@ struct BreedListView: View {
 
     private var lazyList: some View {
         ScrollView {
-            LazyVStack {
+            VStack {
                 ForEach(model.breeds) {
                     navigationLinkToDogImages(for: $0)
                         .padding()
