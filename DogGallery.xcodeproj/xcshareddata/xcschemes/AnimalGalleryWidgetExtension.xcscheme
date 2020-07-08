@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D636CC3C24B06756008B5685"
-               BuildableName = "DogGalleryWidgetExtension.appex"
-               BlueprintName = "DogGalleryWidgetExtension"
+               BuildableName = "AnimalGalleryWidgetExtension.appex"
+               BlueprintName = "AnimalGalleryWidgetExtension"
                ReferencedContainer = "container:DogGallery.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -63,8 +63,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D636CC3C24B06756008B5685"
-            BuildableName = "DogGalleryWidgetExtension.appex"
-            BlueprintName = "DogGalleryWidgetExtension"
+            BuildableName = "AnimalGalleryWidgetExtension.appex"
+            BlueprintName = "AnimalGalleryWidgetExtension"
             ReferencedContainer = "container:DogGallery.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>

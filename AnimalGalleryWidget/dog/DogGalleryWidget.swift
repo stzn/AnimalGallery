@@ -1,6 +1,6 @@
 //
-//  DogGalleryWidget.swift
-//  DogGalleryWidget
+//  AnimalGalleryWidget.swift
+//  AnimalGalleryWidget
 //
 //  Created by Shinzan Takata on 2020/07/04.
 //
@@ -9,8 +9,8 @@ import WidgetKit
 import SwiftUI
 import AudioToolbox
 
-struct DogGalleryWidget: Widget {
-    private let kind: String = "DogGalleryWidget"
+struct AnimalGalleryWidget: Widget {
+    private let kind: String = "AnimalGalleryWidget"
 
     public var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind,

@@ -1,6 +1,6 @@
 //
 //  AnimalBundle.swift
-//  DogGalleryWidgetExtension
+//  AnimalGalleryWidgetExtension
 //
 //  Created by Shinzan Takata on 2020/07/09.
 //
@@ -12,7 +12,7 @@ import WidgetKit
 struct AnimalBundle: WidgetBundle {
     @WidgetBundleBuilder
     var body: some Widget {
-        DogGalleryWidget()
+        AnimalGalleryWidget()
         CatGalleryWidget()
     }
 }

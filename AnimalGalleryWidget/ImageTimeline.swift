@@ -1,6 +1,6 @@
 //
 //  ImageTimeline.swift
-//  DogGalleryWidgetExtension
+//  AnimalGalleryWidgetExtension
 //
 //  Created by Shinzan Takata on 2020/07/09.
 //

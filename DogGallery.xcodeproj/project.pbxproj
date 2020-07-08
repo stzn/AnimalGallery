@@ -24,7 +24,7 @@
 		D636CC4224B06756008B5685 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D636CC4124B06756008B5685 /* SwiftUI.framework */; };
 		D636CC4524B06756008B5685 /* DogGalleryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC4424B06756008B5685 /* DogGalleryWidget.swift */; };
 		D636CC4724B06756008B5685 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D636CC4624B06756008B5685 /* Assets.xcassets */; };
-		D636CC4B24B06756008B5685 /* DogGalleryWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D636CC4B24B06756008B5685 /* AnimalGalleryWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D636CC5024B0685C008B5685 /* DogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBE24B00C3400C6B27C /* DogImage.swift */; };
 		D636CC5624B06886008B5685 /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */; };
 		D636CC5724B06886008B5685 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
@@ -94,7 +94,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D636CC4B24B06756008B5685 /* DogGalleryWidgetExtension.appex in Embed App Extensions */,
+				D636CC4B24B06756008B5685 /* AnimalGalleryWidgetExtension.appex in Embed App Extensions */,
 				D605CC7724B1CADE00C2DA6D /* DogGalleryIntentHandler.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -110,7 +110,7 @@
 		D605CC7E24B1CCD100C2DA6D /* BreedListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedListLoader.swift; sourceTree = "<group>"; };
 		D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		D636CC3724B06424008B5685 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DogGalleryWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnimalGalleryWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D636CC3F24B06756008B5685 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		D636CC4124B06756008B5685 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		D636CC4424B06756008B5685 /* DogGalleryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogGalleryWidget.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D636CC4324B06756008B5685 /* DogGalleryWidget */ = {
+		D636CC4324B06756008B5685 /* AnimalGalleryWidget */ = {
 			isa = PBXGroup;
 			children = (
 				D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */,
@@ -215,7 +215,7 @@
 				D6982E6924B65CDC0037305E /* AnimalBundle.swift */,
 				D6982E6B24B65D3A0037305E /* WidgetImage.swift */,
 			);
-			path = DogGalleryWidget;
+			path = AnimalGalleryWidget;
 			sourceTree = "<group>";
 		};
 		D636CC5F24B10DBA008B5685 /* Shared */ = {
@@ -262,7 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				D6B2CCAD24B00BF000C6B27C /* DogGallery */,
-				D636CC4324B06756008B5685 /* DogGalleryWidget */,
+				D636CC4324B06756008B5685 /* AnimalGalleryWidget */,
 				D605CC7124B1CADD00C2DA6D /* DogGalleryIntentHandler */,
 				D636CC3E24B06756008B5685 /* Frameworks */,
 				D6B2CCAC24B00BF000C6B27C /* Products */,
@@ -273,7 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				D6B2CCAB24B00BF000C6B27C /* DogGallery.app */,
-				D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */,
+				D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */,
 				D605CC7024B1CADD00C2DA6D /* DogGalleryIntentHandler.appex */,
 			);
 			name = Products;
@@ -358,9 +358,9 @@
 			productReference = D605CC7024B1CADD00C2DA6D /* DogGalleryIntentHandler.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		D636CC3C24B06756008B5685 /* DogGalleryWidgetExtension */ = {
+		D636CC3C24B06756008B5685 /* AnimalGalleryWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D636CC4C24B06757008B5685 /* Build configuration list for PBXNativeTarget "DogGalleryWidgetExtension" */;
+			buildConfigurationList = D636CC4C24B06757008B5685 /* Build configuration list for PBXNativeTarget "AnimalGalleryWidgetExtension" */;
 			buildPhases = (
 				D636CC3924B06756008B5685 /* Sources */,
 				D636CC3A24B06756008B5685 /* Frameworks */,
@@ -370,9 +370,9 @@
 			);
 			dependencies = (
 			);
-			name = DogGalleryWidgetExtension;
+			name = AnimalGalleryWidgetExtension;
 			productName = DogGalleryWidgetExtension;
-			productReference = D636CC3D24B06756008B5685 /* DogGalleryWidgetExtension.appex */;
+			productReference = D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		D6B2CCAA24B00BF000C6B27C /* DogGallery */ = {
@@ -429,7 +429,7 @@
 			projectRoot = "";
 			targets = (
 				D6B2CCAA24B00BF000C6B27C /* DogGallery */,
-				D636CC3C24B06756008B5685 /* DogGalleryWidgetExtension */,
+				D636CC3C24B06756008B5685 /* AnimalGalleryWidgetExtension */,
 				D605CC6F24B1CADD00C2DA6D /* DogGalleryIntentHandler */,
 			);
 		};
@@ -548,7 +548,7 @@
 		};
 		D636CC4A24B06756008B5685 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D636CC3C24B06756008B5685 /* DogGalleryWidgetExtension */;
+			target = D636CC3C24B06756008B5685 /* AnimalGalleryWidgetExtension */;
 			targetProxy = D636CC4924B06756008B5685 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -601,13 +601,13 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8VFCZLW2Z;
-				INFOPLIST_FILE = DogGalleryWidget/Info.plist;
+				INFOPLIST_FILE = AnimalGalleryWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.DogGallery.DogGalleryWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.DogGallery.AnimalGalleryWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -622,13 +622,13 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8VFCZLW2Z;
-				INFOPLIST_FILE = DogGalleryWidget/Info.plist;
+				INFOPLIST_FILE = AnimalGalleryWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.DogGallery.DogGalleryWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.DogGallery.AnimalGalleryWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -810,7 +810,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D636CC4C24B06757008B5685 /* Build configuration list for PBXNativeTarget "DogGalleryWidgetExtension" */ = {
+		D636CC4C24B06757008B5685 /* Build configuration list for PBXNativeTarget "AnimalGalleryWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D636CC4D24B06757008B5685 /* Debug */,
