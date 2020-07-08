@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum CatImageLoader {
+struct CatImageLoader: ImageLoadable {
     struct Root: Decodable {
         let models: [WidgetCatImageModel]
 
@@ -26,7 +26,36 @@ enum CatImageLoader {
         }
     }
 
-    static func loadRandom(completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
+    func loadImage(for identifier: String,
+                           entryDate: Date,
+                           refreshDate: Date,
+                           completion: @escaping (ImageEntry) -> Void) {
+        if identifier == "random" {
+            Self.loadRandom { result in
+                switch result {
+                case .success(let image):
+                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
+                case .failure:
+                    completion(
+                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
+                    )
+                }
+            }
+        } else {
+            Self.loadRandomInBreed(Breed(name: identifier)) { result in
+                switch result {
+                case .success(let image):
+                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
+                case .failure:
+                    completion(
+                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
+                    )
+                }
+            }
+        }
+    }
+
+    static func loadRandom(completion: @escaping (Result<WidgetImage, Error>) -> Void) {
         guard let request = createURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
                 queryItems: [URLQueryItem(name: "limit", value: "1")]) else {
@@ -56,7 +85,7 @@ enum CatImageLoader {
     }
 
     static func loadRandomInBreed(_ breed: Breed,
-                                  completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
+                                  completion: @escaping (Result<WidgetImage, Error>) -> Void) {
         guard let request = createURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
                 queryItems: [
@@ -90,7 +119,7 @@ enum CatImageLoader {
 
     private static func loadCatImage(from url: URL,
                                      for breed: String,
-                                     completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
+                                     completion: @escaping (Result<WidgetImage, Error>) -> Void) {
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -106,7 +135,7 @@ enum CatImageLoader {
             guard let data = data, let image = UIImage(data: data) else {
                 return
             }
-            completion(.success(WidgetDogImage(name: breed, image: Image(uiImage: image))))
+            completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
         }.resume()
     }
 
@@ -121,7 +150,7 @@ enum CatImageLoader {
         }
         var request = URLRequest(url: url)
         // please get your own api key(https://thecatapi.com/)
-        request.addValue("XXXXXXXXXXXXXX", forHTTPHeaderField: "x-api-key")
+        request.addValue(catAPIKey, forHTTPHeaderField: "x-api-key")
         return request
     }
 }

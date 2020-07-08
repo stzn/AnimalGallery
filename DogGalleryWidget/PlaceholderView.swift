@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlaceholderView : View {
     var body: some View {
-        DogGalleryWidgetEntryView(
-            entry: .init(date: Date(), nextDate: Date(), dogImage: placeholder))
+        WidgetEntryView(
+            entry: .init(date: Date(), nextDate: Date(), image: placeholder))
     }
 }

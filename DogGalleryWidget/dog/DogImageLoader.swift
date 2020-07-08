@@ -7,8 +7,34 @@
 
 import SwiftUI
 
-enum DogImageLoader {
-    static func loadRandom(completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
+struct DogImageLoader: ImageLoadable {
+    func loadImage(for identifier: String, entryDate: Date, refreshDate: Date, completion: @escaping (ImageEntry) -> Void) {
+        if identifier == "random" {
+            Self.loadRandom { result in
+                switch result {
+                case .success(let image):
+                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
+                case .failure:
+                    completion(
+                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
+                    )
+                }
+            }
+        } else {
+            Self.loadRandomInBreed(Breed(name: identifier)) { result in
+                switch result {
+                case .success(let image):
+                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
+                case .failure:
+                    completion(
+                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
+                    )
+                }
+            }
+        }
+    }
+
+    static func loadRandom(completion: @escaping (Result<WidgetImage, Error>) -> Void) {
         struct WidgetDogImageModel: Decodable {
             let message: String
             let status: String
@@ -39,7 +65,7 @@ enum DogImageLoader {
     }
 
     private static func loadDogImage(from url: URL,
-                              completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
+                              completion: @escaping (Result<WidgetImage, Error>) -> Void) {
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -56,7 +82,7 @@ enum DogImageLoader {
                 return
             }
             let breed = extractBreed(from: url)
-            completion(.success(WidgetDogImage(name: breed, image: Image(uiImage: image))))
+            completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
         }.resume()
     }
 
@@ -65,7 +91,7 @@ enum DogImageLoader {
     }
 
     static func loadRandomInBreed(_ breed: Breed,
-                                  completion: @escaping (Result<WidgetDogImage, Error>) -> Void) {
+                                  completion: @escaping (Result<WidgetImage, Error>) -> Void) {
         struct DogImagesModel: Decodable {
             let message: [String]
             let status: String

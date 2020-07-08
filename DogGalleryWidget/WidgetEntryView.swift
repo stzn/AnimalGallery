@@ -1,15 +1,15 @@
 //
-//  DogGalleryWidgetEntryView.swift
+//  WidgetEntryView.swift
 //  DogGalleryWidgetExtension
 //
-//  Created by Shinzan Takata on 2020/07/06.
+//  Created by Shinzan Takata on 2020/07/09.
 //
 
 import SwiftUI
 import WidgetKit
 
-struct DogGalleryWidgetEntryView : View {
-    var entry: DogImageTimeline.Entry
+struct WidgetEntryView : View {
+    var entry: ImageTimeline.Entry
 
     @Environment(\.widgetFamily) var family
 
@@ -20,7 +20,7 @@ struct DogGalleryWidgetEntryView : View {
             ZStack {
                 Color.white
                 HStack {
-                    entry.dogImage.image
+                    entry.image.image
                         .resizable()
                         .aspectRatio(1, contentMode: .fill)
                         .clipped()
@@ -31,11 +31,11 @@ struct DogGalleryWidgetEntryView : View {
                     .padding()
                 }
             }
-            .widgetURL(URL(string: "dogs:///\(entry.dogImage.breedName)")!)
+            .widgetURL(URL(string: "dogs:///\(entry.image.breedName)")!)
         default:
             ZStack(alignment: .bottom) {
                 Color.white
-                entry.dogImage.image
+                entry.image.image
                     .resizable()
                     .aspectRatio(1, contentMode: .fill)
                     .clipped()
@@ -45,19 +45,19 @@ struct DogGalleryWidgetEntryView : View {
                 }
                 .padding()
             }
-            .widgetURL(URL(string: "dogs:///\(entry.dogImage.breedName)")!)
+            .widgetURL(URL(string: "dogs:///\(entry.image.breedName)")!)
         }
     }
 
     private var nameText: some View {
         switch family {
         case .systemSmall:
-            return StrokeText(text: entry.dogImage.name,
+            return StrokeText(text: entry.image.name,
                        width: 1, color: .white)
                 .foregroundColor(.black)
                 .font(.body)
         default:
-            return StrokeText(text: entry.dogImage.name,
+            return StrokeText(text: entry.image.name,
                        width: 1, color: .white)
                 .foregroundColor(.black)
                 .font(.largeTitle)
@@ -80,10 +80,10 @@ struct DogGalleryWidgetEntryView : View {
     }
 }
 
-struct DogGalleryWidget_Previews: PreviewProvider {
+struct Widget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DogGalleryWidgetEntryView(entry: .init(date: Date(), nextDate: Date(), dogImage: placeholder))
+            WidgetEntryView(entry: .init(date: Date(), nextDate: Date(), image: placeholder))
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }
