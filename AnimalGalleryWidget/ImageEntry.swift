@@ -8,11 +8,6 @@
 import Foundation
 import WidgetKit
 
-enum AnimalType {
-    case dog
-    case cat
-}
-
 struct ImageEntry: TimelineEntry {
     var date: Date
     let nextDate: Date

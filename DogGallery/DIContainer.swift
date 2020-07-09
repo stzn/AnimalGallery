@@ -24,12 +24,14 @@ extension EnvironmentValues {
 
 extension DIContainer {
     struct Loaders {
-        let breedListLoader: BreedListLoader
+        let dogBreedListLoader: BreedListLoader
+        let catBreedListLoader: BreedListLoader
         let dogImageListLoader: DogImageListLoader
         let imageDataLoader: ImageDataLoader
 
         static var stub: Self {
-            .init(breedListLoader: StubBreedListLoader(),
+            .init(dogBreedListLoader: StubBreedListLoader(),
+                  catBreedListLoader: StubBreedListLoader(),
                   dogImageListLoader: StubDogImageListLoader(),
                   imageDataLoader: StubImageDataLoader())
         }
@@ -37,7 +39,8 @@ extension DIContainer {
         static var live: Self {
             let loaders = configureLoaders()
             return Loaders(
-                breedListLoader: loaders.breedListLoader,
+                dogBreedListLoader: loaders.dogBreedListLoader,
+                catBreedListLoader: loaders.catBreedListLoader,
                 dogImageListLoader: loaders.dogImageListLoader,
                 imageDataLoader: loaders.imageDataLoader)
         }
@@ -52,9 +55,11 @@ extension DIContainer {
             let client = URLSessionHTTPClient(session: session)
 
             let dogWebAPI = DogWebAPI(client: client)
+            let catWebAPI = CatWebAPI(client: client)
             let imageWebLoader = ImageDataWebLoader(client: client)
 
-            return .init(breedListLoader: dogWebAPI,
+            return .init(dogBreedListLoader: dogWebAPI,
+                         catBreedListLoader: catWebAPI,
                          dogImageListLoader: dogWebAPI,
                          imageDataLoader: imageWebLoader
             )

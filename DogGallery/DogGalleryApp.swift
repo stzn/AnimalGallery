@@ -13,8 +13,7 @@ struct DogGalleryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            BreedListView()
-                .environment(\.injected, container)
+            RootView()
         }
     }
 }

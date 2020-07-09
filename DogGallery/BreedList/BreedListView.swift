@@ -35,17 +35,26 @@ struct BreedListView: View {
     @Environment(\.injected) var container: DIContainer
     @StateObject var model = BreedListViewModel()
 
+    let animalType: AnimalType
+
     var body: some View {
         NavigationView {
             content
-                .navigationTitle("BreedList")
+                .navigationTitle("\(animalType.rawValue) BreedList")
                 .navigationBarItems(trailing: Button("Reload") {
                     WidgetCenter.shared.reloadAllTimelines()
                 })
         }
         .onAppear {
+            let breedListLoader: BreedListLoader
+            switch animalType {
+            case .dog:
+                breedListLoader = container.loaders.dogBreedListLoader
+            case .cat:
+                breedListLoader = container.loaders.catBreedListLoader
+            }
             model.loadBreeds(
-                breedListLoader: container.loaders.breedListLoader)
+                breedListLoader: breedListLoader)
         }
     }
 
@@ -101,7 +110,7 @@ struct BreedListView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(devices, id: \.self) { name in
             Group {
-                BreedListView()
+                BreedListView(animalType: .dog)
                     .previewDevice(PreviewDevice(rawValue: name))
                     .previewDisplayName(name)
                     .colorScheme(.light)
