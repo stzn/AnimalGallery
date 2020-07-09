@@ -42,7 +42,14 @@ struct BreedListView: View {
             content
                 .navigationTitle("\(animalType.rawValue) BreedList")
                 .navigationBarItems(trailing: Button("Reload") {
-                    WidgetCenter.shared.reloadAllTimelines()
+                    let widgetKind: String
+                    switch animalType {
+                    case .dog:
+                        widgetKind = "DogGalleryWidget"
+                    case .cat:
+                        widgetKind = "CatGalleryWidget"
+                    }
+                    WidgetCenter.shared.reloadTimelines(ofKind: widgetKind)
                 })
         }
         .onAppear {
