@@ -10,6 +10,8 @@ import Intents
 private let randomIntent = IntentBreed(identifier: "random", display: "random")
 
 class IntentHandler: INExtension, DynamicBreedSelectionIntentHandling {
+    private let client: HTTPClient = URLSessionHTTPClient(session: .shared)
+
     func provideIntentBreedOptionsCollection(for intent: DynamicBreedSelectionIntent, with completion: @escaping (INObjectCollection<IntentBreed>?, Error?) -> Void) {
         loadBreedList(type: intent.animalType) {
             completion(INObjectCollection(items: $0), nil)
@@ -40,10 +42,12 @@ class IntentHandler: INExtension, DynamicBreedSelectionIntentHandling {
     }
 
     private func loadDogBreedList(completion: @escaping (Result<[IntentBreed], Error>) -> Void) {
-        BreedListLoader.loadDogBreedList { result in
+        DogWebAPI(client: client)
+            .load { result in
             switch result {
             case .success(let breeds):
-                let ordered = breeds.sorted(by: { $0.displayString < $1.displayString })
+                let ordered = breeds.sorted(by: { $0.name < $1.name })
+                    .map { IntentBreed(identifier: $0.id, display: $0.name) }
                 completion(.success(ordered))
             case .failure(let error):
                 completion(.failure(error))
@@ -52,10 +56,12 @@ class IntentHandler: INExtension, DynamicBreedSelectionIntentHandling {
     }
 
     private func loadCatBreedList(completion: @escaping (Result<[IntentBreed], Error>) -> Void) {
-        BreedListLoader.loadCatBreedList { result in
+        CatWebAPI(client: client)
+            .load { result in
             switch result {
             case .success(let breeds):
-                let ordered = breeds.sorted(by: { $0.displayString < $1.displayString })
+                let ordered = breeds.sorted(by: { $0.name < $1.name })
+                    .map { IntentBreed(identifier: $0.id, display: $0.name) }
                 completion(.success(ordered))
             case .failure(let error):
                 completion(.failure(error))
