@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D605CC6F24B1CADD00C2DA6D"
-               BuildableName = "DogGalleryIntentHandler.appex"
-               BlueprintName = "DogGalleryIntentHandler"
+               BuildableName = "AnimalGalleryIntentHandler.appex"
+               BlueprintName = "AnimalGalleryIntentHandler"
                ReferencedContainer = "container:DogGallery.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
