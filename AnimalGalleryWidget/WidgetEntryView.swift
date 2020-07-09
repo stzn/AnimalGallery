@@ -32,7 +32,7 @@ struct WidgetEntryView : View {
             .widgetURL(widgetURL(entry.images[0].name))
         case .systemMedium:
             ZStack {
-                Color.gray
+                BubbleBackground()
                 HStack {
                     makeImageList(2)
                     timeLeftText.padding(.leading, 10)
@@ -41,11 +41,12 @@ struct WidgetEntryView : View {
             }
         case .systemLarge:
             ZStack {
-                Color.gray
+                BubbleBackground()
                 LazyVGrid(columns: columns) {
                     makeImageList(3)
                     timeLeftText.padding()
-                }.padding()
+                }
+                .padding()
             }
         @unknown default:
             fatalError()
@@ -58,6 +59,9 @@ struct WidgetEntryView : View {
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
                 .clipped()
+                .cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 4))
                 .widgetURL(widgetURL(image.name))
         }
     }
