@@ -26,7 +26,6 @@ struct WidgetEntryView : View {
                         .aspectRatio(1, contentMode: .fill)
                         .clipped()
                     VStack {
-//                        nameText
                         timeLeftText
                     }
                     .padding()
@@ -41,7 +40,6 @@ struct WidgetEntryView : View {
                     .aspectRatio(1, contentMode: .fill)
                     .clipped()
                 VStack(spacing: 0) {
-//                    nameText
                     timeLeftText
                 }
             }
@@ -69,23 +67,6 @@ struct WidgetEntryView : View {
     private var catURLName: String {
         let name = entry.image.name.replacingOccurrences(of: " ", with: "-")
         return name.lowercased()
-    }
-
-
-
-    private var nameText: some View {
-        switch family {
-        case .systemSmall:
-            return StrokeText(text: entry.image.name,
-                       width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.body)
-        default:
-            return StrokeText(text: entry.image.name,
-                       width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.largeTitle)
-        }
     }
 
     private var timeLeftText: some View {
