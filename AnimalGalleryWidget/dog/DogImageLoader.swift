@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct DogImageLoader: ImageLoadable {
+    private let client = URLSessionHTTPClient(session: .shared)
+    private let webAPI: DogWebAPI
+    private let imageWebLoader: ImageDataWebLoader
+
+    init() {
+        webAPI = DogWebAPI(client: client)
+        imageWebLoader = ImageDataWebLoader(client: client)
+    }
+
     func loadImage(for identifier: String, entryDate: Date, refreshDate: Date, completion: @escaping (ImageEntry) -> Void) {
         if identifier == "random" {
-            Self.loadRandom { result in
+            loadRandom { result in
                 switch result {
                 case .success(let image):
                     completion(.init(date: entryDate, nextDate: refreshDate, image: image))
@@ -21,7 +30,7 @@ struct DogImageLoader: ImageLoadable {
                 }
             }
         } else {
-            Self.loadRandomInBreed(identifier) { result in
+            loadRandomInBreed(identifier) { result in
                 switch result {
                 case .success(let image):
                     completion(.init(date: entryDate, nextDate: refreshDate, image: image))
@@ -34,91 +43,68 @@ struct DogImageLoader: ImageLoadable {
         }
     }
 
-    static func loadRandom(completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        struct WidgetDogImageModel: Decodable {
-            let message: String
-            let status: String
+    func loadRandom(completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+        webAPI.loadRandom { result in
+            switch result {
+            case .success(let url):
+                loadDogImage(from: url, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
-
-        let url = dogAPIbaseURL.appendingPathComponent("breeds/image/random")
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let response = response as? HTTPURLResponse,
-                  200..<299 ~= response.statusCode else {
-                return
-            }
-
-            guard let data = data,
-                  let model = try? JSONDecoder().decode(WidgetDogImageModel.self, from: data)  else {
-                return
-            }
-
-            guard let url = URL(string: model.message) else {
-                return
-            }
-            loadDogImage(from: url, completion: completion)
-        }.resume()
     }
 
-    private static func loadDogImage(from url: URL,
+    func loadRandomInBreed(_ breedName: BreedType,
+                                  completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+        webAPI.load(of: breedName) { result in
+            switch result {
+            case .success(let images):
+                loadDogImage(from: images[0].imageURL, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func loadDogImage(from url: URL,
                               completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
+        _ = imageWebLoader.load(from: url) { result in
+            switch result {
+            case .success(let data):
+                guard let image = UIImage(data: data) else {
+                    return
+                }
+                let breed = extractBreed(from: url)
+                completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
+            case .failure(let error):
                 completion(.failure(error))
-                return
             }
-
-            guard let response = response as? HTTPURLResponse,
-                  200..<299 ~= response.statusCode else {
-                return
-            }
-
-            guard let data = data, let image = UIImage(data: data) else {
-                return
-            }
-            let breed = extractBreed(from: url)
-            completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
-        }.resume()
+        }
     }
 
-    private static func extractBreed(from url: URL) -> String {
+    private func extractBreed(from url: URL) -> String {
         url.deletingLastPathComponent().lastPathComponent.firstLetterCapitalized
     }
+}
 
-    static func loadRandomInBreed(_ breedName: BreedType,
-                                  completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        struct DogImagesModel: Decodable {
-            let message: [String]
-            let status: String
-        }
+extension DogWebAPI {
+    struct WidgetDogImageModel: Decodable {
+        let message: String
+        let status: String
+    }
 
-        let url = dogAPIbaseURL.appendingPathComponent("/breed/\(breedName)/images")
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
+    func loadRandom(completion: @escaping (Result<URL, Error>) -> Void) {
+        call(WidgetDogImageModel.self,
+             URLRequest(url: baseURL.appendingPathComponent("breeds/image/random"))) { result in
+            switch result {
+            case .success(let model):
+                guard let url = URL(string: model.message) else {
+                    return
+                }
+                completion(.success(url))
+            case .failure(let error):
                 completion(.failure(error))
-                return
             }
-
-            guard let response = response as? HTTPURLResponse,
-                  200..<299 ~= response.statusCode else {
-                return
-            }
-
-            guard let data = data,
-                  let model = try? JSONDecoder().decode(DogImagesModel.self, from: data) else {
-                return
-            }
-            let urlString = model.message[Int.random(in: 0..<model.message.count)]
-            guard let url = URL(string: urlString) else {
-                return
-            }
-
-            loadDogImage(from: url, completion: completion)
-        }.resume()
+        }
     }
 }

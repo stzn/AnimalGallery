@@ -26,7 +26,7 @@ struct WidgetEntryView : View {
                         .aspectRatio(1, contentMode: .fill)
                         .clipped()
                     VStack {
-                        nameText
+//                        nameText
                         timeLeftText
                     }
                     .padding()
@@ -41,7 +41,7 @@ struct WidgetEntryView : View {
                     .aspectRatio(1, contentMode: .fill)
                     .clipped()
                 VStack(spacing: 0) {
-                    nameText
+//                    nameText
                     timeLeftText
                 }
             }
