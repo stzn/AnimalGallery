@@ -16,8 +16,8 @@ struct CatGalleryWidget: Widget {
                             intent: DynamicBreedSelectionIntent.self,
                             provider: ImageTimeline(animaltype: .cat,
                                                     imageLoader: CatImageLoader()),
-                            placeholder: PlaceholderView()) { entry in
-            WidgetEntryView(entry: entry)
+                            placeholder: PlaceholderView(type: .cat)) { entry in
+            WidgetEntryView(type: .cat, entry: entry)
         }
         .configurationDisplayName("Cat Image")
         .description("Have a break!")

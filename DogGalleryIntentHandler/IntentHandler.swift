@@ -11,7 +11,6 @@ private let randomIntent = IntentBreed(identifier: "random", display: "random")
 
 class IntentHandler: INExtension, DynamicBreedSelectionIntentHandling {
     func provideIntentBreedOptionsCollection(for intent: DynamicBreedSelectionIntent, with completion: @escaping (INObjectCollection<IntentBreed>?, Error?) -> Void) {
-
         loadBreedList(type: intent.animalType) {
             completion(INObjectCollection(items: $0), nil)
         }

@@ -34,10 +34,10 @@ struct CatImageLoader: ImageLoadable {
             Self.loadRandom { result in
                 switch result {
                 case .success(let image):
-                    completion(.init(date: entryDate, type: .cat, nextDate: refreshDate, image: image))
+                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
                 case .failure:
                     completion(
-                        ImageEntry(date: entryDate, type: .cat, nextDate: refreshDate, image: errorImage)
+                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
                     )
                 }
             }
@@ -45,10 +45,10 @@ struct CatImageLoader: ImageLoadable {
             Self.loadRandomInBreed(Breed(name: identifier)) { result in
                 switch result {
                 case .success(let image):
-                    completion(.init(date: entryDate, type: .cat, nextDate: refreshDate, image: image))
+                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
                 case .failure:
                     completion(
-                        ImageEntry(date: entryDate, type: .cat, nextDate: refreshDate, image: errorImage)
+                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
                     )
                 }
             }

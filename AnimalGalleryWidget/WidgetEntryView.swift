@@ -9,6 +9,7 @@ import SwiftUI
 import WidgetKit
 
 struct WidgetEntryView : View {
+    let type: AnimalType
     var entry: ImageTimeline.Entry
 
     @Environment(\.widgetFamily) var family
@@ -31,7 +32,7 @@ struct WidgetEntryView : View {
                     .padding()
                 }
             }
-            .widgetURL(entry.widgetURL)
+            .widgetURL(widgetURL)
         default:
             ZStack(alignment: .bottom) {
                 Color.white
@@ -43,11 +44,34 @@ struct WidgetEntryView : View {
                     nameText
                     timeLeftText
                 }
-                .padding()
             }
-            .widgetURL(entry.widgetURL)
+            .widgetURL(widgetURL)
         }
     }
+
+    private var widgetURL: URL {
+        switch type {
+        case .dog:
+            return URL(string: "dogs:///\(dogURLName)")!
+        case .cat:
+            return URL(string: "cats:///\(catURLName)")!
+        }
+    }
+
+    private var dogURLName: String {
+        let name = entry.image.name.replacingOccurrences(of: " ", with: "")
+        if let index = name.firstIndex(of: "-") {
+            return name.prefix(upTo: index).lowercased()
+        }
+        return name.lowercased()
+    }
+
+    private var catURLName: String {
+        let name = entry.image.name.replacingOccurrences(of: " ", with: "-")
+        return name.lowercased()
+    }
+
+
 
     private var nameText: some View {
         switch family {
@@ -83,7 +107,8 @@ struct WidgetEntryView : View {
 struct Widget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            WidgetEntryView(entry: .init(date: Date(), type: .dog, nextDate: Date(), image: placeholder))
+            WidgetEntryView(type: .dog,
+                            entry: .init(date: Date(), nextDate: Date(), image: dogPlaceholder))
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }

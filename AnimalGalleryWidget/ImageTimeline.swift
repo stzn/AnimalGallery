@@ -5,7 +5,7 @@
 //  Created by Shinzan Takata on 2020/07/09.
 //
 
-import AudioToolbox
+import AVFoundation
 import Foundation
 import WidgetKit
 
@@ -30,10 +30,18 @@ struct ImageTimeline: IntentTimelineProvider {
     func snapshot(for configuration: Intent, with context: Context,
                   completion: @escaping (Entry) -> ()) {
         let currentDate = Date()
+
+        let placeholder: WidgetImage
+        switch animaltype {
+        case .dog:
+            placeholder = dogPlaceholder
+        case .cat:
+            placeholder = catPlaceholder
+        }
+
         let entry = Entry(date: currentDate,
-                          type: animaltype,
                           nextDate: currentDate,
-                          image: snapshotImage)
+                          image: placeholder)
         completion(entry)
     }
 
@@ -43,15 +51,23 @@ struct ImageTimeline: IntentTimelineProvider {
         let entryDate = Date()
         let refreshDate = Calendar.current.date(
             byAdding: .minute, value: 60, to: entryDate)!
-
+        notifyUpdate()
         imageLoader.loadImage(for: identifier, entryDate: entryDate, refreshDate: refreshDate) { entry in
             completion(.init(entries: [entry], policy: .after(refreshDate)))
         }
     }
 
     private func notifyUpdate() {
-        AudioServicesPlayAlertSoundWithCompletion(
-            SystemSoundID(kSystemSoundID_Vibrate)) { }
+        var soundIdRing: SystemSoundID = 0
+        let soundURL: URL
+        switch animaltype {
+        case .dog:
+            soundURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "dog", ofType:"mp3")!)
+        case .cat:
+            soundURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "cat", ofType:"mp3")!)
+        }
+        AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundIdRing)
+        AudioServicesPlaySystemSound(soundIdRing)
     }
 }
 

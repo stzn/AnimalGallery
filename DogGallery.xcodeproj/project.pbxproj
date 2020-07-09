@@ -44,6 +44,8 @@
 		D63C456424B0215300A0E152 /* Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456324B0215300A0E152 /* Stubs.swift */; };
 		D63C456B24B034DD00A0E152 /* DogImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456A24B034DD00A0E152 /* DogImageView.swift */; };
 		D63C456D24B03CD000A0E152 /* DogImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456C24B03CD000A0E152 /* DogImageGridView.swift */; };
+		D669BA6324B6AB7A00FCB69A /* dog.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D669BA6124B6AB7900FCB69A /* dog.mp3 */; };
+		D669BA6424B6AB7A00FCB69A /* cat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D669BA6224B6AB7900FCB69A /* cat.mp3 */; };
 		D67B138824B5073400A37BA9 /* CatGalleryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */; };
 		D67B138C24B5084D00A37BA9 /* CatImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */; };
 		D6982E6424B656FB0037305E /* ImageEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6324B656FB0037305E /* ImageEntry.swift */; };
@@ -125,6 +127,8 @@
 		D63C456324B0215300A0E152 /* Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubs.swift; sourceTree = "<group>"; };
 		D63C456A24B034DD00A0E152 /* DogImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImageView.swift; sourceTree = "<group>"; };
 		D63C456C24B03CD000A0E152 /* DogImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImageGridView.swift; sourceTree = "<group>"; };
+		D669BA6124B6AB7900FCB69A /* dog.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dog.mp3; sourceTree = "<group>"; };
+		D669BA6224B6AB7900FCB69A /* cat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cat.mp3; sourceTree = "<group>"; };
 		D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatGalleryWidget.swift; sourceTree = "<group>"; };
 		D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatImageLoader.swift; sourceTree = "<group>"; };
 		D6982E6324B656FB0037305E /* ImageEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntry.swift; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 		D636CC4324B06756008B5685 /* AnimalGalleryWidget */ = {
 			isa = PBXGroup;
 			children = (
+				D669BA6224B6AB7900FCB69A /* cat.mp3 */,
+				D669BA6124B6AB7900FCB69A /* dog.mp3 */,
 				D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */,
 				D6982E6224B656CC0037305E /* cat */,
 				D6982E6124B656B00037305E /* dog */,
@@ -447,7 +453,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D669BA6424B6AB7A00FCB69A /* cat.mp3 in Resources */,
 				D636CC4724B06756008B5685 /* Assets.xcassets in Resources */,
+				D669BA6324B6AB7A00FCB69A /* dog.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@ import WidgetKit
 struct AnimalBundle: WidgetBundle {
     @WidgetBundleBuilder
     var body: some Widget {
-        AnimalGalleryWidget()
+        DogGalleryWidget()
         CatGalleryWidget()
     }
 }

@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct PlaceholderView : View {
+    private let animalType: AnimalType
+    init(type: AnimalType) {
+        self.animalType = type
+    }
     var body: some View {
-        WidgetEntryView(
-            entry: .init(date: Date(), type: .dog, nextDate: Date(), image: placeholder))
+        switch animalType {
+        case .dog:
+            WidgetEntryView(
+                type: animalType,
+                entry: .init(date: Date(),
+                             nextDate: Date(),
+                             image: dogPlaceholder))
+        case .cat:
+            WidgetEntryView(
+                type: animalType,
+                entry: .init(date: Date(),
+                             nextDate: Date(),
+                             image: catPlaceholder))
+        }
     }
 }
