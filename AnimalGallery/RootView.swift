@@ -10,23 +10,33 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.injected) var container: DIContainer
     @SceneStorage("SelectedAnimal") var selection: AnimalType = .dog
+    @State var selectedBreed: BreedType? = nil
 
     var body: some View {
         TabView(selection: $selection) {
-            BreedListView(animalType: .dog)
+            BreedListView(animalType: .dog, selectedBreed: $selectedBreed)
                 .tabItem {
                     Image(systemName: "1.square.fill")
                     Text("🐶")
                 }
                 .tag(AnimalType.dog)
                 .environment(\.injected, container)
-            BreedListView(animalType: .cat)
+            BreedListView(animalType: .cat, selectedBreed: $selectedBreed)
                 .tabItem {
                     Image(systemName: "2.square.fill")
                     Text("🐱")
                 }
                 .tag(AnimalType.cat)
                 .environment(\.injected, container)
+        }.onOpenURL { url in
+            guard let scheme = url.scheme,
+                  let animalType = AnimalType(from: scheme) else {
+                return
+            }
+            self.selection = animalType
+
+            let breedName = url.lastPathComponent
+            self.selectedBreed = breedName
         }
     }
 }

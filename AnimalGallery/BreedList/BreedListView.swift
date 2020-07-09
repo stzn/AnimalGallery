@@ -12,7 +12,6 @@ import WidgetKit
 final class BreedListViewModel: ObservableObject {
     @Published var breeds: [Breed] = []
     @Published var error: Error? = nil
-    @Published var selectedBreed: BreedType? = nil
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -36,6 +35,7 @@ struct BreedListView: View {
     @StateObject var model = BreedListViewModel()
 
     let animalType: AnimalType
+    @Binding var selectedBreed: BreedType?
 
     var body: some View {
         NavigationView {
@@ -92,9 +92,6 @@ struct BreedListView: View {
                         .padding()
                 }
                 Spacer()
-            }.onOpenURL { url in
-                let breedName = url.lastPathComponent
-                self.model.selectedBreed = breedName
             }
         }
     }
@@ -105,7 +102,7 @@ struct BreedListView: View {
                 breed: breed,
                 imageListLoader: imageListLoader,
                 imageDataLoader: container.loaders.imageDataLoader),
-            tag: breed.id, selection: $model.selectedBreed
+            tag: breed.id, selection: $selectedBreed
         ) {
             BreedRow(breed: breed)
         }
@@ -124,7 +121,7 @@ struct BreedListView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(devices, id: \.self) { name in
             Group {
-                BreedListView(animalType: .dog)
+                BreedListView(animalType: .dog, selectedBreed: .constant(nil))
                     .previewDevice(PreviewDevice(rawValue: name))
                     .previewDisplayName(name)
                     .colorScheme(.light)

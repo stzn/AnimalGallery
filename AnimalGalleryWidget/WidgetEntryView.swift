@@ -50,9 +50,9 @@ struct WidgetEntryView : View {
     private var widgetURL: URL {
         switch type {
         case .dog:
-            return URL(string: "dogs:///\(dogURLName)")!
+            return URL(string: "\(type.deepLinkScheme):///\(dogURLName)")!
         case .cat:
-            return URL(string: "cats:///\(catURLName)")!
+            return URL(string: "\(type.deepLinkScheme):///\(catURLName)")!
         }
     }
 
