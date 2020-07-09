@@ -8,22 +8,13 @@
 import SwiftUI
 
 struct CatImageLoader: ImageLoadable {
-    struct Root: Decodable {
-        let models: [WidgetCatImageModel]
+    private let client = URLSessionHTTPClient(session: .shared)
+    private let webAPI: CatWebAPI
+    private let imageWebLoader: ImageDataWebLoader
 
-        init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            self.models = try container.decode([WidgetCatImageModel].self)
-        }
-    }
-
-    struct WidgetCatImageModel: Decodable {
-        let url: URL
-        let breeds: [Breed]
-
-        struct Breed: Decodable {
-            let name: String
-        }
+    init() {
+        webAPI = CatWebAPI(client: client)
+        imageWebLoader = ImageDataWebLoader(client: client)
     }
 
     func loadImage(for identifier: String,
@@ -31,7 +22,7 @@ struct CatImageLoader: ImageLoadable {
                    refreshDate: Date,
                    completion: @escaping (ImageEntry) -> Void) {
         if identifier == "random" {
-            Self.loadRandom { result in
+            loadRandom(for: identifier) { result in
                 switch result {
                 case .success(let image):
                     completion(.init(date: entryDate, nextDate: refreshDate, image: image))
@@ -42,7 +33,7 @@ struct CatImageLoader: ImageLoadable {
                 }
             }
         } else {
-            Self.loadRandomInBreed(identifier) { result in
+            loadRandomInBreed(identifier) { result in
                 switch result {
                 case .success(let image):
                     completion(.init(date: entryDate, nextDate: refreshDate, image: image))
@@ -55,101 +46,72 @@ struct CatImageLoader: ImageLoadable {
         }
     }
 
-    static func loadRandom(completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+    func loadRandom(for identifier: String,
+                    completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+        webAPI.load(limit: 1) { result in
+            switch result {
+            case .success(let images):
+                loadCatImage(from: images[0].imageURL, for: identifier, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func loadRandomInBreed(_ breed: BreedType,
+                           completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+        webAPI.load(of: breed, limit: 1) { result in
+            switch result {
+            case .success(let images):
+                loadCatImage(from: images[0].imageURL, for: breed, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func loadCatImage(from url: URL,
+                              for breed: String,
+                              completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+
+        _ = imageWebLoader.load(from: url) { result in
+            switch result {
+            case .success(let data):
+                guard let image = UIImage(data: data) else {
+                    return
+                }
+                completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+}
+
+extension CatWebAPI {
+    func load(of breed: BreedType? = nil, limit: Int = 100, completion: @escaping (Result<[AnimalImage], Error>) -> Void) {
+        var queryItems = [URLQueryItem(name: "limit", value: "\(limit)")]
+        if let breed = breed {
+            queryItems.append(URLQueryItem(name: "breed_id", value: breed))
+        }
         guard let request = createURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
-                queryItems: [URLQueryItem(name: "limit", value: "1")]) else {
+                queryItems: queryItems) else {
             assertionFailure("should not be nil")
             return
         }
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
+        call(Root.self, request) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let model):
+                let breeds = self.convert(from: model)
+                completion(.success(breeds))
+            case .failure(let error):
                 completion(.failure(error))
-                return
             }
-
-            guard let response = response as? HTTPURLResponse,
-                  200..<299 ~= response.statusCode else {
-                return
-            }
-
-            guard let data = data,
-                  let root = try? JSONDecoder().decode(Root.self, from: data),
-                  let model = root.models.first else {
-                return
-            }
-            let breedName = model.breeds.first?.name ?? ""
-            loadCatImage(from: model.url, for: breedName, completion: completion)
-        }.resume()
-    }
-
-    static func loadRandomInBreed(_ breed: BreedType,
-                                  completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        guard let request = createURLRequest(
-                from: catAPIbaseURL.appendingPathComponent("/images/search"),
-                queryItems: [
-                    URLQueryItem(name: "breed_id", value: breed),
-                    URLQueryItem(name: "limit", value: "1")
-                ]) else {
-            assertionFailure("should not be nil")
-            return
         }
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let response = response as? HTTPURLResponse,
-                  200..<299 ~= response.statusCode else {
-                return
-            }
-
-            guard let data = data,
-                  let root = try? JSONDecoder().decode(Root.self, from: data),
-                  let model = root.models.first,
-                  let breedName = model.breeds.first?.name else {
-                return
-            }
-            loadCatImage(from: model.url, for: breedName, completion: completion)
-        }.resume()
-    }
-
-    private static func loadCatImage(from url: URL,
-                                     for breed: String,
-                                     completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let response = response as? HTTPURLResponse,
-                  200..<299 ~= response.statusCode else {
-                return
-            }
-
-            guard let data = data, let image = UIImage(data: data) else {
-                return
-            }
-            completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
-        }.resume()
-    }
-
-    private static func createURLRequest(from url: URL, queryItems: [URLQueryItem] = []) -> URLRequest? {
-        var component = URLComponents(
-            url: url,
-            resolvingAgainstBaseURL: false)
-        component?.queryItems = queryItems
-
-        guard let url = component?.url else {
-            return nil
-        }
-        var request = URLRequest(url: url)
-        request.addValue(catAPIKey, forHTTPHeaderField: "x-api-key")
-        return request
     }
 }

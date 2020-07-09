@@ -10,12 +10,12 @@ import Foundation
 final class CatWebAPI: WebAPI {
     let baseURL = catAPIbaseURL
     let client: HTTPClient
-    let queue = DispatchQueue(label: "DogWebAPI")
+    let queue = DispatchQueue(label: "CatWebAPI")
     init(client: HTTPClient) {
         self.client = client
     }
 
-    private func createURLRequest(from url: URL,
+    func createURLRequest(from url: URL,
                                          queryItems: [URLQueryItem] = []) -> URLRequest? {
         var component = URLComponents(
             url: url,
@@ -99,7 +99,7 @@ extension CatWebAPI: AnimalImageListLoader {
         }
     }
 
-    private func convert(from model: Root) -> [AnimalImage] {
+    func convert(from model: Root) -> [AnimalImage] {
         let urls = model.models.map { $0.url }
         let catImages = urls.map(AnimalImage.init(imageURL:))
         return catImages
