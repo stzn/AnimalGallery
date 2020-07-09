@@ -39,13 +39,13 @@ struct StubBreedListLoader: BreedListLoader {
     }
 }
 
-struct StubDogImageListLoader: DogImageListLoader {
-    private let images: [DogImage]
-    init(images: [DogImage] = [.anyDogImage, .anyDogImage, .anyDogImage]) {
+struct StubAnimalImageListLoader: AnimalImageListLoader {
+    private let images: [AnimalImage]
+    init(images: [AnimalImage] = [.anyAnimalImage, .anyAnimalImage, .anyAnimalImage]) {
         self.images = images
     }
 
-    func load(of breed: BreedType, completion: @escaping (Result<[DogImage], Error>) -> Void) {
+    func load(of breed: BreedType, completion: @escaping (Result<[AnimalImage], Error>) -> Void) {
         completion(.success(images))
     }
 }

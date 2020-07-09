@@ -26,13 +26,15 @@ extension DIContainer {
     struct Loaders {
         let dogBreedListLoader: BreedListLoader
         let catBreedListLoader: BreedListLoader
-        let dogImageListLoader: DogImageListLoader
+        let dogImageListLoader: AnimalImageListLoader
+        let catImageListLoader: AnimalImageListLoader
         let imageDataLoader: ImageDataLoader
 
         static var stub: Self {
             .init(dogBreedListLoader: StubBreedListLoader(),
                   catBreedListLoader: StubBreedListLoader(),
-                  dogImageListLoader: StubDogImageListLoader(),
+                  dogImageListLoader: StubAnimalImageListLoader(),
+                  catImageListLoader: StubAnimalImageListLoader(),
                   imageDataLoader: StubImageDataLoader())
         }
 
@@ -42,6 +44,7 @@ extension DIContainer {
                 dogBreedListLoader: loaders.dogBreedListLoader,
                 catBreedListLoader: loaders.catBreedListLoader,
                 dogImageListLoader: loaders.dogImageListLoader,
+                catImageListLoader: loaders.catImageListLoader,
                 imageDataLoader: loaders.imageDataLoader)
         }
 
@@ -61,6 +64,7 @@ extension DIContainer {
             return .init(dogBreedListLoader: dogWebAPI,
                          catBreedListLoader: catWebAPI,
                          dogImageListLoader: dogWebAPI,
+                         catImageListLoader: catWebAPI,
                          imageDataLoader: imageWebLoader
             )
         }

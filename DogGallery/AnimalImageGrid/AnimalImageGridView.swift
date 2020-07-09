@@ -1,5 +1,5 @@
 //
-//  DogImageGridView.swift
+//  AnimalImageGridView.swift
 //  DogGallery
 //
 //  Created by Shinzan Takata on 2020/07/04.
@@ -12,17 +12,17 @@ private let columns = [
     GridItem(.adaptive(minimum: 100, maximum: 200))
 ]
 
-final class DogImageGridViewModel: ObservableObject {
-    @Published var dogImages: [DogImage] = []
+final class AnimalImageGridViewModel: ObservableObject {
+    @Published var images: [AnimalImage] = []
     @Published var error: Error? = nil
     
     func loadBreeds(of type: BreedType,
-                    dogImageListLoader: DogImageListLoader) {
-        dogImageListLoader.load(of: type) { result in
+                    imageListLoader: AnimalImageListLoader) {
+        imageListLoader.load(of: type) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
-                case .success(let dogImages):
-                    self?.dogImages = dogImages
+                case .success(let images):
+                    self?.images = images
                 case .failure(let error):
                     self?.error = error
                 }
@@ -31,18 +31,18 @@ final class DogImageGridViewModel: ObservableObject {
     }
 }
 
-struct DogImageGridView: View {
-    @StateObject var model = DogImageGridViewModel()
+struct AnimalImageGridView: View {
+    @StateObject var model = AnimalImageGridViewModel()
 
     let breed: Breed
-    let dogImageListLoader: DogImageListLoader
+    let imageListLoader: AnimalImageListLoader
     let imageDataLoader: ImageDataLoader
 
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(model.dogImages) {
-                    DogImageView(imageDataLoader: imageDataLoader, dogImage: $0)
+                ForEach(model.images) {
+                    AnimalImageView(imageDataLoader: imageDataLoader, image: $0)
                 }
             }
             .padding()
@@ -50,17 +50,17 @@ struct DogImageGridView: View {
             Spacer()
         }
         .onAppear {
-            model.loadBreeds(of: breed.name,
-                             dogImageListLoader:dogImageListLoader)
+            model.loadBreeds(of: breed.id,
+                             imageListLoader: imageListLoader)
         }
     }
 }
 
-struct DogImageGridView_Previews: PreviewProvider {
+struct AnimalImageGridView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DogImageGridView(breed: Breed.anyBreed,
-                             dogImageListLoader: StubDogImageListLoader(),
+            AnimalImageGridView(breed: Breed.anyBreed,
+                             imageListLoader: StubAnimalImageListLoader(),
                              imageDataLoader: StubImageDataLoader())
         }
     }

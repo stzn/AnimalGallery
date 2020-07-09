@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class DogImageViewModel: ObservableObject {
+final class AnimalImageViewModel: ObservableObject {
     @Published var imageData: Data? = nil
     @Published var error: Error? = nil
     var task: HTTPClientTask?
@@ -34,13 +34,13 @@ final class DogImageViewModel: ObservableObject {
     }
 }
 
-struct DogImageView: View {
-    @StateObject var model = DogImageViewModel()
+struct AnimalImageView: View {
+    @StateObject var model = AnimalImageViewModel()
 
-    private let dogImage: DogImage
+    private let dogImage: AnimalImage
     private let loader: ImageDataLoader
 
-    init(imageDataLoader: ImageDataLoader, dogImage: DogImage) {
+    init(imageDataLoader: ImageDataLoader, dogImage: AnimalImage) {
         self.dogImage = dogImage
         self.loader = imageDataLoader
     }
@@ -72,8 +72,8 @@ struct DogImageView: View {
 
 struct DogImageView_Previews: PreviewProvider {
     static var previews: some View {
-        DogImageView(imageDataLoader: StubImageDataLoader(),
-                     dogImage: .anyDogImage)
+        AnimalImageView(imageDataLoader: StubImageDataLoader(),
+                     dogImage: .anyAnimalImage)
     }
 }
 

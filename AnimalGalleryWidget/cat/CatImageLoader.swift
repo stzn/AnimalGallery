@@ -42,7 +42,7 @@ struct CatImageLoader: ImageLoadable {
                 }
             }
         } else {
-            Self.loadRandomInBreed(Breed(name: identifier)) { result in
+            Self.loadRandomInBreed(identifier) { result in
                 switch result {
                 case .success(let image):
                     completion(.init(date: entryDate, nextDate: refreshDate, image: image))
@@ -84,12 +84,12 @@ struct CatImageLoader: ImageLoadable {
         }.resume()
     }
 
-    static func loadRandomInBreed(_ breed: Breed,
+    static func loadRandomInBreed(_ breed: BreedType,
                                   completion: @escaping (Result<WidgetImage, Error>) -> Void) {
         guard let request = createURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
                 queryItems: [
-                    URLQueryItem(name: "breed_id", value: breed.id),
+                    URLQueryItem(name: "breed_id", value: breed),
                     URLQueryItem(name: "limit", value: "1")
                 ]) else {
             assertionFailure("should not be nil")

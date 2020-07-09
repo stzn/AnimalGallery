@@ -29,7 +29,7 @@ extension DogWebAPI: BreedListLoader {
              URLRequest(url: baseURL.appendingPathComponent("breeds/list/all"))) { result in
             switch result {
             case .success(let model):
-                let breeds = model.message.keys.map(Breed.init)
+                let breeds = model.message.keys.map { Breed(id: $0, name: $0) }
                 completion(.success(breeds))
             case .failure(let error):
                 completion(.failure(error))
@@ -38,13 +38,13 @@ extension DogWebAPI: BreedListLoader {
     }
 }
 
-extension DogWebAPI: DogImageListLoader {
+extension DogWebAPI: AnimalImageListLoader {
     struct DogImageListAPIModel: Decodable {
         let message: [String]
         let status: String
     }
 
-    func load(of breed: BreedType, completion: @escaping (Result<[DogImage], Error>) -> Void) {
+    func load(of breed: BreedType, completion: @escaping (Result<[AnimalImage], Error>) -> Void) {
         call(DogImageListAPIModel.self,
              URLRequest(url: baseURL.appendingPathComponent("/breed/\(breed)/images"))) { [weak self] result in
             guard let self = self else {
@@ -60,13 +60,13 @@ extension DogWebAPI: DogImageListLoader {
         }
     }
 
-    private func convert(from model: DogImageListAPIModel) -> [DogImage] {
+    private func convert(from model: DogImageListAPIModel) -> [AnimalImage] {
         let urlStrings = model.message
-        let dogImages = urlStrings.compactMap { urlString -> DogImage? in
+        let dogImages = urlStrings.compactMap { urlString -> AnimalImage? in
             guard let url = URL(string: urlString) else {
                 return nil
             }
-            return DogImage(imageURL: url)
+            return AnimalImage(imageURL: url)
         }
         return dogImages
     }

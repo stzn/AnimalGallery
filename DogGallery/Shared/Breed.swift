@@ -8,16 +8,14 @@
 
 import Foundation
 
-struct Breed: Equatable, Decodable, Hashable {
+struct Breed: Equatable, Decodable, Hashable, Identifiable {
+    let id: String
     let name: String
-}
-
-extension Breed: Identifiable {
-    var id: String { name }
 }
 
 extension Breed {
     static var anyBreed: Breed {
-        Breed(name: "test\(UUID().uuidString)")
+        let anyID = UUID().uuidString
+        return Breed(id: anyID, name: "test\(anyID)")
     }
 }

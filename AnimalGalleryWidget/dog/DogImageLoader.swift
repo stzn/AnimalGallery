@@ -21,7 +21,7 @@ struct DogImageLoader: ImageLoadable {
                 }
             }
         } else {
-            Self.loadRandomInBreed(Breed(name: identifier)) { result in
+            Self.loadRandomInBreed(identifier) { result in
                 switch result {
                 case .success(let image):
                     completion(.init(date: entryDate, nextDate: refreshDate, image: image))
@@ -90,14 +90,14 @@ struct DogImageLoader: ImageLoadable {
         url.deletingLastPathComponent().lastPathComponent.firstLetterCapitalized
     }
 
-    static func loadRandomInBreed(_ breed: Breed,
+    static func loadRandomInBreed(_ breedName: BreedType,
                                   completion: @escaping (Result<WidgetImage, Error>) -> Void) {
         struct DogImagesModel: Decodable {
             let message: [String]
             let status: String
         }
 
-        let url = dogAPIbaseURL.appendingPathComponent("/breed/\(breed.name)/images")
+        let url = dogAPIbaseURL.appendingPathComponent("/breed/\(breedName)/images")
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))

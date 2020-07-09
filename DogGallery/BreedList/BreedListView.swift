@@ -12,7 +12,7 @@ import WidgetKit
 final class BreedListViewModel: ObservableObject {
     @Published var breeds: [Breed] = []
     @Published var error: Error? = nil
-    @Published var selectedBreed: Breed? = nil
+    @Published var selectedBreed: BreedType? = nil
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -46,16 +46,31 @@ struct BreedListView: View {
                 })
         }
         .onAppear {
-            let breedListLoader: BreedListLoader
-            switch animalType {
-            case .dog:
-                breedListLoader = container.loaders.dogBreedListLoader
-            case .cat:
-                breedListLoader = container.loaders.catBreedListLoader
-            }
             model.loadBreeds(
                 breedListLoader: breedListLoader)
         }
+    }
+
+    private var breedListLoader: BreedListLoader {
+        let breedListLoader: BreedListLoader
+        switch animalType {
+        case .dog:
+            breedListLoader = container.loaders.dogBreedListLoader
+        case .cat:
+            breedListLoader = container.loaders.catBreedListLoader
+        }
+        return breedListLoader
+    }
+
+    private var imageListLoader: AnimalImageListLoader {
+        let imageListLoader: AnimalImageListLoader
+        switch animalType {
+        case .dog:
+            imageListLoader = container.loaders.dogImageListLoader
+        case .cat:
+            imageListLoader = container.loaders.catImageListLoader
+        }
+        return imageListLoader
     }
 
     private var content: some View {
@@ -73,25 +88,24 @@ struct BreedListView: View {
         ScrollView {
             VStack {
                 ForEach(model.breeds) {
-                    navigationLinkToDogImages(for: $0)
+                    navigationLinkToAnimalImages(for: $0)
                         .padding()
                 }
                 Spacer()
             }.onOpenURL { url in
-                let name = url.lastPathComponent
-                let breed = Breed(name: name)
-                self.model.selectedBreed = breed
+                let breedName = url.lastPathComponent
+                self.model.selectedBreed = breedName
             }
         }
     }
 
-    private func navigationLinkToDogImages(for breed: Breed) -> some View {
+    private func navigationLinkToAnimalImages(for breed: Breed) -> some View {
         NavigationLink(
-            destination: DogImageGridView(
+            destination: AnimalImageGridView(
                 breed: breed,
-                dogImageListLoader: container.loaders.dogImageListLoader,
+                imageListLoader: imageListLoader,
                 imageDataLoader: container.loaders.imageDataLoader),
-            tag: breed, selection: $model.selectedBreed
+            tag: breed.id, selection: $model.selectedBreed
         ) {
             BreedRow(breed: breed)
         }
