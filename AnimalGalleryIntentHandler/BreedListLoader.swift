@@ -1,6 +1,6 @@
 //
 //  BreedListLoader.swift
-//  DogGallery
+//  AnimalGallery
 //
 //  Created by Shinzan Takata on 2020/07/05.
 //
