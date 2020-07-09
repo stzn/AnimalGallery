@@ -231,21 +231,21 @@
 		D636CC4324B06756008B5685 /* AnimalGalleryWidget */ = {
 			isa = PBXGroup;
 			children = (
+				D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */,
 				D669BA6224B6AB7900FCB69A /* cat.mp3 */,
 				D669BA6124B6AB7900FCB69A /* dog.mp3 */,
-				D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */,
-				D6982E6224B656CC0037305E /* cat */,
-				D6982E6124B656B00037305E /* dog */,
-				D636CC4624B06756008B5685 /* Assets.xcassets */,
 				D636CC4824B06756008B5685 /* Info.plist */,
+				D6982E6924B65CDC0037305E /* AnimalBundle.swift */,
+				D6982E6324B656FB0037305E /* ImageEntry.swift */,
+				D669BA8124B6F84F00FCB69A /* ImageLoadable.swift */,
+				D6982E6524B659290037305E /* ImageTimeline.swift */,
 				D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */,
 				D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */,
-				D6982E6324B656FB0037305E /* ImageEntry.swift */,
-				D6982E6524B659290037305E /* ImageTimeline.swift */,
 				D6982E6724B65C3A0037305E /* WidgetEntryView.swift */,
-				D6982E6924B65CDC0037305E /* AnimalBundle.swift */,
 				D6982E6B24B65D3A0037305E /* WidgetImage.swift */,
-				D669BA8124B6F84F00FCB69A /* ImageLoadable.swift */,
+				D636CC4624B06756008B5685 /* Assets.xcassets */,
+				D6982E6224B656CC0037305E /* cat */,
+				D6982E6124B656B00037305E /* dog */,
 			);
 			path = AnimalGalleryWidget;
 			sourceTree = "<group>";
@@ -260,6 +260,8 @@
 				D6B2CCBF24B00C3400C6B27C /* Breed.swift */,
 				D6B2CCBE24B00C3400C6B27C /* AnimalImage.swift */,
 				D669BA6724B6B88900FCB69A /* AnimalType.swift */,
+				D6B2CCCF24B00C7900C6B27C /* HTTPClient */,
+				D6B2CCC224B00C6C00C6B27C /* WebAPI */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -315,17 +317,16 @@
 		D6B2CCAD24B00BF000C6B27C /* AnimalGallery */ = {
 			isa = PBXGroup;
 			children = (
-				D636CC5F24B10DBA008B5685 /* Shared */,
-				D63C456924B0345700A0E152 /* AnimalImageGrid */,
-				D63C455624B019B700A0E152 /* DIContainer.swift */,
-				D6B2CCD824B0113200C6B27C /* BreedList */,
-				D6B2CCCF24B00C7900C6B27C /* HTTPClient */,
-				D6B2CCC224B00C6C00C6B27C /* WebAPI */,
-				D6B2CCAE24B00BF000C6B27C /* AnimalGalleryApp.swift */,
-				D6B2CCB224B00BF100C6B27C /* Assets.xcassets */,
 				D6B2CCB724B00BF100C6B27C /* Info.plist */,
-				D6B2CCB424B00BF100C6B27C /* Preview Content */,
+				D6B2CCAE24B00BF000C6B27C /* AnimalGalleryApp.swift */,
+				D63C455624B019B700A0E152 /* DIContainer.swift */,
 				D669BA6524B6B7FC00FCB69A /* RootView.swift */,
+				D63C456324B0215300A0E152 /* Stubs.swift */,
+				D6B2CCB224B00BF100C6B27C /* Assets.xcassets */,
+				D63C456924B0345700A0E152 /* AnimalImageGrid */,
+				D6B2CCD824B0113200C6B27C /* BreedList */,
+				D6B2CCB424B00BF100C6B27C /* Preview Content */,
+				D636CC5F24B10DBA008B5685 /* Shared */,
 			);
 			path = AnimalGallery;
 			sourceTree = "<group>";
@@ -347,7 +348,6 @@
 				D6B2CCC624B00C6C00C6B27C /* BreedListLoader.swift */,
 				D6B2CCC724B00C6C00C6B27C /* ImageDataLoader.swift */,
 				D6B2CCC824B00C6C00C6B27C /* WebAPI.swift */,
-				D63C456324B0215300A0E152 /* Stubs.swift */,
 				D669BA6A24B6BF8C00FCB69A /* CatWebAPI.swift */,
 			);
 			path = WebAPI;
