@@ -9,13 +9,6 @@ import AVFoundation
 import Foundation
 import WidgetKit
 
-protocol ImageLoadable {
-    func loadImage(for identifier: String,
-                   entryDate: Date,
-                   refreshDate: Date,
-                   completion: @escaping (ImageEntry) -> Void)
-}
-
 struct ImageTimeline: IntentTimelineProvider {
     typealias Intent = DynamicBreedSelectionIntent
     typealias Entry = ImageEntry

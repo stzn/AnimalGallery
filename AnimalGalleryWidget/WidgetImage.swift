@@ -12,7 +12,6 @@ struct WidgetImage {
     var image: Image
 }
 
-//let snapshotImage = WidgetImage(name: "Loading...", image: Image(systemName: "clock").resizable())
 let dogPlaceholder = WidgetImage(name: "...", image: Image(uiImage: UIImage(named: "dog")!))
 let catPlaceholder = WidgetImage(name: "...", image: Image(uiImage: UIImage(named: "cat")!))
 let errorImage = WidgetImage(name: "error", image: Image(systemName: "mic"))

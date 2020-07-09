@@ -23,25 +23,13 @@ struct CatImageLoader: ImageLoadable {
                    completion: @escaping (ImageEntry) -> Void) {
         if identifier == "random" {
             loadRandom(for: identifier) { result in
-                switch result {
-                case .success(let image):
-                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
-                case .failure:
-                    completion(
-                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
-                    )
-                }
+                let entry = makeEntry(from: result, entryDate: entryDate, refreshDate: refreshDate)
+                completion(entry)
             }
         } else {
             loadRandomInBreed(identifier) { result in
-                switch result {
-                case .success(let image):
-                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
-                case .failure:
-                    completion(
-                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
-                    )
-                }
+                let entry = makeEntry(from: result, entryDate: entryDate, refreshDate: refreshDate)
+                completion(entry)
             }
         }
     }
@@ -51,7 +39,11 @@ struct CatImageLoader: ImageLoadable {
         webAPI.load(limit: 1) { result in
             switch result {
             case .success(let images):
-                loadCatImage(from: images[0].imageURL, for: identifier, completion: completion)
+                guard let url = images.first?.imageURL else {
+                    assertionFailure("should not be nil")
+                    return
+                }
+                loadCatImage(from: url, for: identifier, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -94,7 +86,7 @@ extension CatWebAPI {
         if let breed = breed {
             queryItems.append(URLQueryItem(name: "breed_id", value: breed))
         }
-        guard let request = createURLRequest(
+        guard let request = makeURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
                 queryItems: queryItems) else {
             assertionFailure("should not be nil")

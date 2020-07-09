@@ -20,52 +20,34 @@ class IntentHandler: INExtension, DynamicBreedSelectionIntentHandling {
 
     private func loadBreedList(type: Animal,
                       completion: @escaping ([IntentBreed]) -> Void) {
-        var intents = [randomIntent]
         switch type {
         case .dog:
-            loadDogBreedList { result in
-                if let fetched = try? result.get() {
-                    intents += fetched
-                }
-                completion(intents)
-            }
+            loadDogBreedList(completion: completion)
         case .cat:
-            loadCatBreedList { result in
-                if let fetched = try? result.get() {
-                    intents += fetched
-                }
-                completion(intents)
-            }
+            loadCatBreedList(completion: completion)
         case .unknown:
-            completion(intents)
+            completion([randomIntent])
         }
     }
 
-    private func loadDogBreedList(completion: @escaping (Result<[IntentBreed], Error>) -> Void) {
+    private func loadDogBreedList(completion: @escaping ([IntentBreed]) -> Void) {
         DogWebAPI(client: client)
-            .load { result in
-            switch result {
-            case .success(let breeds):
-                let ordered = breeds.sorted(by: { $0.name < $1.name })
-                    .map { IntentBreed(identifier: $0.id, display: $0.name) }
-                completion(.success(ordered))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+            .load { completion(self.makeIntentBreed(from: $0)) }
     }
 
-    private func loadCatBreedList(completion: @escaping (Result<[IntentBreed], Error>) -> Void) {
+    private func loadCatBreedList(completion: @escaping ([IntentBreed]) -> Void) {
         CatWebAPI(client: client)
-            .load { result in
-            switch result {
-            case .success(let breeds):
-                let ordered = breeds.sorted(by: { $0.name < $1.name })
-                    .map { IntentBreed(identifier: $0.id, display: $0.name) }
-                completion(.success(ordered))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            .load { completion(self.makeIntentBreed(from: $0)) }
+    }
+
+    private func makeIntentBreed(from result: Result<[Breed], Error>) -> [IntentBreed] {
+        switch result {
+        case .success(let breeds):
+            let ordered = breeds.sorted(by: { $0.name < $1.name })
+                .map { IntentBreed(identifier: $0.id, display: $0.name.firstLetterCapitalized) }
+            return [randomIntent] + ordered
+        case .failure:
+            return [randomIntent]
         }
     }
 

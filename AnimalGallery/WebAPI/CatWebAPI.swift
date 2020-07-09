@@ -15,7 +15,7 @@ final class CatWebAPI: WebAPI {
         self.client = client
     }
 
-    func createURLRequest(from url: URL,
+    func makeURLRequest(from url: URL,
                                          queryItems: [URLQueryItem] = []) -> URLRequest? {
         var component = URLComponents(
             url: url,
@@ -39,7 +39,7 @@ extension CatWebAPI: BreedListLoader {
 
     func load(completion: @escaping (Result<[Breed], Error>) -> Void) {
         let url = catAPIbaseURL.appendingPathComponent("breeds")
-        guard let request = createURLRequest(from: url) else {
+        guard let request = makeURLRequest(from: url) else {
             assertionFailure("should not be nil")
             return
         }
@@ -75,7 +75,7 @@ extension CatWebAPI: AnimalImageListLoader {
     }
 
     func load(of breed: BreedType, completion: @escaping (Result<[AnimalImage], Error>) -> Void) {
-        guard let request = createURLRequest(
+        guard let request = makeURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
                 queryItems: [
                     URLQueryItem(name: "breed_id", value: breed),

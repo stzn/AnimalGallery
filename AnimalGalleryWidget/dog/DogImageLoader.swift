@@ -20,25 +20,13 @@ struct DogImageLoader: ImageLoadable {
     func loadImage(for identifier: String, entryDate: Date, refreshDate: Date, completion: @escaping (ImageEntry) -> Void) {
         if identifier == "random" {
             loadRandom { result in
-                switch result {
-                case .success(let image):
-                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
-                case .failure:
-                    completion(
-                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
-                    )
-                }
+                let entry = makeEntry(from: result, entryDate: entryDate, refreshDate: refreshDate)
+                completion(entry)
             }
         } else {
             loadRandomInBreed(identifier) { result in
-                switch result {
-                case .success(let image):
-                    completion(.init(date: entryDate, nextDate: refreshDate, image: image))
-                case .failure:
-                    completion(
-                        ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
-                    )
-                }
+                let entry = makeEntry(from: result, entryDate: entryDate, refreshDate: refreshDate)
+                completion(entry)
             }
         }
     }
