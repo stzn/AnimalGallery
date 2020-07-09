@@ -22,7 +22,7 @@ struct CatImageLoader: ImageLoadable {
                    refreshDate: Date,
                    completion: @escaping (ImageEntry) -> Void) {
         if identifier == "random" {
-            loadRandom(for: identifier) { result in
+            loadRandom { result in
                 let entry = makeEntry(from: result, entryDate: entryDate, refreshDate: refreshDate)
                 completion(entry)
             }
@@ -34,16 +34,11 @@ struct CatImageLoader: ImageLoadable {
         }
     }
 
-    func loadRandom(for identifier: String,
-                    completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        webAPI.load(limit: 1) { result in
+    func loadRandom(completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
+        webAPI.load(limit: 3) { result in
             switch result {
             case .success(let images):
-                guard let url = images.first?.imageURL else {
-                    assertionFailure("should not be nil")
-                    return
-                }
-                loadCatImage(from: url, for: identifier, completion: completion)
+                self.loadCatImages(for: images.map(\.imageURL), completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -51,19 +46,42 @@ struct CatImageLoader: ImageLoadable {
     }
 
     func loadRandomInBreed(_ breed: BreedType,
-                           completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        webAPI.load(of: breed, limit: 1) { result in
+                           completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
+        webAPI.load(of: breed, limit: 3) { result in
             switch result {
             case .success(let images):
-                loadCatImage(from: images[0].imageURL, for: breed, completion: completion)
+                self.loadCatImages(for: images.map(\.imageURL), completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
 
+    private func loadCatImages(for urls: [URL], completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
+        let group = DispatchGroup()
+        let queue = DispatchQueue(label: "CatImageLoaderQueue")
+        var widgetImages: [WidgetImage] = []
+        urls.forEach { url in
+            queue.async(group: group) {
+                group.enter()
+                self.loadCatImage(from: url) { result in
+                    switch result {
+                    case .success(let image):
+                        widgetImages.append(image)
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                    group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: queue) {
+            completion(.success(widgetImages))
+        }
+    }
+
     private func loadCatImage(from url: URL,
-                              for breed: String,
                               completion: @escaping (Result<WidgetImage, Error>) -> Void) {
 
         _ = imageWebLoader.load(from: url) { result in
@@ -72,7 +90,7 @@ struct CatImageLoader: ImageLoadable {
                 guard let image = UIImage(data: data) else {
                     return
                 }
-                completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
+                completion(.success(WidgetImage(name: url.absoluteString, image: Image(uiImage: image))))
             case .failure(let error):
                 completion(.failure(error))
             }

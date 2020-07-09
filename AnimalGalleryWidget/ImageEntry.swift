@@ -11,6 +11,6 @@ import WidgetKit
 struct ImageEntry: TimelineEntry {
     var date: Date
     let nextDate: Date
-    let image: WidgetImage
+    let images: [WidgetImage]
 }
 

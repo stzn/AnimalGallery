@@ -14,74 +14,98 @@ struct WidgetEntryView : View {
 
     @Environment(\.widgetFamily) var family
 
+    var columns: [GridItem] {
+        [GridItem](repeating: GridItem(.flexible(minimum: 20), spacing: 10), count: 2)
+    }
+
     @ViewBuilder
     var body: some View {
         switch family {
-        case .systemMedium:
-            ZStack {
-                Color.white
-                HStack {
-                    entry.image.image
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fill)
-                        .clipped()
-                    VStack {
-                        timeLeftText
-                    }
-                    .padding()
-                }
-            }
-            .widgetURL(widgetURL)
-        default:
+        case .systemSmall:
             ZStack(alignment: .bottom) {
-                Color.white
-                entry.image.image
+                entry.images[0].image
                     .resizable()
                     .aspectRatio(1, contentMode: .fill)
                     .clipped()
-                VStack(spacing: 0) {
-                    timeLeftText
-                }
+                timeLeftText
             }
-            .widgetURL(widgetURL)
+            .widgetURL(widgetURL(entry.images[0].name))
+        case .systemMedium:
+            ZStack {
+                Color.gray
+                HStack {
+                    makeImageList(2)
+                    timeLeftText.padding(.leading, 10)
+                }
+                .padding()
+            }
+        case .systemLarge:
+            ZStack {
+                Color.gray
+                LazyVGrid(columns: columns) {
+                    makeImageList(3)
+                    timeLeftText.padding()
+                }.padding()
+            }
+        @unknown default:
+            fatalError()
         }
     }
 
-    private var widgetURL: URL {
+    private func makeImageList(_ count: Int) -> some View {
+        ForEach(entry.images.prefix(count)) { image in
+            image.image
+                .resizable()
+                .aspectRatio(1, contentMode: .fit)
+                .clipped()
+                .widgetURL(widgetURL(image.name))
+        }
+    }
+
+    private func widgetURL(_ name: String) -> URL {
         switch type {
         case .dog:
-            return URL(string: "\(type.deepLinkScheme):///\(dogURLName)")!
+            return URL(string: "\(type.deepLinkScheme):///\(dogURLName(name))")!
         case .cat:
-            return URL(string: "\(type.deepLinkScheme):///\(catURLName)")!
+            return URL(string: "\(type.deepLinkScheme):///\(catURLName(name))")!
         }
     }
 
-    private var dogURLName: String {
-        let name = entry.image.name.replacingOccurrences(of: " ", with: "")
-        if let index = name.firstIndex(of: "-") {
-            return name.prefix(upTo: index).lowercased()
+    private func dogURLName(_ name: String) -> String {
+        let urlName = name.replacingOccurrences(of: " ", with: "")
+        if let index = urlName.firstIndex(of: "-") {
+            return urlName.prefix(upTo: index).lowercased()
         }
-        return name.lowercased()
+        return urlName.lowercased()
     }
 
-    private var catURLName: String {
-        let name = entry.image.name.replacingOccurrences(of: " ", with: "-")
-        return name.lowercased()
+    private func catURLName(_ name: String) -> String {
+        let urlName = name.replacingOccurrences(of: " ", with: "-")
+        return urlName.lowercased()
     }
 
     private var timeLeftText: some View {
+        let style: Font.TextStyle
         switch family {
         case .systemSmall:
-            return LeftTimeTextView(
+            style = .body
+        case .systemMedium:
+            style = .title3
+        case .systemLarge:
+            style = .largeTitle
+        @unknown default:
+            fatalError()
+        }
+
+        return
+            LeftTimeTextView(
                 date: entry.nextDate,
                 style: .timer, width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.system(.body, design: .monospaced))
-        default:
-            return LeftTimeTextView(date: entry.nextDate, style: .timer, width: 1, color: .white)
-                .foregroundColor(.black)
-                .font(.system(.largeTitle, design: .monospaced))
-        }
+            .foregroundColor(.black)
+            .lineLimit(1)
+            .fixedSize()
+            .font(.system(style, design: .monospaced))
+            .minimumScaleFactor(0.1)
     }
 }
 
@@ -89,8 +113,21 @@ struct Widget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             WidgetEntryView(type: .dog,
-                            entry: .init(date: Date(), nextDate: Date(), image: dogPlaceholder))
+                            entry: createEntry(1))
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+            WidgetEntryView(type: .dog,
+                            entry: createEntry(2))
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
+            WidgetEntryView(
+                type: .dog,
+                entry: createEntry(3))
+                .previewContext(WidgetPreviewContext(family: .systemLarge))
         }
+    }
+
+    private static func createEntry(_ count: Int) -> ImageEntry {
+        .init(date: Date(),
+              nextDate: Date(),
+              images: [WidgetImage](repeating: catPlaceholder, count: count))
     }
 }

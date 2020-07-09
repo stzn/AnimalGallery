@@ -12,7 +12,11 @@ struct WidgetImage {
     var image: Image
 }
 
-let dogPlaceholder = WidgetImage(name: "...", image: Image(uiImage: UIImage(named: "dog")!))
-let catPlaceholder = WidgetImage(name: "...", image: Image(uiImage: UIImage(named: "cat")!))
+extension WidgetImage: Identifiable {
+    var id: String { name }
+}
+
+let dogPlaceholder = WidgetImage(name: "...", image: Image("dog"))
+let catPlaceholder = WidgetImage(name: "...", image: Image("cat"))
 let errorImage = WidgetImage(name: "error", image: Image(systemName: "mic"))
 

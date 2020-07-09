@@ -34,7 +34,7 @@ struct ImageTimeline: IntentTimelineProvider {
 
         let entry = Entry(date: currentDate,
                           nextDate: currentDate,
-                          image: placeholder)
+                          images: [WidgetImage](repeating: placeholder, count: 3))
         completion(entry)
     }
 

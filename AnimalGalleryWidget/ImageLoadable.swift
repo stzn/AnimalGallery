@@ -15,12 +15,12 @@ protocol ImageLoadable {
                    completion: @escaping (ImageEntry) -> Void)
 }
 
-func makeEntry(from result: Result<WidgetImage, Error>,
+func makeEntry(from result: Result<[WidgetImage], Error>,
                        entryDate: Date, refreshDate: Date) -> ImageEntry {
     switch result {
-    case .success(let image):
-        return ImageEntry(date: entryDate, nextDate: refreshDate, image: image)
+    case .success(let images):
+        return ImageEntry(date: entryDate, nextDate: refreshDate, images: images)
     case .failure:
-        return ImageEntry(date: entryDate, nextDate: refreshDate, image: errorImage)
+        return ImageEntry(date: entryDate, nextDate: refreshDate, images: [errorImage])
     }
 }

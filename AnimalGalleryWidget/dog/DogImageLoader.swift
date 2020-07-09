@@ -31,11 +31,11 @@ struct DogImageLoader: ImageLoadable {
         }
     }
 
-    func loadRandom(completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        webAPI.loadRandom { result in
+    func loadRandom(completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
+        webAPI.loadRandom(count: 3) { result in
             switch result {
-            case .success(let url):
-                loadDogImage(from: url, completion: completion)
+            case .success(let urls):
+                loadDogImages(for: urls, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -43,14 +43,39 @@ struct DogImageLoader: ImageLoadable {
     }
 
     func loadRandomInBreed(_ breedName: BreedType,
-                                  completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+                           completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
         webAPI.load(of: breedName) { result in
             switch result {
             case .success(let images):
-                loadDogImage(from: images[0].imageURL, completion: completion)
+                let urls = images.prefix(3).map(\.imageURL)
+                loadDogImages(for: urls, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
+        }
+    }
+
+    private func loadDogImages(for urls: [URL], completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
+        let group = DispatchGroup()
+        let queue = DispatchQueue(label: "DogImageLoaderQueue")
+        var widgetImages: [WidgetImage] = []
+        urls.forEach { url in
+            queue.async(group: group) {
+                group.enter()
+                self.loadDogImage(from: url) { result in
+                    switch result {
+                    case .success(let image):
+                        widgetImages.append(image)
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                    group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: queue) {
+            completion(.success(widgetImages))
         }
     }
 
@@ -77,19 +102,19 @@ struct DogImageLoader: ImageLoadable {
 
 extension DogWebAPI {
     struct WidgetDogImageModel: Decodable {
-        let message: String
+        let message: [String]
         let status: String
     }
 
-    func loadRandom(completion: @escaping (Result<URL, Error>) -> Void) {
+    func loadRandom(
+        count: Int,
+        completion: @escaping (Result<[URL], Error>) -> Void) {
         call(WidgetDogImageModel.self,
-             URLRequest(url: baseURL.appendingPathComponent("breeds/image/random"))) { result in
+             URLRequest(url: baseURL.appendingPathComponent("breeds/image/random/\(count)"))) { result in
             switch result {
             case .success(let model):
-                guard let url = URL(string: model.message) else {
-                    return
-                }
-                completion(.success(url))
+                let urls = model.message.compactMap(URL.init(string:))
+                completion(.success(urls))
             case .failure(let error):
                 completion(.failure(error))
             }
