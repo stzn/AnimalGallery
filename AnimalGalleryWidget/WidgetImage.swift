@@ -10,13 +10,6 @@ import SwiftUI
 struct WidgetImage {
     var name: String
     var image: Image
-
-    var breedName: String {
-        if let index = name.firstIndex(of: "-") {
-            return name.prefix(upTo: index).lowercased()
-        }
-        return name.lowercased()
-    }
 }
 
 let snapshotImage = WidgetImage(name: "Loading...", image: Image(systemName: "clock"))

@@ -149,7 +149,6 @@ struct CatImageLoader: ImageLoadable {
             return nil
         }
         var request = URLRequest(url: url)
-        // please get your own api key(https://thecatapi.com/)
         request.addValue(catAPIKey, forHTTPHeaderField: "x-api-key")
         return request
     }
