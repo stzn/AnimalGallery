@@ -73,6 +73,29 @@
 		D67B138C24B5084D00A37BA9 /* CatImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */; };
 		D67B565B24B7C86A00FAD694 /* BubbleBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B565A24B7C86A00FAD694 /* BubbleBackground.swift */; };
 		D67B565D24B7C89A00FAD694 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B565C24B7C89A00FAD694 /* BubbleView.swift */; };
+		D67B565F24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D67B565E24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition */; };
+		D67B566024B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D67B565E24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition */; };
+		D67B566D24B7EC6A00FAD694 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B566C24B7EC6A00FAD694 /* IntentHandler.swift */; };
+		D67B567124B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D67B566A24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D67B567524B7ECBC00FAD694 /* DynamicCatBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D67B565E24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition */; };
+		D67B567624B7ED0900FAD694 /* DogWebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC424B00C6C00C6B27C /* DogWebAPI.swift */; };
+		D67B567724B7ED0900FAD694 /* BreedListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC624B00C6C00C6B27C /* BreedListLoader.swift */; };
+		D67B567824B7ED0900FAD694 /* CatWebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D669BA6A24B6BF8C00FCB69A /* CatWebAPI.swift */; };
+		D67B567924B7ED0900FAD694 /* AnimalImageListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC524B00C6C00C6B27C /* AnimalImageListLoader.swift */; };
+		D67B567A24B7ED0900FAD694 /* ImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC724B00C6C00C6B27C /* ImageDataLoader.swift */; };
+		D67B567B24B7ED0900FAD694 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC824B00C6C00C6B27C /* WebAPI.swift */; };
+		D67B567C24B7ED0900FAD694 /* ImageDataWebLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC324B00C6C00C6B27C /* ImageDataWebLoader.swift */; };
+		D67B567D24B7ED0D00FAD694 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */; };
+		D67B567E24B7ED0D00FAD694 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD324B00C7900C6B27C /* Response.swift */; };
+		D67B567F24B7ED0D00FAD694 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
+		D67B568024B7ED0D00FAD694 /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */; };
+		D67B568124B7ED1800FAD694 /* AnimalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBE24B00C3400C6B27C /* AnimalImage.swift */; };
+		D67B568224B7ED1800FAD694 /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBF24B00C3400C6B27C /* Breed.swift */; };
+		D67B568324B7ED1800FAD694 /* AnimalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D669BA6724B6B88900FCB69A /* AnimalType.swift */; };
+		D67B568424B7ED2000FAD694 /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6024B10DCD008B5685 /* SharedTypes.swift */; };
+		D67B568524B7ED2800FAD694 /* SharedVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6324B10DF4008B5685 /* SharedVariables.swift */; };
+		D67B568624B7ED2F00FAD694 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
+		D67B568924B7ED6A00FAD694 /* CatImageTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B568724B7ED6A00FAD694 /* CatImageTimeline.swift */; };
 		D6982E6424B656FB0037305E /* ImageEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6324B656FB0037305E /* ImageEntry.swift */; };
 		D6982E6624B659290037305E /* ImageTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6524B659290037305E /* ImageTimeline.swift */; };
 		D6982E6824B65C3A0037305E /* WidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6724B65C3A0037305E /* WidgetEntryView.swift */; };
@@ -112,6 +135,13 @@
 			remoteGlobalIDString = D636CC3C24B06756008B5685;
 			remoteInfo = DogGalleryWidgetExtension;
 		};
+		D67B566F24B7EC6A00FAD694 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6B2CCA324B00BF000C6B27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D67B566924B7EC6A00FAD694;
+			remoteInfo = CatGalleryWidgetIntentHandler;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -121,6 +151,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D67B567124B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex in Embed App Extensions */,
 				D636CC4B24B06756008B5685 /* AnimalGalleryWidgetExtension.appex in Embed App Extensions */,
 				D605CC7724B1CADE00C2DA6D /* AnimalGalleryIntentHandler.appex in Embed App Extensions */,
 			);
@@ -161,6 +192,11 @@
 		D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatImageLoader.swift; sourceTree = "<group>"; };
 		D67B565A24B7C86A00FAD694 /* BubbleBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleBackground.swift; sourceTree = "<group>"; };
 		D67B565C24B7C89A00FAD694 /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
+		D67B565E24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DynamicCatBreedSelection.intentdefinition; sourceTree = "<group>"; };
+		D67B566A24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CatGalleryWidgetIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D67B566C24B7EC6A00FAD694 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		D67B566E24B7EC6A00FAD694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D67B568724B7ED6A00FAD694 /* CatImageTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatImageTimeline.swift; sourceTree = "<group>"; };
 		D6982E6324B656FB0037305E /* ImageEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntry.swift; sourceTree = "<group>"; };
 		D6982E6524B659290037305E /* ImageTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTimeline.swift; sourceTree = "<group>"; };
 		D6982E6724B65C3A0037305E /* WidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntryView.swift; sourceTree = "<group>"; };
@@ -204,6 +240,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D67B566724B7EC6A00FAD694 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6B2CCA824B00BF000C6B27C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */,
+				D67B565E24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition */,
 				D669BA6224B6AB7900FCB69A /* cat.mp3 */,
 				D669BA6124B6AB7900FCB69A /* dog.mp3 */,
 				D636CC4824B06756008B5685 /* Info.plist */,
@@ -281,6 +325,15 @@
 			path = AnimalImageGrid;
 			sourceTree = "<group>";
 		};
+		D67B566B24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler */ = {
+			isa = PBXGroup;
+			children = (
+				D67B566C24B7EC6A00FAD694 /* IntentHandler.swift */,
+				D67B566E24B7EC6A00FAD694 /* Info.plist */,
+			);
+			path = CatGalleryWidgetIntentHandler;
+			sourceTree = "<group>";
+		};
 		D6982E6124B656B00037305E /* dog */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +348,7 @@
 			children = (
 				D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */,
 				D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */,
+				D67B568724B7ED6A00FAD694 /* CatImageTimeline.swift */,
 			);
 			path = cat;
 			sourceTree = "<group>";
@@ -305,6 +359,7 @@
 				D6B2CCAD24B00BF000C6B27C /* AnimalGallery */,
 				D636CC4324B06756008B5685 /* AnimalGalleryWidget */,
 				D605CC7124B1CADD00C2DA6D /* AnimalGalleryIntentHandler */,
+				D67B566B24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler */,
 				D636CC3E24B06756008B5685 /* Frameworks */,
 				D6B2CCAC24B00BF000C6B27C /* Products */,
 			);
@@ -316,6 +371,7 @@
 				D6B2CCAB24B00BF000C6B27C /* AnimalGallery.app */,
 				D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */,
 				D605CC7024B1CADD00C2DA6D /* AnimalGalleryIntentHandler.appex */,
+				D67B566A24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -416,6 +472,23 @@
 			productReference = D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		D67B566924B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D67B567224B7EC6A00FAD694 /* Build configuration list for PBXNativeTarget "CatGalleryWidgetIntentHandler" */;
+			buildPhases = (
+				D67B566624B7EC6A00FAD694 /* Sources */,
+				D67B566724B7EC6A00FAD694 /* Frameworks */,
+				D67B566824B7EC6A00FAD694 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CatGalleryWidgetIntentHandler;
+			productName = CatGalleryWidgetIntentHandler;
+			productReference = D67B566A24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		D6B2CCAA24B00BF000C6B27C /* AnimalGallery */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D6B2CCBA24B00BF100C6B27C /* Build configuration list for PBXNativeTarget "AnimalGallery" */;
@@ -430,6 +503,7 @@
 			dependencies = (
 				D636CC4A24B06756008B5685 /* PBXTargetDependency */,
 				D605CC7624B1CADE00C2DA6D /* PBXTargetDependency */,
+				D67B567024B7EC6A00FAD694 /* PBXTargetDependency */,
 			);
 			name = AnimalGallery;
 			productName = DogGallery;
@@ -449,6 +523,9 @@
 						CreatedOnToolsVersion = 12.0;
 					};
 					D636CC3C24B06756008B5685 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					D67B566924B7EC6A00FAD694 = {
 						CreatedOnToolsVersion = 12.0;
 					};
 					D6B2CCAA24B00BF000C6B27C = {
@@ -472,6 +549,7 @@
 				D6B2CCAA24B00BF000C6B27C /* AnimalGallery */,
 				D636CC3C24B06756008B5685 /* AnimalGalleryWidgetExtension */,
 				D605CC6F24B1CADD00C2DA6D /* AnimalGalleryIntentHandler */,
+				D67B566924B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler */,
 			);
 		};
 /* End PBXProject section */
@@ -491,6 +569,13 @@
 				D669BA6424B6AB7A00FCB69A /* cat.mp3 in Resources */,
 				D636CC4724B06756008B5685 /* Assets.xcassets in Resources */,
 				D669BA6324B6AB7A00FCB69A /* dog.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D67B566824B7EC6A00FAD694 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +634,7 @@
 				D67B138824B5073400A37BA9 /* CatGalleryWidget.swift in Sources */,
 				D636CC5E24B06F7A008B5685 /* DogImageLoader.swift in Sources */,
 				D636CC6924B11955008B5685 /* StrokeText.swift in Sources */,
+				D67B566024B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition in Sources */,
 				D636CC6224B10DE1008B5685 /* SharedTypes.swift in Sources */,
 				D669BA7A24B6E0F400FCB69A /* WebAPI.swift in Sources */,
 				D636CC5024B0685C008B5685 /* AnimalImage.swift in Sources */,
@@ -566,9 +652,36 @@
 				D636CC5724B06886008B5685 /* HTTPClient.swift in Sources */,
 				D605CC8D24B270A500C2DA6D /* PlaceholderView.swift in Sources */,
 				D67B565B24B7C86A00FAD694 /* BubbleBackground.swift in Sources */,
+				D67B568924B7ED6A00FAD694 /* CatImageTimeline.swift in Sources */,
 				D67B565D24B7C89A00FAD694 /* BubbleView.swift in Sources */,
 				D669BA7C24B6E10100FCB69A /* AnimalImageListLoader.swift in Sources */,
 				D636CC4524B06756008B5685 /* DogGalleryWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D67B566624B7EC6A00FAD694 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D67B567624B7ED0900FAD694 /* DogWebAPI.swift in Sources */,
+				D67B567D24B7ED0D00FAD694 /* URLSessionHTTPClient.swift in Sources */,
+				D67B567F24B7ED0D00FAD694 /* HTTPClient.swift in Sources */,
+				D67B568224B7ED1800FAD694 /* Breed.swift in Sources */,
+				D67B568024B7ED0D00FAD694 /* HTTPClientError.swift in Sources */,
+				D67B568624B7ED2F00FAD694 /* String+.swift in Sources */,
+				D67B567824B7ED0900FAD694 /* CatWebAPI.swift in Sources */,
+				D67B567724B7ED0900FAD694 /* BreedListLoader.swift in Sources */,
+				D67B566D24B7EC6A00FAD694 /* IntentHandler.swift in Sources */,
+				D67B567A24B7ED0900FAD694 /* ImageDataLoader.swift in Sources */,
+				D67B567924B7ED0900FAD694 /* AnimalImageListLoader.swift in Sources */,
+				D67B567E24B7ED0D00FAD694 /* Response.swift in Sources */,
+				D67B567524B7ECBC00FAD694 /* DynamicCatBreedSelection.intentdefinition in Sources */,
+				D67B568524B7ED2800FAD694 /* SharedVariables.swift in Sources */,
+				D67B567C24B7ED0900FAD694 /* ImageDataWebLoader.swift in Sources */,
+				D67B567B24B7ED0900FAD694 /* WebAPI.swift in Sources */,
+				D67B568424B7ED2000FAD694 /* SharedTypes.swift in Sources */,
+				D67B568124B7ED1800FAD694 /* AnimalImage.swift in Sources */,
+				D67B568324B7ED1800FAD694 /* AnimalType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +716,7 @@
 				D6B2CCD524B00C7900C6B27C /* URLSessionHTTPClient.swift in Sources */,
 				D63C456424B0215300A0E152 /* Stubs.swift in Sources */,
 				D669BA6624B6B7FC00FCB69A /* RootView.swift in Sources */,
+				D67B565F24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +732,11 @@
 			isa = PBXTargetDependency;
 			target = D636CC3C24B06756008B5685 /* AnimalGalleryWidgetExtension */;
 			targetProxy = D636CC4924B06756008B5685 /* PBXContainerItemProxy */;
+		};
+		D67B567024B7EC6A00FAD694 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D67B566924B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler */;
+			targetProxy = D67B566F24B7EC6A00FAD694 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -697,6 +816,44 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.AnimalGallery.AnimalGalleryWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D67B567324B7EC6A00FAD694 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8VFCZLW2Z;
+				INFOPLIST_FILE = CatGalleryWidgetIntentHandler/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.AnimalGallery.CatGalleryWidgetIntentHandler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D67B567424B7EC6A00FAD694 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8VFCZLW2Z;
+				INFOPLIST_FILE = CatGalleryWidgetIntentHandler/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.AnimalGallery.CatGalleryWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -883,6 +1040,15 @@
 			buildConfigurations = (
 				D636CC4D24B06757008B5685 /* Debug */,
 				D636CC4E24B06757008B5685 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D67B567224B7EC6A00FAD694 /* Build configuration list for PBXNativeTarget "CatGalleryWidgetIntentHandler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D67B567324B7EC6A00FAD694 /* Debug */,
+				D67B567424B7EC6A00FAD694 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
