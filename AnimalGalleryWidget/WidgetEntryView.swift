@@ -30,7 +30,7 @@ struct WidgetEntryView : View {
                         .clipped()
                     timeLeftText
                 }
-                .widgetURL(widgetURL(image.name))
+                .widgetURL(widgetURL(image.widgetURLKey))
             } else {
                 ZStack(alignment: .bottom) {
                     BubbleBackground()
@@ -69,29 +69,24 @@ struct WidgetEntryView : View {
                 .cornerRadius(10)
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.white, lineWidth: 4))
-                .widgetURL(widgetURL(image.name))
+                .widgetURL(widgetURL(image.widgetURLKey))
         }
     }
 
-    private func widgetURL(_ name: String) -> URL {
+    private func widgetURL(_ key: String) -> URL {
         switch type {
         case .dog:
-            return URL(string: "\(type.deepLinkScheme):///\(dogURLName(name))")!
+            return URL(string: "\(type.deepLinkScheme):///\(dogURLName(key))")!
         case .cat:
-            return URL(string: "\(type.deepLinkScheme):///\(catURLName(name))")!
+            return URL(string: "\(type.deepLinkScheme):///\(key)")!
         }
     }
 
-    private func dogURLName(_ name: String) -> String {
-        let urlName = name.replacingOccurrences(of: " ", with: "")
+    private func dogURLName(_ key: String) -> String {
+        let urlName = key.replacingOccurrences(of: " ", with: "")
         if let index = urlName.firstIndex(of: "-") {
             return urlName.prefix(upTo: index).lowercased()
         }
-        return urlName.lowercased()
-    }
-
-    private func catURLName(_ name: String) -> String {
-        let urlName = name.replacingOccurrences(of: " ", with: "-")
         return urlName.lowercased()
     }
 

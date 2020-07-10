@@ -11,13 +11,18 @@ struct WidgetImage: Identifiable {
     var id: String
     var name: String
     var image: Image
+    var widgetURLKey: String
 }
 
 var anyID: String {
     UUID().uuidString
 }
 
-let dogPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("dog"))
-let catPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("cat"))
-let errorImage = WidgetImage(id: anyID, name: "error", image: Image(systemName: "mic"))
+var anyKey: String {
+    UUID().uuidString
+}
+
+let dogPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("dog"), widgetURLKey: anyKey)
+let catPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("cat"), widgetURLKey: anyKey)
+let errorImage = WidgetImage(id: anyID, name: "error", image: Image(systemName: "mic"), widgetURLKey: anyKey)
 
