@@ -38,7 +38,7 @@ struct CatImageLoader: ImageLoadable {
         webAPI.load(limit: 3) { result in
             switch result {
             case .success(let images):
-                self.loadCatImages(for: images.map(\.imageURL), completion: completion)
+                self.loadCatImages(from: images.map(\.imageURL), for: "random", completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -50,21 +50,22 @@ struct CatImageLoader: ImageLoadable {
         webAPI.load(of: breed, limit: 3) { result in
             switch result {
             case .success(let images):
-                self.loadCatImages(for: images.map(\.imageURL), completion: completion)
+                self.loadCatImages(from: images.map(\.imageURL), for: breed, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
 
-    private func loadCatImages(for urls: [URL], completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
+    private func loadCatImages(from urls: [URL], for breed: BreedType,
+                               completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
         let group = DispatchGroup()
         let queue = DispatchQueue(label: "CatImageLoaderQueue")
         var widgetImages: [WidgetImage] = []
         urls.forEach { url in
             queue.async(group: group) {
                 group.enter()
-                self.loadCatImage(from: url) { result in
+                self.loadCatImage(from: url, for: breed) { result in
                     switch result {
                     case .success(let image):
                         widgetImages.append(image)
@@ -82,6 +83,7 @@ struct CatImageLoader: ImageLoadable {
     }
 
     private func loadCatImage(from url: URL,
+                              for breed: BreedType,
                               completion: @escaping (Result<WidgetImage, Error>) -> Void) {
 
         _ = imageWebLoader.load(from: url) { result in
@@ -90,7 +92,7 @@ struct CatImageLoader: ImageLoadable {
                 guard let image = UIImage(data: data) else {
                     return
                 }
-                completion(.success(WidgetImage(name: url.absoluteString, image: Image(uiImage: image))))
+                completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
             case .failure(let error):
                 completion(.failure(error))
             }
