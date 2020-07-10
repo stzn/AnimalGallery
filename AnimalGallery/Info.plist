@@ -22,8 +22,8 @@
 	<true/>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>DynamicBreedSelectionIntent</string>
 		<string>DynamicCatBreedSelectionIntent</string>
+		<string>DynamicDogBreedSelectionIntent</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

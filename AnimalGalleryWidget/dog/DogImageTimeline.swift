@@ -1,5 +1,5 @@
 //
-//  ImageTimeline.swift
+//  DogImageTimeline.swift
 //  AnimalGalleryWidgetExtension
 //
 //  Created by Shinzan Takata on 2020/07/09.
@@ -9,14 +9,12 @@ import AVFoundation
 import Foundation
 import WidgetKit
 
-struct ImageTimeline: IntentTimelineProvider {
-    typealias Intent = DynamicBreedSelectionIntent
+struct DogImageTimeline: IntentTimelineProvider {
+    typealias Intent = DynamicDogBreedSelectionIntent
     typealias Entry = ImageEntry
 
-    private let animaltype: AnimalType
     private let imageLoader: ImageLoadable
-    init(animaltype: AnimalType, imageLoader: ImageLoadable) {
-        self.animaltype = animaltype
+    init(imageLoader: ImageLoadable) {
         self.imageLoader = imageLoader
     }
 
@@ -24,14 +22,7 @@ struct ImageTimeline: IntentTimelineProvider {
                   completion: @escaping (Entry) -> ()) {
         let currentDate = Date()
 
-        let placeholder: WidgetImage
-        switch animaltype {
-        case .dog:
-            placeholder = dogPlaceholder
-        case .cat:
-            placeholder = catPlaceholder
-        }
-
+        let placeholder = dogPlaceholder
         let entry = Entry(date: currentDate,
                           nextDate: currentDate,
                           images: [WidgetImage](repeating: placeholder, count: 3))
@@ -40,7 +31,7 @@ struct ImageTimeline: IntentTimelineProvider {
 
     func timeline(for configuration: Intent, with context: Context,
                   completion: @escaping (Timeline<Entry>) -> ()) {
-        let identifier = configuration.intentBreed?.identifier ?? "random"
+        let identifier = configuration.dogBreed?.identifier ?? "random"
         let entryDate = Date()
         let refreshDate = Calendar.current.date(
             byAdding: .minute, value: 60, to: entryDate)!
@@ -52,13 +43,7 @@ struct ImageTimeline: IntentTimelineProvider {
 
     private func notifyUpdate() {
         var soundIdRing: SystemSoundID = 0
-        let soundURL: URL
-        switch animaltype {
-        case .dog:
-            soundURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "dog", ofType:"mp3")!)
-        case .cat:
-            soundURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "cat", ofType:"mp3")!)
-        }
+        let soundURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "dog", ofType:"mp3")!)
         AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundIdRing)
         AudioServicesPlaySystemSound(soundIdRing)
     }

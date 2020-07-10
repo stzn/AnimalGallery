@@ -30,7 +30,6 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>DynamicCatBreedSelection</string>
 				<string>DynamicCatBreedSelectionIntent</string>
 			</array>
 		</dict>

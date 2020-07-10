@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		D605CC7324B1CADD00C2DA6D /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7224B1CADD00C2DA6D /* IntentHandler.swift */; };
-		D605CC7724B1CADE00C2DA6D /* AnimalGalleryIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D605CC7024B1CADD00C2DA6D /* AnimalGalleryIntentHandler.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D605CC7D24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */; };
+		D605CC7724B1CADE00C2DA6D /* DogWidgetGalleryIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D605CC7024B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D605CC7D24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7B24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition */; };
 		D605CC8124B1CD1D00C2DA6D /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
 		D605CC8224B1CD1D00C2DA6D /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6024B10DCD008B5685 /* SharedTypes.swift */; };
 		D605CC8324B1CD1D00C2DA6D /* SharedVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6324B10DF4008B5685 /* SharedVariables.swift */; };
 		D605CC8424B1CD1D00C2DA6D /* StrokeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6724B118A9008B5685 /* StrokeText.swift */; };
-		D605CC8624B1D20E00C2DA6D /* DynamicBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */; };
-		D605CC8824B1E0C400C2DA6D /* DynamicBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */; };
+		D605CC8624B1D20E00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7B24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition */; };
+		D605CC8824B1E0C400C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7B24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition */; };
 		D605CC8924B26E2100C2DA6D /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBF24B00C3400C6B27C /* Breed.swift */; };
 		D605CC8D24B270A500C2DA6D /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */; };
 		D636CC3824B06424008B5685 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
@@ -97,7 +97,7 @@
 		D67B568624B7ED2F00FAD694 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
 		D67B568924B7ED6A00FAD694 /* CatImageTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B568724B7ED6A00FAD694 /* CatImageTimeline.swift */; };
 		D6982E6424B656FB0037305E /* ImageEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6324B656FB0037305E /* ImageEntry.swift */; };
-		D6982E6624B659290037305E /* ImageTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6524B659290037305E /* ImageTimeline.swift */; };
+		D6982E6624B659290037305E /* DogImageTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6524B659290037305E /* DogImageTimeline.swift */; };
 		D6982E6824B65C3A0037305E /* WidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6724B65C3A0037305E /* WidgetEntryView.swift */; };
 		D6982E6A24B65CDC0037305E /* AnimalBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6924B65CDC0037305E /* AnimalBundle.swift */; };
 		D6982E6C24B65D3A0037305E /* WidgetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6982E6B24B65D3A0037305E /* WidgetImage.swift */; };
@@ -153,7 +153,7 @@
 			files = (
 				D67B567124B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex in Embed App Extensions */,
 				D636CC4B24B06756008B5685 /* AnimalGalleryWidgetExtension.appex in Embed App Extensions */,
-				D605CC7724B1CADE00C2DA6D /* AnimalGalleryIntentHandler.appex in Embed App Extensions */,
+				D605CC7724B1CADE00C2DA6D /* DogWidgetGalleryIntentHandler.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,10 +161,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D605CC7024B1CADD00C2DA6D /* AnimalGalleryIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnimalGalleryIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D605CC7024B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DogWidgetGalleryIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D605CC7224B1CADD00C2DA6D /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		D605CC7424B1CADE00C2DA6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DynamicBreedSelection.intentdefinition; sourceTree = "<group>"; };
+		D605CC7B24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DynamicDogBreedSelection.intentdefinition; sourceTree = "<group>"; };
 		D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		D636CC3724B06424008B5685 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnimalGalleryWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,7 +198,7 @@
 		D67B566E24B7EC6A00FAD694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D67B568724B7ED6A00FAD694 /* CatImageTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatImageTimeline.swift; sourceTree = "<group>"; };
 		D6982E6324B656FB0037305E /* ImageEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntry.swift; sourceTree = "<group>"; };
-		D6982E6524B659290037305E /* ImageTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTimeline.swift; sourceTree = "<group>"; };
+		D6982E6524B659290037305E /* DogImageTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImageTimeline.swift; sourceTree = "<group>"; };
 		D6982E6724B65C3A0037305E /* WidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntryView.swift; sourceTree = "<group>"; };
 		D6982E6924B65CDC0037305E /* AnimalBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalBundle.swift; sourceTree = "<group>"; };
 		D6982E6B24B65D3A0037305E /* WidgetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetImage.swift; sourceTree = "<group>"; };
@@ -257,13 +257,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D605CC7124B1CADD00C2DA6D /* AnimalGalleryIntentHandler */ = {
+		D605CC7124B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler */ = {
 			isa = PBXGroup;
 			children = (
 				D605CC7224B1CADD00C2DA6D /* IntentHandler.swift */,
 				D605CC7424B1CADE00C2DA6D /* Info.plist */,
 			);
-			path = AnimalGalleryIntentHandler;
+			path = DogWidgetGalleryIntentHandler;
 			sourceTree = "<group>";
 		};
 		D636CC3E24B06756008B5685 /* Frameworks */ = {
@@ -278,7 +278,7 @@
 		D636CC4324B06756008B5685 /* AnimalGalleryWidget */ = {
 			isa = PBXGroup;
 			children = (
-				D605CC7B24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition */,
+				D605CC7B24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition */,
 				D67B565E24B7DE1D00FAD694 /* DynamicCatBreedSelection.intentdefinition */,
 				D669BA6224B6AB7900FCB69A /* cat.mp3 */,
 				D669BA6124B6AB7900FCB69A /* dog.mp3 */,
@@ -288,7 +288,6 @@
 				D67B565C24B7C89A00FAD694 /* BubbleView.swift */,
 				D6982E6324B656FB0037305E /* ImageEntry.swift */,
 				D669BA8124B6F84F00FCB69A /* ImageLoadable.swift */,
-				D6982E6524B659290037305E /* ImageTimeline.swift */,
 				D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */,
 				D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */,
 				D6982E6724B65C3A0037305E /* WidgetEntryView.swift */,
@@ -337,6 +336,7 @@
 		D6982E6124B656B00037305E /* dog */ = {
 			isa = PBXGroup;
 			children = (
+				D6982E6524B659290037305E /* DogImageTimeline.swift */,
 				D636CC4424B06756008B5685 /* DogGalleryWidget.swift */,
 				D636CC5C24B068CD008B5685 /* DogImageLoader.swift */,
 			);
@@ -358,7 +358,7 @@
 			children = (
 				D6B2CCAD24B00BF000C6B27C /* AnimalGallery */,
 				D636CC4324B06756008B5685 /* AnimalGalleryWidget */,
-				D605CC7124B1CADD00C2DA6D /* AnimalGalleryIntentHandler */,
+				D605CC7124B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler */,
 				D67B566B24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler */,
 				D636CC3E24B06756008B5685 /* Frameworks */,
 				D6B2CCAC24B00BF000C6B27C /* Products */,
@@ -370,7 +370,7 @@
 			children = (
 				D6B2CCAB24B00BF000C6B27C /* AnimalGallery.app */,
 				D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */,
-				D605CC7024B1CADD00C2DA6D /* AnimalGalleryIntentHandler.appex */,
+				D605CC7024B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler.appex */,
 				D67B566A24B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler.appex */,
 			);
 			name = Products;
@@ -438,9 +438,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D605CC6F24B1CADD00C2DA6D /* AnimalGalleryIntentHandler */ = {
+		D605CC6F24B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D605CC7A24B1CADE00C2DA6D /* Build configuration list for PBXNativeTarget "AnimalGalleryIntentHandler" */;
+			buildConfigurationList = D605CC7A24B1CADE00C2DA6D /* Build configuration list for PBXNativeTarget "DogWidgetGalleryIntentHandler" */;
 			buildPhases = (
 				D605CC6C24B1CADD00C2DA6D /* Sources */,
 				D605CC6D24B1CADD00C2DA6D /* Frameworks */,
@@ -450,9 +450,9 @@
 			);
 			dependencies = (
 			);
-			name = AnimalGalleryIntentHandler;
+			name = DogWidgetGalleryIntentHandler;
 			productName = DogGalleryIntentHandler;
-			productReference = D605CC7024B1CADD00C2DA6D /* AnimalGalleryIntentHandler.appex */;
+			productReference = D605CC7024B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		D636CC3C24B06756008B5685 /* AnimalGalleryWidgetExtension */ = {
@@ -548,7 +548,7 @@
 			targets = (
 				D6B2CCAA24B00BF000C6B27C /* AnimalGallery */,
 				D636CC3C24B06756008B5685 /* AnimalGalleryWidgetExtension */,
-				D605CC6F24B1CADD00C2DA6D /* AnimalGalleryIntentHandler */,
+				D605CC6F24B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler */,
 				D67B566924B7EC6A00FAD694 /* CatGalleryWidgetIntentHandler */,
 			);
 		};
@@ -600,7 +600,7 @@
 				D605CC8324B1CD1D00C2DA6D /* SharedVariables.swift in Sources */,
 				D669BA7724B6D44C00FCB69A /* AnimalImage.swift in Sources */,
 				D669BA7F24B6E3DE00FCB69A /* ImageDataLoader.swift in Sources */,
-				D605CC7D24B1CB2D00C2DA6D /* DynamicBreedSelection.intentdefinition in Sources */,
+				D605CC7D24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */,
 				D669BA7424B6D2BE00FCB69A /* Response.swift in Sources */,
 				D669BA7524B6D2CF00FCB69A /* BreedListLoader.swift in Sources */,
 				D669BA7D24B6E2AA00FCB69A /* ImageDataWebLoader.swift in Sources */,
@@ -622,7 +622,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D636CC6524B10E12008B5685 /* SharedVariables.swift in Sources */,
-				D6982E6624B659290037305E /* ImageTimeline.swift in Sources */,
+				D6982E6624B659290037305E /* DogImageTimeline.swift in Sources */,
 				D636CC6C24B15033008B5685 /* LeftTimeTextView.swift in Sources */,
 				D669BA7E24B6E2AB00FCB69A /* ImageDataWebLoader.swift in Sources */,
 				D636CC5B24B068A4008B5685 /* Breed.swift in Sources */,
@@ -630,7 +630,7 @@
 				D6982E6424B656FB0037305E /* ImageEntry.swift in Sources */,
 				D669BA8024B6E3DF00FCB69A /* ImageDataLoader.swift in Sources */,
 				D636CC5624B06886008B5685 /* HTTPClientError.swift in Sources */,
-				D605CC8624B1D20E00C2DA6D /* DynamicBreedSelection.intentdefinition in Sources */,
+				D605CC8624B1D20E00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */,
 				D67B138824B5073400A37BA9 /* CatGalleryWidget.swift in Sources */,
 				D636CC5E24B06F7A008B5685 /* DogImageLoader.swift in Sources */,
 				D636CC6924B11955008B5685 /* StrokeText.swift in Sources */,
@@ -702,7 +702,7 @@
 				D6B2CCCB24B00C6C00C6B27C /* AnimalImageListLoader.swift in Sources */,
 				D6B2CCC124B00C3400C6B27C /* Breed.swift in Sources */,
 				D6B2CCD724B00C7900C6B27C /* Response.swift in Sources */,
-				D605CC8824B1E0C400C2DA6D /* DynamicBreedSelection.intentdefinition in Sources */,
+				D605CC8824B1E0C400C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */,
 				D6B2CCC924B00C6C00C6B27C /* ImageDataWebLoader.swift in Sources */,
 				D6B2CCCE24B00C6C00C6B27C /* WebAPI.swift in Sources */,
 				D63C456D24B03CD000A0E152 /* AnimalImageGridView.swift in Sources */,
@@ -725,7 +725,7 @@
 /* Begin PBXTargetDependency section */
 		D605CC7624B1CADE00C2DA6D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D605CC6F24B1CADD00C2DA6D /* AnimalGalleryIntentHandler */;
+			target = D605CC6F24B1CADD00C2DA6D /* DogWidgetGalleryIntentHandler */;
 			targetProxy = D605CC7524B1CADE00C2DA6D /* PBXContainerItemProxy */;
 		};
 		D636CC4A24B06756008B5685 /* PBXTargetDependency */ = {
@@ -747,13 +747,13 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8VFCZLW2Z;
-				INFOPLIST_FILE = AnimalGalleryIntentHandler/Info.plist;
+				INFOPLIST_FILE = DogWidgetGalleryIntentHandler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.AnimalGallery.AnimalGalleryIntentHandler;
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.AnimalGallery.DogWidgetGalleryIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -767,13 +767,13 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8VFCZLW2Z;
-				INFOPLIST_FILE = AnimalGalleryIntentHandler/Info.plist;
+				INFOPLIST_FILE = DogWidgetGalleryIntentHandler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.AnimalGallery.AnimalGalleryIntentHandler;
+				PRODUCT_BUNDLE_IDENTIFIER = shiz.sample.AnimalGallery.DogWidgetGalleryIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1026,7 +1026,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D605CC7A24B1CADE00C2DA6D /* Build configuration list for PBXNativeTarget "AnimalGalleryIntentHandler" */ = {
+		D605CC7A24B1CADE00C2DA6D /* Build configuration list for PBXNativeTarget "DogWidgetGalleryIntentHandler" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D605CC7824B1CADE00C2DA6D /* Debug */,

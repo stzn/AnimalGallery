@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>AnimalGalleryIntentHandler</string>
+	<string>DogWidgetGalleryIntentHandler</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -30,7 +30,7 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>DynamicBreedSelectionIntent</string>
+				<string>DynamicDogBreedSelectionIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

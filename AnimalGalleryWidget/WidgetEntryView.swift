@@ -10,7 +10,7 @@ import WidgetKit
 
 struct WidgetEntryView : View {
     let type: AnimalType
-    var entry: ImageTimeline.Entry
+    var entry: DogImageTimeline.Entry
 
     @Environment(\.widgetFamily) var family
 
