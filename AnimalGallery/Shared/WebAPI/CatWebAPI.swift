@@ -16,7 +16,7 @@ final class CatWebAPI: WebAPI {
     }
 
     func makeURLRequest(from url: URL,
-                                         queryItems: [URLQueryItem] = []) -> URLRequest? {
+                        queryItems: [URLQueryItem] = []) -> URLRequest? {
         var component = URLComponents(
             url: url,
             resolvingAgainstBaseURL: false)

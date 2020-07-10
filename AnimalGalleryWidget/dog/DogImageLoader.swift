@@ -88,7 +88,7 @@ struct DogImageLoader: ImageLoadable {
                     return
                 }
                 let breed = extractBreed(from: url)
-                completion(.success(WidgetImage(name: breed, image: Image(uiImage: image))))
+                completion(.success(WidgetImage(id: url.absoluteString, name: breed, image: Image(uiImage: image))))
             case .failure(let error):
                 completion(.failure(error))
             }

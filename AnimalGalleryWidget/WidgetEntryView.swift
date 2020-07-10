@@ -10,7 +10,7 @@ import WidgetKit
 
 struct WidgetEntryView : View {
     let type: AnimalType
-    var entry: DogImageTimeline.Entry
+    var entry: ImageEntry
 
     @Environment(\.widgetFamily) var family
 
@@ -22,14 +22,21 @@ struct WidgetEntryView : View {
     var body: some View {
         switch family {
         case .systemSmall:
-            ZStack(alignment: .bottom) {
-                entry.images[0].image
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fill)
-                    .clipped()
-                timeLeftText
+            if let image = entry.images.first {
+                ZStack(alignment: .bottom) {
+                    image.image
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fill)
+                        .clipped()
+                    timeLeftText
+                }
+                .widgetURL(widgetURL(image.name))
+            } else {
+                ZStack(alignment: .bottom) {
+                    BubbleBackground()
+                    timeLeftText
+                }
             }
-            .widgetURL(widgetURL(entry.images[0].name))
         case .systemMedium:
             ZStack {
                 BubbleBackground()

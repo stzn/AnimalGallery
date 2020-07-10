@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-struct WidgetImage {
+struct WidgetImage: Identifiable {
+    var id: String
     var name: String
     var image: Image
 }
 
-extension WidgetImage: Identifiable {
-    var id: String { name }
+var anyID: String {
+    UUID().uuidString
 }
 
-let dogPlaceholder = WidgetImage(name: "...", image: Image("dog"))
-let catPlaceholder = WidgetImage(name: "...", image: Image("cat"))
-let errorImage = WidgetImage(name: "error", image: Image(systemName: "mic"))
+let dogPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("dog"))
+let catPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("cat"))
+let errorImage = WidgetImage(id: anyID, name: "error", image: Image(systemName: "mic"))
 
