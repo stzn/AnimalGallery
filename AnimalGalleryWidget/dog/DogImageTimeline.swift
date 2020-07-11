@@ -20,13 +20,12 @@ struct DogImageTimeline: IntentTimelineProvider {
 
     func snapshot(for configuration: Intent, with context: Context,
                   completion: @escaping (Entry) -> ()) {
-        let currentDate = Date()
-
-        let placeholder = dogPlaceholder
-        let entry = Entry(date: currentDate,
-                          nextDate: currentDate,
-                          images: [WidgetImage](repeating: placeholder, count: 3))
-        completion(entry)
+        let entryDate = Date()
+        let refreshDate = Calendar.current.date(
+            byAdding: .minute, value: 60, to: entryDate)!
+        imageLoader.loadImage(for: "random", entryDate: entryDate, refreshDate: refreshDate) { entry in
+            completion(entry)
+        }
     }
 
     func timeline(for configuration: Intent, with context: Context,
