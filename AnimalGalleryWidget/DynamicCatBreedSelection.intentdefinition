@@ -62,26 +62,6 @@
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${catBreed}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>bJw5tY</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${catBreed}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>lHAFPD</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
 					</array>
 					<key>INIntentParameterSupportsDynamicEnumeration</key>
 					<true/>
