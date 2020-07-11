@@ -18,45 +18,57 @@ struct WidgetEntryView : View {
         [GridItem](repeating: GridItem(.flexible(minimum: 20), spacing: 10), count: 2)
     }
 
-    @ViewBuilder
     var body: some View {
         switch family {
         case .systemSmall:
-            if let image = entry.images.first {
-                ZStack(alignment: .bottom) {
-                    image.image
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fill)
-                        .clipped()
-                    timeLeftText
-                }
-                .widgetURL(widgetURL(image.widgetURLKey))
-            } else {
-                ZStack(alignment: .bottom) {
-                    BubbleBackground()
-                    timeLeftText
-                }
-            }
+            systemSmall
         case .systemMedium:
-            ZStack {
-                BubbleBackground()
-                HStack {
-                    makeImageList(2)
-                    timeLeftText.padding(.leading, 10)
-                }
-                .padding()
-            }
+            systemMedium
         case .systemLarge:
-            ZStack {
-                BubbleBackground()
-                LazyVGrid(columns: columns) {
-                    makeImageList(3)
-                    timeLeftText.padding()
-                }
-                .padding()
-            }
+            systemLarge
         @unknown default:
             fatalError()
+        }
+    }
+
+    @ViewBuilder
+    private var systemSmall: some View {
+        if let image = entry.images.first {
+            ZStack(alignment: .bottom) {
+                image.image
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fill)
+                    .clipped()
+                timeLeftText
+            }
+            .widgetURL(widgetURL(image.widgetURLKey))
+        } else {
+            ZStack(alignment: .bottom) {
+                BubbleBackground()
+                timeLeftText
+            }
+        }
+    }
+
+    private var systemMedium: some View {
+        ZStack {
+            BubbleBackground()
+            HStack {
+                makeImageList(2)
+                timeLeftText.padding(.leading, 10)
+            }
+            .padding()
+        }
+    }
+
+    private var systemLarge: some View {
+        ZStack {
+            BubbleBackground()
+            LazyVGrid(columns: columns) {
+                makeImageList(3)
+                timeLeftText.padding()
+            }
+            .padding()
         }
     }
 
