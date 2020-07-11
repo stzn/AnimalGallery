@@ -23,8 +23,12 @@ struct DogImageTimeline: IntentTimelineProvider {
         let entryDate = Date()
         let refreshDate = Calendar.current.date(
             byAdding: .minute, value: 60, to: entryDate)!
-        imageLoader.loadImage(for: "random", entryDate: entryDate, refreshDate: refreshDate) { entry in
-            completion(entry)
+        if context.isPreview {
+            completion(.init(date: entryDate, nextDate: refreshDate, images: [dogPlaceholder, dogPlaceholder, dogPlaceholder]))
+        } else {
+            imageLoader.loadImage(for: "random", entryDate: entryDate, refreshDate: refreshDate) { entry in
+                completion(entry)
+            }
         }
     }
 

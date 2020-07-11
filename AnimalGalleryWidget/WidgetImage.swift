@@ -22,7 +22,7 @@ var anyKey: String {
     UUID().uuidString
 }
 
-let dogPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("dog"), widgetURLKey: anyKey)
-let catPlaceholder = WidgetImage(id: anyID, name: "...", image: Image("cat"), widgetURLKey: anyKey)
+var dogPlaceholder: WidgetImage { WidgetImage(id: anyID, name: anyID, image: Image("dog"), widgetURLKey: anyKey) }
+var catPlaceholder: WidgetImage { WidgetImage(id: anyID, name: anyID, image: Image("cat"), widgetURLKey: anyKey) }
 let errorImage = WidgetImage(id: anyID, name: "error", image: Image(systemName: "mic"), widgetURLKey: anyKey)
 
