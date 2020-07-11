@@ -23,7 +23,7 @@ struct BreedRow: View {
             }
             Divider()
         }
-        .contentShape(Rectangle())
+        .contentShape(ContainerRelativeShape())
     }
 }
 
