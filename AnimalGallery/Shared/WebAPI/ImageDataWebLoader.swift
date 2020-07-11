@@ -41,12 +41,7 @@ final class ImageDataWebLoader: ImageDataLoader {
         let task = Task(completion)
         task.wrapped = client.send(request: URLRequest(url: url)) { [weak self] result in
             self?.queue.async {
-                switch result {
-                case .success(let response):
-                    completion(.success(response.data))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+                completion(result.map(\.data))
             }
         }
         return task

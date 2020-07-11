@@ -32,25 +32,29 @@ struct DogImageLoader: ImageLoadable {
 
     func loadRandom(completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
         webAPI.loadRandom(count: 3) { result in
-            switch result {
-            case .success(let urls):
-                loadDogImages(for: urls, completion: completion)
-            case .failure(let error):
+            if case .failure(let error) = result {
                 completion(.failure(error))
+                return
             }
+            guard let urls = try? result.get() else {
+                return
+            }
+            loadDogImages(for: urls, completion: completion)
         }
     }
 
     func loadRandomInBreed(_ breedName: BreedType,
                            completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
         webAPI.load(of: breedName) { result in
-            switch result {
-            case .success(let images):
-                let urls = images.prefix(3).map(\.imageURL)
-                loadDogImages(for: urls, completion: completion)
-            case .failure(let error):
+            if case .failure(let error) = result {
                 completion(.failure(error))
+                return
             }
+            guard let images = try? result.get() else {
+                return
+            }
+            let urls = images.prefix(3).map(\.imageURL)
+            loadDogImages(for: urls, completion: completion)
         }
     }
 
@@ -62,13 +66,15 @@ struct DogImageLoader: ImageLoadable {
             queue.async(group: group) {
                 group.enter()
                 self.loadDogImage(from: url) { result in
-                    switch result {
-                    case .success(let image):
-                        widgetImages.append(image)
-                    case .failure(let error):
+                    defer { group.leave() }
+                    if case .failure(let error) = result {
                         completion(.failure(error))
+                        return
                     }
-                    group.leave()
+                    guard let image = try? result.get() else {
+                        return
+                    }
+                    widgetImages.append(image)
                 }
             }
         }
@@ -81,21 +87,19 @@ struct DogImageLoader: ImageLoadable {
     private func loadDogImage(from url: URL,
                               completion: @escaping (Result<WidgetImage, Error>) -> Void) {
         _ = imageWebLoader.load(from: url) { result in
-            switch result {
-            case .success(let data):
-                guard let image = UIImage(data: data) else {
-                    return
-                }
-                let breed = extractBreed(from: url)
-                completion(
-                    .success(
+            if case .failure(let error) = result {
+                completion(.failure(error))
+                return
+            }
+            guard let data = try? result.get(),
+                  let image = UIImage(data: data) else {
+                return
+            }
+            let breed = extractBreed(from: url)
+            completion(.success(
                         WidgetImage(id: url.absoluteString, name: breed,
                                     image: Image(uiImage: image), widgetURLKey: breed)
-                    )
-                )
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            ))
         }
     }
 
@@ -115,13 +119,11 @@ extension DogWebAPI {
         completion: @escaping (Result<[URL], Error>) -> Void) {
         call(WidgetDogImageModel.self,
              URLRequest(url: baseURL.appendingPathComponent("breeds/image/random/\(count)"))) { result in
-            switch result {
-            case .success(let model):
-                let urls = model.message.compactMap(URL.init(string:))
-                completion(.success(urls))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            completion(
+                result.map { model in
+                    model.message.compactMap(URL.init(string:))
+                }
+            )
         }
     }
 }

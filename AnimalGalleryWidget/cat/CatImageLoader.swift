@@ -35,12 +35,14 @@ struct CatImageLoader: ImageLoadable {
 
     func loadRandom(completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
         webAPI.loadRandomBreeds(limit: 3) { result in
-            switch result {
-            case .success(let breeds):
-                loadCatImagesInBreeds(for: breeds, completion: completion)
-            case .failure(let error):
+            if case .failure(let error) = result {
                 completion(.failure(error))
+                return
             }
+            guard let breeds = try? result.get() else {
+                return
+            }
+            loadCatImagesInBreeds(for: breeds, completion: completion)
         }
     }
 
@@ -54,24 +56,22 @@ struct CatImageLoader: ImageLoadable {
             queue.async(group: group) {
                 group.enter()
                 webAPI.load(of: breed.id, limit: 1) { result in
-                    switch result {
-                    case .success(let images):
-                        guard let url = images.map(\.imageURL).first else {
-                            group.leave()
-                            return
-                        }
-                        self.loadCatImage(from: url, for: breed) { result in
-                            switch result {
-                            case .success(let image):
-                                widgetImages.append(image)
-                            case .failure(let error):
-                                completion(.failure(error))
-                            }
-                            group.leave()
-                        }
-                    case .failure(let error):
+                    if case .failure(let error) = result {
                         completion(.failure(error))
                         group.leave()
+                        return
+                    }
+                    guard let images = try? result.get(),
+                          let url = images.map(\.imageURL).first else {
+                        group.leave()
+                        return
+                    }
+                    self.loadCatImage(from: url, for: breed) { result in
+                        defer { group.leave() }
+                        guard let image = try? result.get() else {
+                            return
+                        }
+                        widgetImages.append(image)
                     }
                 }
             }
@@ -85,14 +85,16 @@ struct CatImageLoader: ImageLoadable {
     func loadRandomInBreed(_ breed: BreedType,
                            completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
         webAPI.load(of: breed, limit: 3) { result in
-            switch result {
-            case .success(let images):
-                self.loadCatImages(from: images.map(\.imageURL),
-                                   for: Breed(id: breed, name: breed),
-                                   completion: completion)
-            case .failure(let error):
+            if case .failure(let error) = result {
                 completion(.failure(error))
+                return
             }
+            guard let images = try? result.get() else {
+                return
+            }
+            self.loadCatImages(from: images.map(\.imageURL),
+                               for: Breed(id: breed, name: breed),
+                               completion: completion)
         }
     }
 
@@ -106,13 +108,11 @@ struct CatImageLoader: ImageLoadable {
             queue.async(group: group) {
                 group.enter()
                 self.loadCatImage(from: url, for: breed) { result in
-                    switch result {
-                    case .success(let image):
-                        widgetImages.append(image)
-                    case .failure(let error):
-                        completion(.failure(error))
+                    defer { group.leave() }
+                    guard let image = try? result.get() else {
+                        return
                     }
-                    group.leave()
+                    widgetImages.append(image)
                 }
             }
         }
@@ -125,22 +125,23 @@ struct CatImageLoader: ImageLoadable {
     private func loadCatImage(from url: URL,
                               for breed: Breed,
                               completion: @escaping (Result<WidgetImage, Error>) -> Void) {
+        enum Error: Swift.Error {
+            case failToCreateImage
+        }
 
         _ = imageWebLoader.load(from: url) { result in
-            switch result {
-            case .success(let data):
-                guard let image = UIImage(data: data) else {
-                    return
-                }
-                completion(
-                    .success(
-                        WidgetImage(id: url.absoluteString, name: breed.name,
-                                    image: Image(uiImage: image), widgetURLKey: breed.id)
-                    )
-                )
-            case .failure(let error):
+            if case .failure(let error) = result {
                 completion(.failure(error))
+                return
             }
+            guard let data = try? result.get(),
+                  let image = UIImage(data: data) else {
+                return
+            }
+            completion(.success(
+                WidgetImage(id: url.absoluteString, name: breed.name,
+                            image: Image(uiImage: image), widgetURLKey: breed.id))
+            )
         }
     }
 }
@@ -160,15 +161,10 @@ extension CatWebAPI {
 
         call(Root.self, request) { [weak self] result in
             guard let self = self else {
+                assertionFailure("should not be nil")
                 return
             }
-            switch result {
-            case .success(let model):
-                let breeds = self.convert(from: model)
-                completion(.success(breeds))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            completion(result.map(self.convert(from:)))
         }
     }
 
@@ -181,17 +177,19 @@ extension CatWebAPI {
             return
         }
         call([BreedListAPIModel].self, request) { result in
-            switch result {
-            case .success(let models):
-                let breeds = models.map { Breed(id: $0.id, name: $0.name) }
-                completion(.success(breeds))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            completion(
+                result.map { models in
+                    models.map { Breed(id: $0.id, name: $0.name) }
+                }
+            )
         }
     }
 
     func loadBreedByName(_ name: String, completion: @escaping (Result<Breed, Error>) -> Void) {
+        enum Error: Swift.Error {
+            case failToCreateBreed
+        }
+
         let url = catAPIbaseURL.appendingPathComponent("breeds/search")
         guard let request = makeURLRequest(
                 from: url,
@@ -200,16 +198,14 @@ extension CatWebAPI {
             return
         }
         call([BreedListAPIModel].self, request) { result in
-            switch result {
-            case .success(let models):
-                guard let breed = models.map({ Breed(id: $0.id, name: $0.name) }).first else {
-                    assertionFailure("should not be nil")
-                    return
+             completion(
+                result.flatMap { models in
+                    guard let breed = models.map({ Breed(id: $0.id, name: $0.name) }).first else {
+                        return .failure(Error.failToCreateBreed)
+                    }
+                    return .success(breed)
                 }
-                completion(.success(breed))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+             )
         }
     }
 }

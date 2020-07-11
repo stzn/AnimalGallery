@@ -27,13 +27,9 @@ extension DogWebAPI: BreedListLoader {
     func load(completion: @escaping (Result<[Breed], Error>) -> Void) {
         call(BreedListAPIModel.self,
              URLRequest(url: baseURL.appendingPathComponent("breeds/list/all"))) { result in
-            switch result {
-            case .success(let model):
-                let breeds = model.message.keys.map { Breed(id: $0, name: $0) }
-                completion(.success(breeds))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            completion(
+                result.map { model in model.message.keys.map { Breed(id: $0, name: $0) } }
+            )
         }
     }
 }
@@ -50,13 +46,7 @@ extension DogWebAPI: AnimalImageListLoader {
             guard let self = self else {
                 return
             }
-            switch result {
-            case .success(let model):
-                let breeds = self.convert(from: model)
-                completion(.success(breeds))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            completion(result.map(self.convert(from:)))
         }
     }
 

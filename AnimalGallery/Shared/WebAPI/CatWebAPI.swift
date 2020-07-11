@@ -44,13 +44,11 @@ extension CatWebAPI: BreedListLoader {
             return
         }
         call([BreedListAPIModel].self, request) { result in
-            switch result {
-            case .success(let models):
-                let breeds = models.map { Breed(id: $0.id, name: $0.name) }
-                completion(.success(breeds))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            completion(
+                result.map {
+                    $0.map { Breed(id: $0.id, name: $0.name) }
+                }
+            )
         }
     }
 }
@@ -89,13 +87,7 @@ extension CatWebAPI: AnimalImageListLoader {
             guard let self = self else {
                 return
             }
-            switch result {
-            case .success(let model):
-                let breeds = self.convert(from: model)
-                completion(.success(breeds))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            completion(result.map(self.convert(from:)))
         }
     }
 
