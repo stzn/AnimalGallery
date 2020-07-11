@@ -11,10 +11,12 @@ import SwiftUI
 struct DogGalleryWidget: Widget {
     private let kind: String = "DogGalleryWidget"
 
+    var client: HTTPClient!
+
     public var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind,
                             intent: DynamicDogBreedSelectionIntent.self,
-                            provider: DogImageTimeline(imageLoader: DogImageLoader()),
+                            provider: DogImageTimeline(imageLoader: DogImageLoader(client: client)),
                             placeholder: PlaceholderView(type: .dog)) { entry in
             WidgetEntryView(type: .dog, entry: entry)
         }

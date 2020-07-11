@@ -11,10 +11,12 @@ import SwiftUI
 struct CatGalleryWidget: Widget {
     private let kind: String = "CatGalleryWidget"
 
+    var client: HTTPClient!
+    
     public var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind,
                             intent: DynamicCatBreedSelectionIntent.self,
-                            provider: CatImageTimeline(imageLoader: CatImageLoader()),
+                            provider: CatImageTimeline(imageLoader: CatImageLoader(client: client)),
                             placeholder: PlaceholderView(type: .cat)) { entry in
             WidgetEntryView(type: .cat, entry: entry)
         }

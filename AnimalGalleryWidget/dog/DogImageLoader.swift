@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct DogImageLoader: ImageLoadable {
-    private let client = URLSessionHTTPClient(session: .shared)
     private let webAPI: DogWebAPI
     private let imageWebLoader: ImageDataWebLoader
 
-    init() {
+    init(client: HTTPClient) {
         webAPI = DogWebAPI(client: client)
         imageWebLoader = ImageDataWebLoader(client: client)
     }

@@ -10,9 +10,26 @@ import WidgetKit
 
 @main
 struct AnimalBundle: WidgetBundle {
+    private let client: HTTPClient = {
+        let session = URLSession.shared
+        return URLSessionHTTPClient(session: session)
+    }()
+
     @WidgetBundleBuilder
     var body: some Widget {
-        DogGalleryWidget()
-        CatGalleryWidget()
+        dogWidget
+        catWidget
+    }
+
+    private var catWidget: CatGalleryWidget {
+        var widget = CatGalleryWidget()
+        widget.client = client
+        return widget
+    }
+
+    private var dogWidget: DogGalleryWidget {
+        var widget = DogGalleryWidget()
+        widget.client = client
+        return widget
     }
 }

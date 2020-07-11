@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct CatImageLoader: ImageLoadable {
-    private let client = URLSessionHTTPClient(session: .shared)
     private let webAPI: CatWebAPI
     private let imageWebLoader: ImageDataWebLoader
 
-    init() {
+    init(client: HTTPClient) {
         webAPI = CatWebAPI(client: client)
         imageWebLoader = ImageDataWebLoader(client: client)
     }
