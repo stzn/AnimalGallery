@@ -17,7 +17,7 @@ final class AnimalImageViewModel: ObservableObject {
     }
 
     func loadImageData(from url: URL, using loader: ImageDataLoader) {
-        task = loader.load(from: url) { result in
+        task = loader.load(url) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let data):
@@ -72,7 +72,7 @@ struct AnimalImageView: View {
 
 struct AnimalImageView_Previews: PreviewProvider {
     static var previews: some View {
-        AnimalImageView(imageDataLoader: StubImageDataLoader(),
+        AnimalImageView(imageDataLoader: .stub,
                         image: .anyAnimalImage)
     }
 }

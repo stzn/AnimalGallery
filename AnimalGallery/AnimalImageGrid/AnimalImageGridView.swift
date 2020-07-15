@@ -18,7 +18,7 @@ final class AnimalImageGridViewModel: ObservableObject {
     
     func loadBreeds(of type: BreedType,
                     imageListLoader: AnimalImageListLoader) {
-        imageListLoader.load(of: type) { result in
+        imageListLoader.load(type) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let images):
@@ -60,8 +60,8 @@ struct AnimalImageGridView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             AnimalImageGridView(breed: Breed.anyBreed,
-                             imageListLoader: StubAnimalImageListLoader(),
-                             imageDataLoader: StubImageDataLoader())
+                                imageListLoader: .stub,
+                             imageDataLoader: .stub)
         }
     }
 }

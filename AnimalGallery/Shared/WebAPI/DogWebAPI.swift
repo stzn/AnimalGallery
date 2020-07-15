@@ -6,7 +6,6 @@
 //  Copyright © 2020 shiz. All rights reserved.
 //
 
-import Combine
 import Foundation
 
 final class DogWebAPI: WebAPI {
@@ -18,7 +17,7 @@ final class DogWebAPI: WebAPI {
     }
 }
 
-extension DogWebAPI: BreedListLoader {
+extension DogWebAPI {
     struct BreedListAPIModel: Decodable {
         let message: [String: [String]]
         let status: String
@@ -34,7 +33,7 @@ extension DogWebAPI: BreedListLoader {
     }
 }
 
-extension DogWebAPI: AnimalImageListLoader {
+extension DogWebAPI {
     struct DogImageListAPIModel: Decodable {
         let message: [String]
         let status: String

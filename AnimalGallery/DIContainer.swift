@@ -31,11 +31,11 @@ extension DIContainer {
         let imageDataLoader: ImageDataLoader
 
         static var stub: Self {
-            .init(dogBreedListLoader: StubBreedListLoader(),
-                  catBreedListLoader: StubBreedListLoader(),
-                  dogImageListLoader: StubAnimalImageListLoader(),
-                  catImageListLoader: StubAnimalImageListLoader(),
-                  imageDataLoader: StubImageDataLoader())
+            .init(dogBreedListLoader: .stub,
+                  catBreedListLoader: .stub,
+                  dogImageListLoader: .stub,
+                  catImageListLoader: .stub,
+                  imageDataLoader: .stub)
         }
 
         static var live: Self {
@@ -61,11 +61,11 @@ extension DIContainer {
             let catWebAPI = CatWebAPI(client: client)
             let imageWebLoader = ImageDataWebLoader(client: client)
 
-            return .init(dogBreedListLoader: dogWebAPI,
-                         catBreedListLoader: catWebAPI,
-                         dogImageListLoader: dogWebAPI,
-                         catImageListLoader: catWebAPI,
-                         imageDataLoader: imageWebLoader
+            return .init(dogBreedListLoader: BreedListLoader(load: dogWebAPI.load(completion:)),
+                         catBreedListLoader: BreedListLoader(load: catWebAPI.load(completion:)),
+                         dogImageListLoader: AnimalImageListLoader(load: dogWebAPI.load(of:completion:)),
+                         catImageListLoader: AnimalImageListLoader(load: catWebAPI.load(of:completion:)),
+                         imageDataLoader: ImageDataLoader(load: imageWebLoader.load(from:completion:))
             )
         }
     }

@@ -6,9 +6,12 @@
 //  Copyright © 2020 shiz. All rights reserved.
 //
 
-import Combine
 import Foundation
 
-protocol BreedListLoader {
-    func load(completion: @escaping (Result<[Breed], Error>) -> Void)
+struct BreedListLoader {
+    let load: (@escaping (Result<[Breed], Error>) -> Void) -> Void
+}
+
+extension BreedListLoader {
+    static var stub = BreedListLoader { callback in callback(.success([.anyBreed, .anyBreed, .anyBreed])) }
 }

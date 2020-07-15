@@ -7,7 +7,20 @@
 //
 
 import Foundation
+import UIKit
 
-protocol ImageDataLoader {
-    func load(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask
+struct ImageDataLoader {
+    let load: (URL, @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask
+}
+
+final class StubTask: HTTPClientTask {
+    func cancel() {
+    }
+}
+
+extension ImageDataLoader {
+    static var stub = ImageDataLoader { _, callback in
+        callback(.success(UIImage(systemName: "tray")!.pngData()!))
+        return StubTask()
+    }
 }

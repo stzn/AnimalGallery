@@ -39,7 +39,6 @@
 		D636CC6924B11955008B5685 /* StrokeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6724B118A9008B5685 /* StrokeText.swift */; };
 		D636CC6C24B15033008B5685 /* LeftTimeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */; };
 		D63C455724B019B800A0E152 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C455624B019B700A0E152 /* DIContainer.swift */; };
-		D63C456424B0215300A0E152 /* Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456324B0215300A0E152 /* Stubs.swift */; };
 		D63C456B24B034DD00A0E152 /* AnimalImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456A24B034DD00A0E152 /* AnimalImageView.swift */; };
 		D63C456D24B03CD000A0E152 /* AnimalImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63C456C24B03CD000A0E152 /* AnimalImageGridView.swift */; };
 		D669BA6324B6AB7A00FCB69A /* dog.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D669BA6124B6AB7900FCB69A /* dog.mp3 */; };
@@ -177,7 +176,6 @@
 		D636CC6724B118A9008B5685 /* StrokeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeText.swift; sourceTree = "<group>"; };
 		D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftTimeTextView.swift; sourceTree = "<group>"; };
 		D63C455624B019B700A0E152 /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		D63C456324B0215300A0E152 /* Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubs.swift; sourceTree = "<group>"; };
 		D63C456A24B034DD00A0E152 /* AnimalImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalImageView.swift; sourceTree = "<group>"; };
 		D63C456C24B03CD000A0E152 /* AnimalImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalImageGridView.swift; sourceTree = "<group>"; };
 		D669BA6124B6AB7900FCB69A /* dog.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dog.mp3; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 				D6B2CCAE24B00BF000C6B27C /* AnimalGalleryApp.swift */,
 				D63C455624B019B700A0E152 /* DIContainer.swift */,
 				D669BA6524B6B7FC00FCB69A /* RootView.swift */,
-				D63C456324B0215300A0E152 /* Stubs.swift */,
 				D6B2CCB224B00BF100C6B27C /* Assets.xcassets */,
 				D63C456924B0345700A0E152 /* AnimalImageGrid */,
 				D6B2CCD824B0113200C6B27C /* BreedList */,
@@ -711,7 +708,6 @@
 				D63C455724B019B800A0E152 /* DIContainer.swift in Sources */,
 				D669BA6B24B6BF8C00FCB69A /* CatWebAPI.swift in Sources */,
 				D6B2CCD524B00C7900C6B27C /* URLSessionHTTPClient.swift in Sources */,
-				D63C456424B0215300A0E152 /* Stubs.swift in Sources */,
 				D669BA6624B6B7FC00FCB69A /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

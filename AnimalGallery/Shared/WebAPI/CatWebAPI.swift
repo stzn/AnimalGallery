@@ -31,7 +31,7 @@ final class CatWebAPI: WebAPI {
     }
 }
 
-extension CatWebAPI: BreedListLoader {
+extension CatWebAPI {
     struct BreedListAPIModel: Decodable {
         let id: String
         let name: String
@@ -53,7 +53,7 @@ extension CatWebAPI: BreedListLoader {
     }
 }
 
-extension CatWebAPI: AnimalImageListLoader {
+extension CatWebAPI {
     struct Root: Decodable {
         let models: [CatImageModel]
 

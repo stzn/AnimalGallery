@@ -6,10 +6,9 @@
 //  Copyright © 2020 shiz. All rights reserved.
 //
 
-import Combine
 import Foundation
 
-final class ImageDataWebLoader: ImageDataLoader {
+final class ImageDataWebLoader {
     private let queue = DispatchQueue(label: "ImageWebAPI")
     private let client: HTTPClient
     init(client: HTTPClient) {

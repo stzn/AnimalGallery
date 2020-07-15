@@ -12,7 +12,8 @@ private let randomIntent = CatBreed(identifier: "random", display: "random")
 class IntentHandler: INExtension, DynamicCatBreedSelectionIntentHandling {
     private let client: HTTPClient = URLSessionHTTPClient(session: .shared)
 
-    func provideCatBreedOptionsCollection(for intent: DynamicCatBreedSelectionIntent, with completion: @escaping (INObjectCollection<CatBreed>?, Error?) -> Void) {
+    func provideCatBreedOptionsCollection(for intent: DynamicCatBreedSelectionIntent,
+                                          with completion: @escaping (INObjectCollection<CatBreed>?, Error?) -> Void) {
         loadCatBreedList {
             completion(INObjectCollection(items: $0), nil)
         }

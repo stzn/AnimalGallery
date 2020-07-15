@@ -6,9 +6,14 @@
 //  Copyright © 2020 shiz. All rights reserved.
 //
 
-import Combine
 import Foundation
 
-protocol AnimalImageListLoader {
-    func load(of breed: BreedType, completion: @escaping (Result<[AnimalImage], Error>) -> Void)
+struct AnimalImageListLoader {
+    let load: (BreedType, @escaping (Result<[AnimalImage], Error>) -> Void) -> Void
+}
+
+extension AnimalImageListLoader {
+    static var stub = AnimalImageListLoader { _, callback in
+        callback(.success([.anyAnimalImage, .anyAnimalImage, .anyAnimalImage]))
+    }
 }
