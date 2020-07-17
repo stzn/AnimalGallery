@@ -30,14 +30,6 @@ extension DIContainer {
         let catImageListLoader: AnimalImageListLoader
         let imageDataLoader: ImageDataLoader
 
-        static var stub: Self {
-            .init(dogBreedListLoader: .stub,
-                  catBreedListLoader: .stub,
-                  dogImageListLoader: .stub,
-                  catImageListLoader: .stub,
-                  imageDataLoader: .stub)
-        }
-
         static var live: Self {
             let loaders = configureLoaders()
             return Loaders(
@@ -71,3 +63,14 @@ extension DIContainer {
     }
 }
 
+#if DEBUG
+extension DIContainer.Loaders {
+    static var stub: Self {
+        .init(dogBreedListLoader: .stub,
+              catBreedListLoader: .stub,
+              dogImageListLoader: .stub,
+              catImageListLoader: .stub,
+              imageDataLoader: .stub)
+    }
+}
+#endif

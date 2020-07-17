@@ -12,6 +12,8 @@ struct BreedListLoader {
     let load: (@escaping (Result<[Breed], Error>) -> Void) -> Void
 }
 
+#if DEBUG
 extension BreedListLoader {
     static var stub = BreedListLoader { callback in callback(.success([.anyBreed, .anyBreed, .anyBreed])) }
 }
+#endif

@@ -13,6 +13,7 @@ struct ImageDataLoader {
     let load: (URL, @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask
 }
 
+#if DEBUG
 final class StubTask: HTTPClientTask {
     func cancel() {
     }
@@ -24,3 +25,4 @@ extension ImageDataLoader {
         return StubTask()
     }
 }
+#endif
