@@ -38,9 +38,9 @@ final class ImageDataWebLoader {
 
     func load(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask {
         let task = Task(completion)
-        task.wrapped = client.send(request: URLRequest(url: url)) { [weak self] result in
+        task.wrapped = client.send(request: URLRequest(url: url)) { [weak self] data in
             self?.queue.async {
-                completion(result.map(\.data))
+                completion(data)
             }
         }
         return task

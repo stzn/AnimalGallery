@@ -24,9 +24,7 @@
 		D636CC4724B06756008B5685 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D636CC4624B06756008B5685 /* Assets.xcassets */; };
 		D636CC4B24B06756008B5685 /* AnimalGalleryWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D636CC5024B0685C008B5685 /* AnimalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBE24B00C3400C6B27C /* AnimalImage.swift */; };
-		D636CC5624B06886008B5685 /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */; };
 		D636CC5724B06886008B5685 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
-		D636CC5824B06886008B5685 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD324B00C7900C6B27C /* Response.swift */; };
 		D636CC5924B06886008B5685 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */; };
 		D636CC5B24B068A4008B5685 /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBF24B00C3400C6B27C /* Breed.swift */; };
 		D636CC5E24B06F7A008B5685 /* DogImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC5C24B068CD008B5685 /* DogImageLoader.swift */; };
@@ -50,10 +48,8 @@
 		D669BA6E24B6D24D00FCB69A /* DogWebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC424B00C6C00C6B27C /* DogWebAPI.swift */; };
 		D669BA6F24B6D25100FCB69A /* CatWebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D669BA6A24B6BF8C00FCB69A /* CatWebAPI.swift */; };
 		D669BA7024B6D2B400FCB69A /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC824B00C6C00C6B27C /* WebAPI.swift */; };
-		D669BA7124B6D2BE00FCB69A /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */; };
 		D669BA7224B6D2BE00FCB69A /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */; };
 		D669BA7324B6D2BE00FCB69A /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
-		D669BA7424B6D2BE00FCB69A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD324B00C7900C6B27C /* Response.swift */; };
 		D669BA7524B6D2CF00FCB69A /* BreedListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC624B00C6C00C6B27C /* BreedListLoader.swift */; };
 		D669BA7624B6D44000FCB69A /* AnimalImageListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC524B00C6C00C6B27C /* AnimalImageListLoader.swift */; };
 		D669BA7724B6D44C00FCB69A /* AnimalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBE24B00C3400C6B27C /* AnimalImage.swift */; };
@@ -83,9 +79,7 @@
 		D67B567B24B7ED0900FAD694 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC824B00C6C00C6B27C /* WebAPI.swift */; };
 		D67B567C24B7ED0900FAD694 /* ImageDataWebLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC324B00C6C00C6B27C /* ImageDataWebLoader.swift */; };
 		D67B567D24B7ED0D00FAD694 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */; };
-		D67B567E24B7ED0D00FAD694 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD324B00C7900C6B27C /* Response.swift */; };
 		D67B567F24B7ED0D00FAD694 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
-		D67B568024B7ED0D00FAD694 /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */; };
 		D67B568124B7ED1800FAD694 /* AnimalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBE24B00C3400C6B27C /* AnimalImage.swift */; };
 		D67B568224B7ED1800FAD694 /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBF24B00C3400C6B27C /* Breed.swift */; };
 		D67B568324B7ED1800FAD694 /* AnimalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D669BA6724B6B88900FCB69A /* AnimalType.swift */; };
@@ -109,10 +103,8 @@
 		D6B2CCCC24B00C6C00C6B27C /* BreedListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC624B00C6C00C6B27C /* BreedListLoader.swift */; };
 		D6B2CCCD24B00C6C00C6B27C /* ImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC724B00C6C00C6B27C /* ImageDataLoader.swift */; };
 		D6B2CCCE24B00C6C00C6B27C /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC824B00C6C00C6B27C /* WebAPI.swift */; };
-		D6B2CCD424B00C7900C6B27C /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */; };
 		D6B2CCD524B00C7900C6B27C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */; };
 		D6B2CCD624B00C7900C6B27C /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
-		D6B2CCD724B00C7900C6B27C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD324B00C7900C6B27C /* Response.swift */; };
 		D6B2CCDA24B0114C00C6B27C /* BreedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD924B0114C00C6B27C /* BreedListView.swift */; };
 		D6B2CCDC24B011C000C6B27C /* BreedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCDB24B011C000C6B27C /* BreedRow.swift */; };
 /* End PBXBuildFile section */
@@ -211,10 +203,8 @@
 		D6B2CCC624B00C6C00C6B27C /* BreedListLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreedListLoader.swift; sourceTree = "<group>"; };
 		D6B2CCC724B00C6C00C6B27C /* ImageDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDataLoader.swift; sourceTree = "<group>"; };
 		D6B2CCC824B00C6C00C6B27C /* WebAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebAPI.swift; sourceTree = "<group>"; };
-		D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientError.swift; sourceTree = "<group>"; };
 		D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
-		D6B2CCD324B00C7900C6B27C /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		D6B2CCD924B0114C00C6B27C /* BreedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedListView.swift; sourceTree = "<group>"; };
 		D6B2CCDB24B011C000C6B27C /* BreedRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreedRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -413,10 +403,8 @@
 		D6B2CCCF24B00C7900C6B27C /* HTTPClient */ = {
 			isa = PBXGroup;
 			children = (
-				D6B2CCD024B00C7900C6B27C /* HTTPClientError.swift */,
 				D6B2CCD124B00C7900C6B27C /* URLSessionHTTPClient.swift */,
 				D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */,
-				D6B2CCD324B00C7900C6B27C /* Response.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
@@ -596,7 +584,6 @@
 				D669BA7724B6D44C00FCB69A /* AnimalImage.swift in Sources */,
 				D669BA7F24B6E3DE00FCB69A /* ImageDataLoader.swift in Sources */,
 				D605CC7D24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */,
-				D669BA7424B6D2BE00FCB69A /* Response.swift in Sources */,
 				D669BA7524B6D2CF00FCB69A /* BreedListLoader.swift in Sources */,
 				D669BA7D24B6E2AA00FCB69A /* ImageDataWebLoader.swift in Sources */,
 				D669BA6F24B6D25100FCB69A /* CatWebAPI.swift in Sources */,
@@ -606,7 +593,6 @@
 				D605CC8124B1CD1D00C2DA6D /* String+.swift in Sources */,
 				D669BA7024B6D2B400FCB69A /* WebAPI.swift in Sources */,
 				D669BA7324B6D2BE00FCB69A /* HTTPClient.swift in Sources */,
-				D669BA7124B6D2BE00FCB69A /* HTTPClientError.swift in Sources */,
 				D605CC8224B1CD1D00C2DA6D /* SharedTypes.swift in Sources */,
 				D669BA7624B6D44000FCB69A /* AnimalImageListLoader.swift in Sources */,
 			);
@@ -624,7 +610,6 @@
 				D669BA8224B6F84F00FCB69A /* ImageLoadable.swift in Sources */,
 				D6982E6424B656FB0037305E /* ImageEntry.swift in Sources */,
 				D669BA8024B6E3DF00FCB69A /* ImageDataLoader.swift in Sources */,
-				D636CC5624B06886008B5685 /* HTTPClientError.swift in Sources */,
 				D605CC8624B1D20E00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */,
 				D67B138824B5073400A37BA9 /* CatGalleryWidget.swift in Sources */,
 				D636CC5E24B06F7A008B5685 /* DogImageLoader.swift in Sources */,
@@ -635,7 +620,6 @@
 				D636CC5024B0685C008B5685 /* AnimalImage.swift in Sources */,
 				D669BA7824B6E0ED00FCB69A /* DogWebAPI.swift in Sources */,
 				D6982E6824B65C3A0037305E /* WidgetEntryView.swift in Sources */,
-				D636CC5824B06886008B5685 /* Response.swift in Sources */,
 				D6982E6C24B65D3A0037305E /* WidgetImage.swift in Sources */,
 				D669BA7B24B6E0FB00FCB69A /* BreedListLoader.swift in Sources */,
 				D6982E6A24B65CDC0037305E /* AnimalBundle.swift in Sources */,
@@ -662,14 +646,12 @@
 				D67B567D24B7ED0D00FAD694 /* URLSessionHTTPClient.swift in Sources */,
 				D67B567F24B7ED0D00FAD694 /* HTTPClient.swift in Sources */,
 				D67B568224B7ED1800FAD694 /* Breed.swift in Sources */,
-				D67B568024B7ED0D00FAD694 /* HTTPClientError.swift in Sources */,
 				D67B568624B7ED2F00FAD694 /* String+.swift in Sources */,
 				D67B567824B7ED0900FAD694 /* CatWebAPI.swift in Sources */,
 				D67B567724B7ED0900FAD694 /* BreedListLoader.swift in Sources */,
 				D67B566D24B7EC6A00FAD694 /* IntentHandler.swift in Sources */,
 				D67B567A24B7ED0900FAD694 /* ImageDataLoader.swift in Sources */,
 				D67B567924B7ED0900FAD694 /* AnimalImageListLoader.swift in Sources */,
-				D67B567E24B7ED0D00FAD694 /* Response.swift in Sources */,
 				D67B567524B7ECBC00FAD694 /* DynamicCatBreedSelection.intentdefinition in Sources */,
 				D67B568524B7ED2800FAD694 /* SharedVariables.swift in Sources */,
 				D67B567C24B7ED0900FAD694 /* ImageDataWebLoader.swift in Sources */,
@@ -686,7 +668,6 @@
 			files = (
 				D636CC6824B118A9008B5685 /* StrokeText.swift in Sources */,
 				D6B2CCCD24B00C6C00C6B27C /* ImageDataLoader.swift in Sources */,
-				D6B2CCD424B00C7900C6B27C /* HTTPClientError.swift in Sources */,
 				D669BA6824B6B88900FCB69A /* AnimalType.swift in Sources */,
 				D636CC6424B10DF4008B5685 /* SharedVariables.swift in Sources */,
 				D636CC3824B06424008B5685 /* String+.swift in Sources */,
@@ -696,7 +677,6 @@
 				D6B2CCCA24B00C6C00C6B27C /* DogWebAPI.swift in Sources */,
 				D6B2CCCB24B00C6C00C6B27C /* AnimalImageListLoader.swift in Sources */,
 				D6B2CCC124B00C3400C6B27C /* Breed.swift in Sources */,
-				D6B2CCD724B00C7900C6B27C /* Response.swift in Sources */,
 				D6B2CCC924B00C6C00C6B27C /* ImageDataWebLoader.swift in Sources */,
 				D6B2CCCE24B00C6C00C6B27C /* WebAPI.swift in Sources */,
 				D63C456D24B03CD000A0E152 /* AnimalImageGridView.swift in Sources */,

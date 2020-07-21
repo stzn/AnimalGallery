@@ -12,7 +12,8 @@ private let randomIntent = DogBreed(identifier: "random", display: "random")
 class IntentHandler: INExtension, DynamicDogBreedSelectionIntentHandling {
     private let client: HTTPClient = URLSessionHTTPClient(session: .shared)
 
-    func provideDogBreedOptionsCollection(for intent: DynamicDogBreedSelectionIntent, with completion: @escaping (INObjectCollection<DogBreed>?, Error?) -> Void) {
+    func provideDogBreedOptionsCollection(for intent: DynamicDogBreedSelectionIntent,
+                                          with completion: @escaping (INObjectCollection<DogBreed>?, Error?) -> Void) {
         loadDogBreedList {
             completion(INObjectCollection(items: $0), nil)
         }

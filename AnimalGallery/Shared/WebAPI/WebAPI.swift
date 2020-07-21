@@ -23,9 +23,9 @@ extension WebAPI {
             }
             queue.async {
                 completion(
-                    result.flatMap { response in
+                    result.flatMap { data in
                         Result {
-                            try JSONDecoder().decode(M.self, from: response.data)
+                            try JSONDecoder().decode(M.self, from: data)
                         }
                     }
                 )

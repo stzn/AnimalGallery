@@ -14,5 +14,5 @@ protocol HTTPClientTask {
 
 protocol HTTPClient {
     @discardableResult
-    func send(request: URLRequest, completion: @escaping (Result<Response, Error>) -> Void) -> HTTPClientTask
+    func send(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask
 }
