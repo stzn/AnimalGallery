@@ -9,10 +9,12 @@
 import Foundation
 
 final class ImageDataWebLoader {
-    private let queue = DispatchQueue(label: "ImageWebAPI")
     private let client: HTTPClient
-    init(client: HTTPClient) {
+    private let queue: DispatchQueue
+    init(client: HTTPClient,
+         queue: DispatchQueue = DispatchQueue(label: "ImageDataWebLoader")) {
         self.client = client
+        self.queue = queue
     }
 
     private final class Task: HTTPClientTask {

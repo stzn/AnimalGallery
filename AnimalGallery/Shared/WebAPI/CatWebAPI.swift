@@ -10,9 +10,11 @@ import Foundation
 final class CatWebAPI: WebAPI {
     let baseURL = catAPIbaseURL
     let client: HTTPClient
-    let queue = DispatchQueue(label: "CatWebAPI")
-    init(client: HTTPClient) {
+    let queue: DispatchQueue
+    init(client: HTTPClient,
+         queue: DispatchQueue = DispatchQueue(label: "CatWebAPI")) {
         self.client = client
+        self.queue = queue
     }
 
     func makeURLRequest(from url: URL,

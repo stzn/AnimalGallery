@@ -11,9 +11,11 @@ import Foundation
 final class DogWebAPI: WebAPI {
     let baseURL = dogAPIbaseURL
     let client: HTTPClient
-    let queue = DispatchQueue(label: "DogWebAPI")
-    init(client: HTTPClient) {
+    let queue: DispatchQueue
+    init(client: HTTPClient,
+         queue: DispatchQueue = DispatchQueue(label: "DogWebAPI")) {
         self.client = client
+        self.queue = queue
     }
 }
 
