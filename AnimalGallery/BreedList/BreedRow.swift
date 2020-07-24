@@ -15,7 +15,7 @@ struct BreedRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(self.breed.name.firstLetterCapitalized)
+                Text(breed.name.firstLetterCapitalized)
                     .font(.headline)
                 Spacer()
                 Image(systemName: "chevron.right")

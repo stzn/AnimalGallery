@@ -13,7 +13,7 @@ struct PlaceholderView : View {
 
     private let animalType: AnimalType
     init(type: AnimalType) {
-        self.animalType = type
+        animalType = type
     }
     var body: some View {
         switch animalType {

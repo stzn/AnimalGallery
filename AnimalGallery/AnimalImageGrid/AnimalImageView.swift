@@ -42,7 +42,7 @@ struct AnimalImageView: View {
 
     init(imageDataLoader: ImageDataLoader, image: AnimalImage) {
         self.image = image
-        self.loader = imageDataLoader
+        loader = imageDataLoader
     }
 
     var body: some View {

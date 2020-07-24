@@ -28,15 +28,15 @@ struct RootView: View {
                 }
                 .tag(AnimalType.cat)
                 .environment(\.injected, container)
-        }.onOpenURL { url in
+        }.onOpenURL { [self] url in
             guard let scheme = url.scheme,
                   let animalType = AnimalType(from: scheme) else {
                 return
             }
-            self.selection = animalType
+            selection = animalType
 
             let breedName = url.lastPathComponent
-            self.selectedBreed = breedName
+            selectedBreed = breedName
         }
     }
 }
