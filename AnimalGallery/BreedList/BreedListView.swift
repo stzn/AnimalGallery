@@ -10,13 +10,14 @@ import SwiftUI
 import WidgetKit
 
 final class BreedListViewModel: ObservableObject {
+    @Environment(\.injected) var container: DIContainer
     @Published var breeds: [Breed] = []
     @Published var error: Error? = nil
 
     private var cancellables = Set<AnyCancellable>()
 
-    func loadBreeds(breedListLoader: BreedListLoader) {
-        breedListLoader.load { result in
+    func loadBreeds(for animalType: AnimalType) {
+        breedListLoader(for: animalType).load { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let breeds):
@@ -28,10 +29,20 @@ final class BreedListViewModel: ObservableObject {
             }
         }
     }
+
+    private func breedListLoader(for animalType: AnimalType) -> BreedListLoader {
+        let breedListLoader: BreedListLoader
+        switch animalType {
+        case .dog:
+            breedListLoader = container.loaders.dogBreedListLoader
+        case .cat:
+            breedListLoader = container.loaders.catBreedListLoader
+        }
+        return breedListLoader
+    }
 }
 
 struct BreedListView: View {
-    @Environment(\.injected) var container: DIContainer
     @StateObject var model = BreedListViewModel()
 
     let animalType: AnimalType
@@ -53,31 +64,8 @@ struct BreedListView: View {
                 })
         }
         .onAppear {
-            model.loadBreeds(
-                breedListLoader: breedListLoader)
+            model.loadBreeds(for: animalType)
         }
-    }
-
-    private var breedListLoader: BreedListLoader {
-        let breedListLoader: BreedListLoader
-        switch animalType {
-        case .dog:
-            breedListLoader = container.loaders.dogBreedListLoader
-        case .cat:
-            breedListLoader = container.loaders.catBreedListLoader
-        }
-        return breedListLoader
-    }
-
-    private var imageListLoader: AnimalImageListLoader {
-        let imageListLoader: AnimalImageListLoader
-        switch animalType {
-        case .dog:
-            imageListLoader = container.loaders.dogImageListLoader
-        case .cat:
-            imageListLoader = container.loaders.catImageListLoader
-        }
-        return imageListLoader
     }
 
     private var content: some View {
@@ -105,10 +93,7 @@ struct BreedListView: View {
 
     private func navigationLinkToAnimalImages(for breed: Breed) -> some View {
         NavigationLink(
-            destination: AnimalImageGridView(
-                breed: breed,
-                imageListLoader: imageListLoader,
-                imageDataLoader: container.loaders.imageDataLoader),
+            destination: AnimalImageGridView(animalType: animalType, breed: breed),
             tag: breed.id, selection: $selectedBreed
         ) {
             BreedRow(breed: breed)
