@@ -13,12 +13,11 @@ private let columns = [
 ]
 
 final class AnimalImageGridViewModel: ObservableObject {
-    @Environment(\.injected) var container: DIContainer
     @Published var images: [AnimalImage] = []
     @Published var error: Error? = nil
     
-    func loadBreeds(of type: BreedType, in animalType: AnimalType) {
-        imageListLoader(for: animalType).load(type) { result in
+    func loadBreeds(of type: BreedType, using loader: AnimalImageListLoader) {
+        loader.load(type) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let images):
@@ -29,20 +28,10 @@ final class AnimalImageGridViewModel: ObservableObject {
             }
         }
     }
-
-    private func imageListLoader(for animalType: AnimalType) -> AnimalImageListLoader {
-        let imageListLoader: AnimalImageListLoader
-        switch animalType {
-        case .dog:
-            imageListLoader = container.loaders.dogImageListLoader
-        case .cat:
-            imageListLoader = container.loaders.catImageListLoader
-        }
-        return imageListLoader
-    }
 }
 
 struct AnimalImageGridView: View {
+    @Environment(\.injected) var container: DIContainer
     @StateObject var model = AnimalImageGridViewModel()
 
     let animalType: AnimalType
@@ -60,8 +49,19 @@ struct AnimalImageGridView: View {
             Spacer()
         }
         .onAppear {
-            model.loadBreeds(of: breed.id, in: animalType)
+            model.loadBreeds(of: breed.id, using: imageListLoader)
         }
+    }
+
+    private var imageListLoader: AnimalImageListLoader {
+        let imageListLoader: AnimalImageListLoader
+        switch animalType {
+        case .dog:
+            imageListLoader = container.loaders.dogImageListLoader
+        case .cat:
+            imageListLoader = container.loaders.catImageListLoader
+        }
+        return imageListLoader
     }
 }
 

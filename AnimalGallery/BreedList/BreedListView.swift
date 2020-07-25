@@ -10,14 +10,13 @@ import SwiftUI
 import WidgetKit
 
 final class BreedListViewModel: ObservableObject {
-    @Environment(\.injected) var container: DIContainer
     @Published var breeds: [Breed] = []
     @Published var error: Error? = nil
 
     private var cancellables = Set<AnyCancellable>()
 
-    func loadBreeds(for animalType: AnimalType) {
-        breedListLoader(for: animalType).load { result in
+    func loadBreeds(using loader: BreedListLoader) {
+        loader.load { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let breeds):
@@ -29,20 +28,10 @@ final class BreedListViewModel: ObservableObject {
             }
         }
     }
-
-    private func breedListLoader(for animalType: AnimalType) -> BreedListLoader {
-        let breedListLoader: BreedListLoader
-        switch animalType {
-        case .dog:
-            breedListLoader = container.loaders.dogBreedListLoader
-        case .cat:
-            breedListLoader = container.loaders.catBreedListLoader
-        }
-        return breedListLoader
-    }
 }
 
 struct BreedListView: View {
+    @Environment(\.injected) var container: DIContainer
     @StateObject var model = BreedListViewModel()
 
     let animalType: AnimalType
@@ -64,7 +53,7 @@ struct BreedListView: View {
                 })
         }
         .onAppear {
-            model.loadBreeds(for: animalType)
+            model.loadBreeds(using: breedListLoader)
         }
     }
 
@@ -100,6 +89,17 @@ struct BreedListView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .tag(breed)
+    }
+
+    private var breedListLoader: BreedListLoader {
+        let breedListLoader: BreedListLoader
+        switch animalType {
+        case .dog:
+            breedListLoader = container.loaders.dogBreedListLoader
+        case .cat:
+            breedListLoader = container.loaders.catBreedListLoader
+        }
+        return breedListLoader
     }
 }
 

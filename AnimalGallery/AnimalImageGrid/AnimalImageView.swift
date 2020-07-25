@@ -8,7 +8,6 @@
 import SwiftUI
 
 final class AnimalImageViewModel: ObservableObject {
-    @Environment(\.injected) var container: DIContainer
     @Published var imageData: Data? = nil
     @Published var error: Error? = nil
     var task: HTTPClientTask?
@@ -17,8 +16,8 @@ final class AnimalImageViewModel: ObservableObject {
         cancel()
     }
 
-    func loadImageData(from url: URL) {
-        task = container.loaders.imageDataLoader.load(url) { result in
+    func loadImageData(from url: URL, using loader: ImageDataLoader) {
+        task = loader.load(url) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let data):
@@ -36,6 +35,7 @@ final class AnimalImageViewModel: ObservableObject {
 }
 
 struct AnimalImageView: View {
+    @Environment(\.injected) var container: DIContainer
     @StateObject var model = AnimalImageViewModel()
 
     private let image: AnimalImage
@@ -47,7 +47,8 @@ struct AnimalImageView: View {
     var body: some View {
         content
             .onAppear {
-                model.loadImageData(from: image.imageURL)
+                model.loadImageData(from: image.imageURL,
+                                    using: container.loaders.imageDataLoader)
             }
     }
 
