@@ -16,7 +16,6 @@
 		D605CC8424B1CD1D00C2DA6D /* StrokeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC6724B118A9008B5685 /* StrokeText.swift */; };
 		D605CC8624B1D20E00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D605CC7B24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition */; };
 		D605CC8924B26E2100C2DA6D /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCBF24B00C3400C6B27C /* Breed.swift */; };
-		D605CC8D24B270A500C2DA6D /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */; };
 		D636CC3824B06424008B5685 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636CC3724B06424008B5685 /* String+.swift */; };
 		D636CC4024B06756008B5685 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D636CC3F24B06756008B5685 /* WidgetKit.framework */; };
 		D636CC4224B06756008B5685 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D636CC4124B06756008B5685 /* SwiftUI.framework */; };
@@ -154,7 +153,6 @@
 		D605CC7224B1CADD00C2DA6D /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		D605CC7424B1CADE00C2DA6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D605CC7B24B1CB2D00C2DA6D /* DynamicDogBreedSelection.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DynamicDogBreedSelection.intentdefinition; sourceTree = "<group>"; };
-		D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		D636CC3724B06424008B5685 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		D636CC3D24B06756008B5685 /* AnimalGalleryWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnimalGalleryWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D636CC3F24B06756008B5685 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -275,7 +273,6 @@
 				D6982E6324B656FB0037305E /* ImageEntry.swift */,
 				D669BA8124B6F84F00FCB69A /* ImageLoadable.swift */,
 				D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */,
-				D605CC8C24B270A500C2DA6D /* PlaceholderView.swift */,
 				D6982E6724B65C3A0037305E /* WidgetEntryView.swift */,
 				D6982E6B24B65D3A0037305E /* WidgetImage.swift */,
 				D636CC4624B06756008B5685 /* Assets.xcassets */,
@@ -629,7 +626,6 @@
 				D669BA6924B6B88900FCB69A /* AnimalType.swift in Sources */,
 				D669BA7924B6E0F100FCB69A /* CatWebAPI.swift in Sources */,
 				D636CC5724B06886008B5685 /* HTTPClient.swift in Sources */,
-				D605CC8D24B270A500C2DA6D /* PlaceholderView.swift in Sources */,
 				D67B565B24B7C86A00FAD694 /* BubbleBackground.swift in Sources */,
 				D67B568924B7ED6A00FAD694 /* CatImageTimeline.swift in Sources */,
 				D67B565D24B7C89A00FAD694 /* BubbleView.swift in Sources */,
