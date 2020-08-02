@@ -106,6 +106,7 @@
 		D6B2CCD624B00C7900C6B27C /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */; };
 		D6B2CCDA24B0114C00C6B27C /* BreedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCD924B0114C00C6B27C /* BreedListView.swift */; };
 		D6B2CCDC24B011C000C6B27C /* BreedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCDB24B011C000C6B27C /* BreedRow.swift */; };
+		D6F1658C24D61541001D107D /* RedactingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F1658B24D61541001D107D /* RedactingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +206,7 @@
 		D6B2CCD224B00C7900C6B27C /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		D6B2CCD924B0114C00C6B27C /* BreedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedListView.swift; sourceTree = "<group>"; };
 		D6B2CCDB24B011C000C6B27C /* BreedRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreedRow.swift; sourceTree = "<group>"; };
+		D6F1658B24D61541001D107D /* RedactingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 				D636CC4624B06756008B5685 /* Assets.xcassets */,
 				D6982E6224B656CC0037305E /* cat */,
 				D6982E6124B656B00037305E /* dog */,
+				D6F1658B24D61541001D107D /* RedactingView.swift */,
 			);
 			path = AnimalGalleryWidget;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				D669BA7824B6E0ED00FCB69A /* DogWebAPI.swift in Sources */,
 				D6982E6824B65C3A0037305E /* WidgetEntryView.swift in Sources */,
 				D6982E6C24B65D3A0037305E /* WidgetImage.swift in Sources */,
+				D6F1658C24D61541001D107D /* RedactingView.swift in Sources */,
 				D669BA7B24B6E0FB00FCB69A /* BreedListLoader.swift in Sources */,
 				D6982E6A24B65CDC0037305E /* AnimalBundle.swift in Sources */,
 				D67B138C24B5084D00A37BA9 /* CatImageLoader.swift in Sources */,
