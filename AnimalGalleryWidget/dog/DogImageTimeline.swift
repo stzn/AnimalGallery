@@ -18,21 +18,21 @@ struct DogImageTimeline: IntentTimelineProvider {
         self.imageLoader = imageLoader
     }
 
-    func snapshot(for configuration: Intent, with context: Context,
+    func placeholder(in context: Context) -> ImageEntry {
+        .init(date: Date(), nextDate: Date(), images: [dogPlaceholder, dogPlaceholder, dogPlaceholder])
+    }
+
+    func getSnapshot(for configuration: Intent, in context: Context,
                   completion: @escaping (Entry) -> ()) {
         let entryDate = Date()
         let refreshDate = Calendar.current.date(
             byAdding: .minute, value: 60, to: entryDate)!
-        if context.isPreview {
-            completion(.init(date: entryDate, nextDate: refreshDate, images: [dogPlaceholder, dogPlaceholder, dogPlaceholder]))
-        } else {
-            imageLoader.loadImage(for: "random", entryDate: entryDate, refreshDate: refreshDate) { entry in
-                completion(entry)
-            }
+        imageLoader.loadImage(for: "random", entryDate: entryDate, refreshDate: refreshDate) { entry in
+            completion(entry)
         }
     }
 
-    func timeline(for configuration: Intent, with context: Context,
+    func getTimeline(for configuration: Intent, in context: Context,
                   completion: @escaping (Timeline<Entry>) -> ()) {
         let identifier = configuration.dogBreed?.identifier ?? "random"
         let entryDate = Date()
