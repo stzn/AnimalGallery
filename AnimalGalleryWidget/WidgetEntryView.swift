@@ -40,16 +40,12 @@ struct WidgetEntryView : View {
                     .aspectRatio(1, contentMode: .fill)
                     .clipped()
                     .placeholderWhenRedacted()
-                timeLeftText
+                timeLeftText.padding()
             }
             .widgetURL(widgetURL(image.widgetURLKey))
         } else {
             ZStack(alignment: .bottom) {
-                Image(systemName: "mic.fill")
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fill)
-                    .clipped()
-                    .placeholderWhenRedacted()
+                BubbleBackground()
                 timeLeftText
             }
         }
@@ -60,7 +56,7 @@ struct WidgetEntryView : View {
             BubbleBackground()
             HStack {
                 makeImageList(2)
-                timeLeftText.padding(.leading, 10)
+                timeLeftText
             }
             .padding()
         }
@@ -127,7 +123,6 @@ struct WidgetEntryView : View {
                 style: .timer, width: 1, color: .white)
             .foregroundColor(.black)
             .lineLimit(1)
-            .fixedSize()
             .font(.system(style, design: .monospaced))
             .minimumScaleFactor(0.1)
     }
@@ -145,24 +140,23 @@ struct Widget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             WidgetEntryView(type: .dog,
-                            entry: createEntry(1))
+                            entry: previewEntry)
                 .redacted(reason: .placeholder)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
             WidgetEntryView(type: .dog,
-                            entry: createEntry(2))
+                            entry: previewEntry)
                 .redacted(reason: .placeholder)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
             WidgetEntryView(type: .dog,
-                            entry: createEntry(3))
+                            entry: previewEntry)
                 .redacted(reason: .placeholder)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
         }
     }
 
-    private static func createEntry(_ count: Int) -> ImageEntry {
+    private static var previewEntry: ImageEntry {
         .init(date: Date(),
               nextDate: Date(),
-              images: [WidgetImage](repeating: catPlaceholder,
-                                    count: count))
+              images: [catPlaceholder, catPlaceholder, catPlaceholder])
     }
 }
