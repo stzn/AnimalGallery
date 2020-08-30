@@ -36,21 +36,6 @@ class IntentHandler: INExtension, DynamicCatBreedSelectionIntentHandling {
         }
     }
 
-    func makeURLRequest(from url: URL,
-                        queryItems: [URLQueryItem] = []) -> URLRequest? {
-        var component = URLComponents(
-            url: url,
-            resolvingAgainstBaseURL: false)
-        component?.queryItems = queryItems
-
-        guard let url = component?.url else {
-            return nil
-        }
-        var request = URLRequest(url: url)
-        request.addValue(catAPIKey, forHTTPHeaderField: "x-api-key")
-        return request
-    }
-
     func defaultCatBreed(for intent: DynamicCatBreedSelectionIntent) -> CatBreed? {
         randomIntent
     }
