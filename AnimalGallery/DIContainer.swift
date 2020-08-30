@@ -53,7 +53,7 @@ extension DIContainer {
 
             let dogListLoader = RemoteListLoader(
                 request: URLRequest(url: dogBreedListAPIURL),
-                client: client, mapper: DogListMapper.map)
+                client: client, mapper: DogBreedListMapper.map)
 
             let catListLoader = RemoteListLoader(
                 request: CatAPIURLRequestFactory.makeURLRequest(from: catBreedListAPIbaseURL),

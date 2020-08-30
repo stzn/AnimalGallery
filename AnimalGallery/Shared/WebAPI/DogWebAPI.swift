@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DogListMapper {
+enum DogBreedListMapper {
     private struct BreedListAPIModel: Decodable {
         let message: [String: [String]]
         let status: String
