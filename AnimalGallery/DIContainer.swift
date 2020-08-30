@@ -22,6 +22,8 @@ extension EnvironmentValues {
     }
 }
 
+typealias BreedListLoader = (@escaping (Result<[Breed], Error>) -> Void) -> Void
+
 extension DIContainer {
     struct Loaders {
         let dogBreedListLoader: BreedListLoader
@@ -49,12 +51,15 @@ extension DIContainer {
             let session = configuredURLSession()
             let client = URLSessionHTTPClient(session: session)
 
+            let dogListLoader = RemoteListLoader(url: dogAPIbaseURL.appendingPathComponent("breeds/list/all"),
+                                       client: client,
+                                       mapper: DogListMapper.map)
             let dogWebAPI = DogWebAPI(client: client)
             let catWebAPI = CatWebAPI(client: client)
             let imageWebLoader = ImageDataWebLoader(client: client)
 
-            return .init(dogBreedListLoader: BreedListLoader(load: dogWebAPI.load(completion:)),
-                         catBreedListLoader: BreedListLoader(load: catWebAPI.load(completion:)),
+            return .init(dogBreedListLoader: dogListLoader.load(completion:),
+                         catBreedListLoader: catWebAPI.load(completion:),
                          dogImageListLoader: AnimalImageListLoader(load: dogWebAPI.load(of:completion:)),
                          catImageListLoader: AnimalImageListLoader(load: catWebAPI.load(of:completion:)),
                          imageDataLoader: ImageDataLoader(load: imageWebLoader.load(from:completion:))
@@ -66,8 +71,10 @@ extension DIContainer {
 #if DEBUG
 extension DIContainer.Loaders {
     static var stub: Self {
-        .init(dogBreedListLoader: .stub,
-              catBreedListLoader: .stub,
+        .init(dogBreedListLoader: { callback in
+                callback(.success([.anyBreed, .anyBreed, .anyBreed])) },
+              catBreedListLoader: { callback in
+                callback(.success([.anyBreed, .anyBreed, .anyBreed])) },
               dogImageListLoader: .stub,
               catImageListLoader: .stub,
               imageDataLoader: .stub)

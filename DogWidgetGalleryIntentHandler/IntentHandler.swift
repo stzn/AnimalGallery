@@ -20,7 +20,9 @@ class IntentHandler: INExtension, DynamicDogBreedSelectionIntentHandling {
     }
 
     private func loadDogBreedList(completion: @escaping ([DogBreed]) -> Void) {
-        DogWebAPI(client: client)
+        RemoteListLoader(url: dogAPIbaseURL.appendingPathComponent("breeds/list/all"),
+                                   client: client,
+                                   mapper: DogListMapper.map)
             .load { completion(self.makeDogBreed(from: $0)) }
     }
 

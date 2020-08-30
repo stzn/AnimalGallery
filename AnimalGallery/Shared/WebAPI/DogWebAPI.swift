@@ -8,6 +8,21 @@
 
 import Foundation
 
+enum DogListMapper {
+    private struct BreedListAPIModel: Decodable {
+        let message: [String: [String]]
+        let status: String
+    }
+
+    static func map(_ data: Data) -> Result<[Breed], Error> {
+        Result {
+            try JSONDecoder().decode(BreedListAPIModel.self, from: data)
+                .message
+                .map { Breed(id: $0.key, name: $0.key) }
+        }
+    }
+}
+
 final class DogWebAPI: WebAPI {
     let baseURL = dogAPIbaseURL
     let client: HTTPClient
@@ -16,22 +31,6 @@ final class DogWebAPI: WebAPI {
          queue: DispatchQueue = DispatchQueue(label: "DogWebAPI")) {
         self.client = client
         self.queue = queue
-    }
-}
-
-extension DogWebAPI {
-    struct BreedListAPIModel: Decodable {
-        let message: [String: [String]]
-        let status: String
-    }
-
-    func load(completion: @escaping (Result<[Breed], Error>) -> Void) {
-        call(BreedListAPIModel.self,
-             URLRequest(url: baseURL.appendingPathComponent("breeds/list/all"))) { result in
-            completion(
-                result.map { model in model.message.keys.map { Breed(id: $0, name: $0) } }
-            )
-        }
     }
 }
 

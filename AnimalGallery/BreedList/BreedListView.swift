@@ -16,7 +16,7 @@ final class BreedListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     func loadBreeds(using loader: BreedListLoader) {
-        loader.load { result in
+        loader { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let breeds):
@@ -53,7 +53,12 @@ struct BreedListView: View {
                 })
         }
         .onAppear {
-            model.loadBreeds(using: breedListLoader)
+            switch animalType {
+            case .dog:
+                model.loadBreeds(using: container.loaders.dogBreedListLoader)
+            case .cat:
+                model.loadBreeds(using: container.loaders.catBreedListLoader)
+            }
         }
     }
 
@@ -89,17 +94,6 @@ struct BreedListView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .tag(breed)
-    }
-
-    private var breedListLoader: BreedListLoader {
-        let breedListLoader: BreedListLoader
-        switch animalType {
-        case .dog:
-            breedListLoader = container.loaders.dogBreedListLoader
-        case .cat:
-            breedListLoader = container.loaders.catBreedListLoader
-        }
-        return breedListLoader
     }
 }
 
