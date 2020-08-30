@@ -9,17 +9,13 @@
 import Foundation
 
 enum DogBreedListMapper {
-    private struct BreedListAPIModel: Decodable {
+    struct BreedListAPIModel: Decodable {
         let message: [String: [String]]
         let status: String
     }
 
-    static func map(_ data: Data) -> Result<[Breed], Error> {
-        Result {
-            try JSONDecoder().decode(BreedListAPIModel.self, from: data)
-                .message
-                .map { Breed(id: $0.key, name: $0.key) }
-        }
+    static func map(_ apiModel: BreedListAPIModel) -> Result<[Breed], Error> {
+        .success(apiModel.message.map { Breed(id: $0.key, name: $0.key) })
     }
 }
 

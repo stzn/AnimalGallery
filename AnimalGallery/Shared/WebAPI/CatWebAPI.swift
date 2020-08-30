@@ -37,16 +37,13 @@ enum CatAPIURLRequestFactory {
 }
 
 enum CatListMapper {
-    private struct BreedListAPIModel: Decodable {
+    struct BreedListAPIModel: Decodable {
         let id: String
         let name: String
     }
 
-    static func map(_ data: Data) -> Result<[Breed], Error> {
-        Result {
-            try JSONDecoder().decode([BreedListAPIModel].self, from: data)
-                .map { Breed(id: $0.id, name: $0.name) }
-        }
+    static func map(_ apiModels: [BreedListAPIModel]) -> Result<[Breed], Error> {
+        .success(apiModels.map { Breed(id: $0.id, name: $0.name) })
     }
 }
 
