@@ -14,15 +14,17 @@ struct RemoteListLoader<Resource, APIModel: Decodable> {
     let mapper: (APIModel) -> Result<Resource, Error>
 
     func load(completion: @escaping (Result<Resource, Error>) -> Void) {
-        call(request) { result in
-            if case .failure(let error) = result {
-                completion(.failure(error))
-                return
+        queue.async {
+            call(request) { result in
+                if case .failure(let error) = result {
+                    completion(.failure(error))
+                    return
+                }
+                guard let apiModel = try? result.get() else {
+                    return
+                }
+                completion(mapper(apiModel))
             }
-            guard let apiModel = try? result.get() else {
-                return
-            }
-            completion(mapper(apiModel))
         }
     }
 
@@ -32,16 +34,13 @@ struct RemoteListLoader<Resource, APIModel: Decodable> {
                 completion(.failure(error))
                 return
             }
-            queue.async {
-                completion(
-                    result.flatMap { data in
-                        Result {
-                            try JSONDecoder().decode(APIModel.self, from: data)
-                        }
+            completion(
+                result.flatMap { data in
+                    Result {
+                        try JSONDecoder().decode(APIModel.self, from: data)
                     }
-                )
-            }
+                }
+            )
         }
     }
-
 }
