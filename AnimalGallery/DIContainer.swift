@@ -51,15 +51,20 @@ extension DIContainer {
             let session = configuredURLSession()
             let client = URLSessionHTTPClient(session: session)
 
-            let dogListLoader = RemoteListLoader(url: dogAPIbaseURL.appendingPathComponent("breeds/list/all"),
-                                       client: client,
-                                       mapper: DogListMapper.map)
+            let dogListLoader = RemoteListLoader(
+                request: URLRequest(url: dogBreedListAPIURL),
+                client: client, mapper: DogListMapper.map)
+
+            let catListLoader = RemoteListLoader(
+                request: CatAPIURLRequestFactory.makeURLRequest(from: catBreedListAPIbaseURL),
+                client: client, mapper: CatListMapper.map)
+
             let dogWebAPI = DogWebAPI(client: client)
             let catWebAPI = CatWebAPI(client: client)
             let imageWebLoader = ImageDataWebLoader(client: client)
 
             return .init(dogBreedListLoader: dogListLoader.load(completion:),
-                         catBreedListLoader: catWebAPI.load(completion:),
+                         catBreedListLoader: catListLoader.load(completion:),
                          dogImageListLoader: AnimalImageListLoader(load: dogWebAPI.load(of:completion:)),
                          catImageListLoader: AnimalImageListLoader(load: catWebAPI.load(of:completion:)),
                          imageDataLoader: ImageDataLoader(load: imageWebLoader.load(from:completion:))

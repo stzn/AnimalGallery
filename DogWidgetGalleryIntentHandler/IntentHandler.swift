@@ -20,9 +20,8 @@ class IntentHandler: INExtension, DynamicDogBreedSelectionIntentHandling {
     }
 
     private func loadDogBreedList(completion: @escaping ([DogBreed]) -> Void) {
-        RemoteListLoader(url: dogAPIbaseURL.appendingPathComponent("breeds/list/all"),
-                                   client: client,
-                                   mapper: DogListMapper.map)
+        let request = URLRequest(url: dogAPIbaseURL.appendingPathComponent("breeds/list/all"))
+        RemoteListLoader(request: request, client: client, mapper: DogListMapper.map)
             .load { completion(self.makeDogBreed(from: $0)) }
     }
 

@@ -152,12 +152,9 @@ extension CatWebAPI {
         if let breed = breed {
             queryItems.append(URLQueryItem(name: "breed_id", value: breed))
         }
-        guard let request = makeURLRequest(
+        let request = CatAPIURLRequestFactory.makeURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
-                queryItems: queryItems) else {
-            assertionFailure("should not be nil")
-            return
-        }
+                queryItems: queryItems)
 
         call(Root.self, request) { [weak self] result in
             guard let self = self else {
@@ -169,20 +166,14 @@ extension CatWebAPI {
     }
 
     func loadRandomBreeds(limit: Int, completion: @escaping (Result<[Breed], Error>) -> Void) {
-        let url = catAPIbaseURL.appendingPathComponent("breeds")
-        guard let request = makeURLRequest(
-                from: url,
-                queryItems: [URLQueryItem(name: "limit", value: "\(limit)")]) else {
-            assertionFailure("should not be nil")
-            return
-        }
-        call([BreedListAPIModel].self, request) { result in
-            completion(
-                result.map { models in
-                    models.map { Breed(id: $0.id, name: $0.name) }
-                }
-            )
-        }
+        let request = CatAPIURLRequestFactory.makeURLRequest(
+                from: catBreedListAPIbaseURL, queryItems: [URLQueryItem(name: "limit", value: "\(limit)")])
+        RemoteListLoader(request: request, client: client, mapper: DogListMapper.map)
+            .load {
+                completion(
+                    $0.map { models in models.map { Breed(id: $0.id, name: $0.name) } }
+                )
+            }
     }
 
     func loadBreedByName(_ name: String, completion: @escaping (Result<Breed, Error>) -> Void) {
@@ -191,21 +182,18 @@ extension CatWebAPI {
         }
 
         let url = catAPIbaseURL.appendingPathComponent("breeds/search")
-        guard let request = makeURLRequest(
-                from: url,
-                queryItems: [URLQueryItem(name: "q", value: name)]) else {
-            assertionFailure("should not be nil")
-            return
-        }
-        call([BreedListAPIModel].self, request) { result in
-             completion(
-                result.flatMap { models in
-                    guard let breed = models.map({ Breed(id: $0.id, name: $0.name) }).first else {
-                        return .failure(Error.failToCreateBreed)
+        let request = CatAPIURLRequestFactory.makeURLRequest(
+                from: url, queryItems: [URLQueryItem(name: "q", value: name)])
+        RemoteListLoader(request: request, client: client, mapper: CatListMapper.map)
+            .load { result in
+                completion(
+                    Result {
+                        guard let breed = try? result.get().first else {
+                            throw Error.failToCreateBreed
+                        }
+                        return breed
                     }
-                    return .success(breed)
-                }
-             )
-        }
+                )
+            }
     }
 }

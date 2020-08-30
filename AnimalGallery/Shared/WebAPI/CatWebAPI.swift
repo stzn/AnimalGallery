@@ -16,41 +16,36 @@ final class CatWebAPI: WebAPI {
         self.client = client
         self.queue = queue
     }
+}
 
-    func makeURLRequest(from url: URL,
-                        queryItems: [URLQueryItem] = []) -> URLRequest? {
+enum CatAPIURLRequestFactory {
+    static func makeURLRequest(from url: URL,
+                        queryItems: [URLQueryItem] = []) -> URLRequest {
         var component = URLComponents(
             url: url,
             resolvingAgainstBaseURL: false)
         component?.queryItems = queryItems
 
-        guard let url = component?.url else {
-            return nil
+        guard let composedUrl = component?.url else {
+            assertionFailure("should not be nil")
+            return URLRequest(url: url)
         }
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: composedUrl)
         request.addValue(catAPIKey, forHTTPHeaderField: "x-api-key")
         return request
     }
 }
 
-extension CatWebAPI {
-    struct BreedListAPIModel: Decodable {
+enum CatListMapper {
+    private struct BreedListAPIModel: Decodable {
         let id: String
         let name: String
     }
 
-    func load(completion: @escaping (Result<[Breed], Error>) -> Void) {
-        let url = catAPIbaseURL.appendingPathComponent("breeds")
-        guard let request = makeURLRequest(from: url) else {
-            assertionFailure("should not be nil")
-            return
-        }
-        call([BreedListAPIModel].self, request) { result in
-            completion(
-                result.map {
-                    $0.map { Breed(id: $0.id, name: $0.name) }
-                }
-            )
+    static func map(_ data: Data) -> Result<[Breed], Error> {
+        Result {
+            try JSONDecoder().decode([BreedListAPIModel].self, from: data)
+                .map { Breed(id: $0.id, name: $0.name) }
         }
     }
 }
@@ -75,16 +70,10 @@ extension CatWebAPI {
     }
 
     func load(of breed: BreedType, completion: @escaping (Result<[AnimalImage], Error>) -> Void) {
-        guard let request = makeURLRequest(
+        let request = CatAPIURLRequestFactory.makeURLRequest(
                 from: catAPIbaseURL.appendingPathComponent("/images/search"),
-                queryItems: [
-                    URLQueryItem(name: "breed_id", value: breed),
-                    URLQueryItem(name: "limit", value: "100")
-                ]) else {
-            assertionFailure("should not be nil")
-            return
-        }
-
+                queryItems: [URLQueryItem(name: "breed_id", value: breed),
+                             URLQueryItem(name: "limit", value: "100")])
         call(Root.self, request) { [weak self] result in
             guard let self = self else {
                 return

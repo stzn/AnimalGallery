@@ -20,7 +20,8 @@ class IntentHandler: INExtension, DynamicCatBreedSelectionIntentHandling {
     }
 
     private func loadCatBreedList(completion: @escaping ([CatBreed]) -> Void) {
-        CatWebAPI(client: client)
+        RemoteListLoader(request: CatAPIURLRequestFactory.makeURLRequest(from: catBreedListAPIbaseURL),
+                         client: client, mapper: CatListMapper.map)
             .load { completion(self.makeCatBreed(from: $0)) }
     }
 
@@ -33,6 +34,21 @@ class IntentHandler: INExtension, DynamicCatBreedSelectionIntentHandling {
         case .failure:
             return [randomIntent]
         }
+    }
+
+    func makeURLRequest(from url: URL,
+                        queryItems: [URLQueryItem] = []) -> URLRequest? {
+        var component = URLComponents(
+            url: url,
+            resolvingAgainstBaseURL: false)
+        component?.queryItems = queryItems
+
+        guard let url = component?.url else {
+            return nil
+        }
+        var request = URLRequest(url: url)
+        request.addValue(catAPIKey, forHTTPHeaderField: "x-api-key")
+        return request
     }
 
     func defaultCatBreed(for intent: DynamicCatBreedSelectionIntent) -> CatBreed? {
