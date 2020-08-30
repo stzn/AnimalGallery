@@ -168,7 +168,7 @@ extension CatWebAPI {
     func loadRandomBreeds(limit: Int, completion: @escaping (Result<[Breed], Error>) -> Void) {
         let request = CatAPIURLRequestFactory.makeURLRequest(
                 from: catBreedListAPIbaseURL, queryItems: [URLQueryItem(name: "limit", value: "\(limit)")])
-        RemoteListLoader(request: request, client: client, mapper: DogListMapper.map)
+        RemoteListLoader(request: request, client: client, mapper: CatListMapper.map)
             .load {
                 completion(
                     $0.map { models in models.map { Breed(id: $0.id, name: $0.name) } }
