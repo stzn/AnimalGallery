@@ -23,13 +23,26 @@ struct AnimalBundle: WidgetBundle {
 
     private var catWidget: CatGalleryWidget {
         var widget = CatGalleryWidget()
-        widget.client = client
+
+        widget.imageLoader = CatImageLoader(
+            breedListLoader: CatBreedListLoader(client: client),
+            imageListLoader: CatImageListLoader(client: client),
+            imageWebLoader: ImageDataWebLoader(client: client))
         return widget
     }
 
     private var dogWidget: DogGalleryWidget {
         var widget = DogGalleryWidget()
-        widget.client = client
+        widget.imageLoader = DogImageLoader(
+            imageWebLoader: .init(client: client),
+            imageURLListLoader: .init(client: client),
+            imageListLoader: .init(
+                client: client,
+                requestBuilder: { breedType in
+                    URLRequest(url: dogAPIbaseURL.appendingPathComponent("/breed/\(breedType!)/images"))
+                },
+                mapper: DogImageListMapper.map)
+        )
         return widget
     }
 }

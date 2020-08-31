@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct DogImageLoader: ImageLoadable {
-    private let webAPI: DogWebAPI
+    //private let webAPI: DogWebAPI
     private let imageWebLoader: ImageDataWebLoader
+    private let imageURLListLoader: DogImageURLListLoader
+    private let imageListLoader: RemoteImageListLoader<[AnimalImage], DogImageListMapper.APIModel>
 
-    init(client: HTTPClient) {
-        webAPI = DogWebAPI(client: client)
-        imageWebLoader = ImageDataWebLoader(client: client)
+    init(//webAPI: DogWebAPI,
+         imageWebLoader: ImageDataWebLoader,
+         imageURLListLoader: DogImageURLListLoader,
+         imageListLoader: RemoteImageListLoader<[AnimalImage], DogImageListMapper.APIModel>) {
+        //self.webAPI = webAPI
+        self.imageWebLoader = imageWebLoader
+        self.imageURLListLoader = imageURLListLoader
+        self.imageListLoader = imageListLoader
     }
 
     func loadImage(for identifier: String, entryDate: Date, refreshDate: Date, completion: @escaping (ImageEntry) -> Void) {
@@ -31,7 +38,7 @@ struct DogImageLoader: ImageLoadable {
     }
 
     func loadRandom(completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
-        webAPI.loadRandom(count: 3) { result in
+        imageURLListLoader.loadRandom(count: 3) { result in
             if case .failure(let error) = result {
                 completion(.failure(error))
                 return
@@ -45,7 +52,7 @@ struct DogImageLoader: ImageLoadable {
 
     func loadRandomInBreed(_ breedName: BreedType,
                            completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
-        webAPI.load(of: breedName) { result in
+        imageListLoader.load(of: breedName) { result in
             if case .failure(let error) = result {
                 completion(.failure(error))
                 return
@@ -108,22 +115,30 @@ struct DogImageLoader: ImageLoadable {
     }
 }
 
-extension DogWebAPI {
-    struct WidgetDogImageModel: Decodable {
-        let message: [String]
-        let status: String
+typealias DogImageURLListLoader = RemoteListLoader<[URL], DogImageURLListMapper.APIModel>
+
+extension DogImageURLListLoader {
+    convenience init(client: HTTPClient) {
+    self.init(url: dogAPIbaseURL,
+              client: client,
+              mapper: DogImageURLListMapper.map)
     }
 
     func loadRandom(
         count: Int,
         completion: @escaping (Result<[URL], Error>) -> Void) {
-        call(WidgetDogImageModel.self,
-             URLRequest(url: baseURL.appendingPathComponent("breeds/image/random/\(count)"))) { result in
-            completion(
-                result.map { model in
-                    model.message.compactMap(URL.init(string:))
-                }
-            )
-        }
+            load(requestBuilder:  { URLRequest.init(url: $0.appendingPathComponent("breeds/image/random/\(count)")) },
+                  completion: completion)
+    }
+}
+
+enum DogImageURLListMapper {
+    struct APIModel: Decodable {
+        let message: [String]
+        let status: String
+    }
+
+    static func map(_ apiModel: APIModel) -> Result<[URL], Error> {
+        .success(apiModel.message.compactMap(URL.init(string:)))
     }
 }

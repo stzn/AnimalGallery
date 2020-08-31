@@ -15,9 +15,9 @@ private let columns = [
 final class AnimalImageGridViewModel: ObservableObject {
     @Published var images: [AnimalImage] = []
     @Published var error: Error? = nil
-    
+
     func loadBreeds(of type: BreedType, using loader: AnimalImageListLoader) {
-        loader.load(type) { result in
+        loader(type) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let images):

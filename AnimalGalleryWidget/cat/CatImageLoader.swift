@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct CatImageLoader: ImageLoadable {
-    private let webAPI: CatWebAPI
+    private let breedListLoader: CatBreedListLoader
+    private let imageListLoader: CatImageListLoader
     private let imageWebLoader: ImageDataWebLoader
 
-    init(client: HTTPClient) {
-        webAPI = CatWebAPI(client: client)
-        imageWebLoader = ImageDataWebLoader(client: client)
+    init(breedListLoader: CatBreedListLoader,
+         imageListLoader: CatImageListLoader,
+         imageWebLoader: ImageDataWebLoader) {
+        self.breedListLoader = breedListLoader
+        self.imageListLoader = imageListLoader
+        self.imageWebLoader = imageWebLoader
     }
 
     func loadImage(for identifier: String,
@@ -34,7 +38,7 @@ struct CatImageLoader: ImageLoadable {
     }
 
     func loadRandom(completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
-        webAPI.loadRandomBreeds(limit: 3) { result in
+        breedListLoader.loadRandomBreeds(limit: 3) { result in
             if case .failure(let error) = result {
                 completion(.failure(error))
                 return
@@ -55,7 +59,7 @@ struct CatImageLoader: ImageLoadable {
         breeds.forEach { breed in
             queue.async(group: group) {
                 group.enter()
-                webAPI.load(of: breed.id, limit: 1) { result in
+                imageListLoader.load(of: breed.id, limit: 1) { result in
                     if case .failure(let error) = result {
                         completion(.failure(error))
                         group.leave()
@@ -84,7 +88,7 @@ struct CatImageLoader: ImageLoadable {
 
     func loadRandomInBreed(_ breed: BreedType,
                            completion: @escaping (Result<[WidgetImage], Error>) -> Void) {
-        webAPI.load(of: breed, limit: 3) { result in
+        imageListLoader.load(of: breed, limit: 3) { result in
             if case .failure(let error) = result {
                 completion(.failure(error))
                 return
@@ -146,54 +150,82 @@ struct CatImageLoader: ImageLoadable {
     }
 }
 
-extension CatWebAPI {
-    func load(of breed: BreedType? = nil, limit: Int = 100, completion: @escaping (Result<[AnimalImage], Error>) -> Void) {
-        var queryItems = [URLQueryItem(name: "limit", value: "\(limit)")]
-        if let breed = breed {
-            queryItems.append(URLQueryItem(name: "breed_id", value: breed))
-        }
-        let request = CatAPIURLRequestFactory.makeURLRequest(
-                from: catAPIbaseURL.appendingPathComponent("/images/search"),
-                queryItems: queryItems)
-
-        call(Root.self, request) { [weak self] result in
-            guard let self = self else {
-                assertionFailure("should not be nil")
-                return
-            }
-            completion(result.map(self.convert(from:)))
-        }
-    }
-
+extension CatBreedListLoader {
     func loadRandomBreeds(limit: Int, completion: @escaping (Result<[Breed], Error>) -> Void) {
-        let request = CatAPIURLRequestFactory.makeURLRequest(
-                from: catBreedListAPIbaseURL, queryItems: [URLQueryItem(name: "limit", value: "\(limit)")])
-        RemoteListLoader(request: request, client: client, mapper: CatListMapper.map)
-            .load {
+        load(requestBuilder: { url in
+            CatAPIURLRequestFactory.makeURLRequest(
+                    from: url, queryItems: [URLQueryItem(name: "limit", value: "\(limit)")])
+        }) {
                 completion(
                     $0.map { models in models.map { Breed(id: $0.id, name: $0.name) } }
                 )
             }
     }
 
-    func loadBreedByName(_ name: String, completion: @escaping (Result<Breed, Error>) -> Void) {
-        enum Error: Swift.Error {
-            case failToCreateBreed
-        }
+    enum LoaderError: Swift.Error {
+        case failToCreateBreed
+    }
 
-        let url = catAPIbaseURL.appendingPathComponent("breeds/search")
-        let request = CatAPIURLRequestFactory.makeURLRequest(
-                from: url, queryItems: [URLQueryItem(name: "q", value: name)])
-        RemoteListLoader(request: request, client: client, mapper: CatListMapper.map)
-            .load { result in
-                completion(
-                    Result {
-                        guard let breed = try? result.get().first else {
-                            throw Error.failToCreateBreed
-                        }
-                        return breed
-                    }
-                )
+    func loadBreedByName(_ name: String, completion: @escaping (Result<Breed, Error>) -> Void) {
+        load(requestBuilder: { url in
+            CatAPIURLRequestFactory.makeURLRequest(
+                    from: url.appendingPathComponent("breeds/search"),
+                queryItems: [URLQueryItem(name: "q", value: name)])
+        }) { result in
+            completion(Result {
+                guard let breed = try? result.get().first else {
+                    throw LoaderError.failToCreateBreed
+                }
+                return breed
+            })
+        }
+    }
+
+}
+
+typealias CatImageListLoader = RemoteImageListLoader<[AnimalImage], CatImageListMapper.APIModel>
+
+extension CatImageListLoader {
+    convenience init(client: HTTPClient, limit: Int = 100) {
+        self.init(
+            client: client,
+            requestBuilder: { breedType in
+                var queryItems = [URLQueryItem(name: "limit", value: "\(limit)")]
+                if let breed = breedType {
+                    queryItems.append(URLQueryItem(name: "breed_id", value: breed))
+                }
+                return CatAPIURLRequestFactory.makeURLRequest(
+                        from: catAPIbaseURL.appendingPathComponent("/images/search"),
+                        queryItems: queryItems)
+            },
+            mapper: CatImageListMapper.map)
+    }
+
+    func load(of breed: BreedType? = nil, limit: Int = 100, completion: @escaping (Result<[AnimalImage], Error>) -> Void) {
+        guard let url = requestBuilder(breed).url,
+              var components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              var queryItems = components.queryItems else {
+            return
+        }
+        queryItems.append(URLQueryItem(name: "limit", value: "\(limit)"))
+        components.queryItems = queryItems
+
+        queue.async { [weak self] in
+            guard let self = self,
+                  let url = components.url else {
+                return
             }
+
+            self.call(URLRequest(url: url)) { result in
+                if case .failure(let error) = result {
+                    completion(.failure(error))
+                    return
+                }
+                guard let apiModel = try? result.get() else {
+                    return
+                }
+                completion(self.mapper(apiModel))
+            }
+        }
     }
 }

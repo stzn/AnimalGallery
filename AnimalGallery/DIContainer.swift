@@ -23,6 +23,7 @@ extension EnvironmentValues {
 }
 
 typealias BreedListLoader = (@escaping (Result<[Breed], Error>) -> Void) -> Void
+typealias AnimalImageListLoader = (BreedType?, @escaping (Result<[AnimalImage], Error>) -> Void) -> Void
 
 extension DIContainer {
     struct Loaders {
@@ -51,22 +52,32 @@ extension DIContainer {
             let session = configuredURLSession()
             let client = URLSessionHTTPClient(session: session)
 
-            let dogListLoader = RemoteListLoader(
-                request: URLRequest(url: dogBreedListAPIURL),
-                client: client, mapper: DogBreedListMapper.map)
+            let dogListLoader = DogBreedListLoader(client: client)
 
-            let catListLoader = RemoteListLoader(
-                request: CatAPIURLRequestFactory.makeURLRequest(from: catBreedListAPIbaseURL),
-                client: client, mapper: CatListMapper.map)
+            let catListLoader = CatBreedListLoader(client: client)
+            
+            let dogImageListLoader = RemoteImageListLoader(
+                client: client,
+                requestBuilder: { breedType in
+                    URLRequest(url: dogAPIbaseURL.appendingPathComponent("/breed/\(breedType!)/images"))
+                },
+                mapper: DogImageListMapper.map)
 
-            let dogWebAPI = DogWebAPI(client: client)
-            let catWebAPI = CatWebAPI(client: client)
+            let catImageListLoader = RemoteImageListLoader(
+                client: client,
+                requestBuilder: { breedType in
+                    CatAPIURLRequestFactory.makeURLRequest(
+                            from: catImageListAPIURL,
+                            queryItems: [URLQueryItem(name: "breed_id", value: breedType)])
+                },
+                mapper: CatImageListMapper.map)
+
             let imageWebLoader = ImageDataWebLoader(client: client)
 
             return .init(dogBreedListLoader: dogListLoader.load(completion:),
                          catBreedListLoader: catListLoader.load(completion:),
-                         dogImageListLoader: AnimalImageListLoader(load: dogWebAPI.load(of:completion:)),
-                         catImageListLoader: AnimalImageListLoader(load: catWebAPI.load(of:completion:)),
+                         dogImageListLoader: dogImageListLoader.load(of:completion:),
+                         catImageListLoader: catImageListLoader.load(of:completion:),
                          imageDataLoader: ImageDataLoader(load: imageWebLoader.load(from:completion:))
             )
         }
@@ -80,8 +91,12 @@ extension DIContainer.Loaders {
                 callback(.success([.anyBreed, .anyBreed, .anyBreed])) },
               catBreedListLoader: { callback in
                 callback(.success([.anyBreed, .anyBreed, .anyBreed])) },
-              dogImageListLoader: .stub,
-              catImageListLoader: .stub,
+              dogImageListLoader: { _, callback in
+                callback(.success([.anyAnimalImage, .anyAnimalImage, .anyAnimalImage]))
+              },
+              catImageListLoader: { _, callback in
+                callback(.success([.anyAnimalImage, .anyAnimalImage, .anyAnimalImage]))
+              },
               imageDataLoader: .stub)
     }
 }

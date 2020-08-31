@@ -20,9 +20,8 @@ class IntentHandler: INExtension, DynamicCatBreedSelectionIntentHandling {
     }
 
     private func loadCatBreedList(completion: @escaping ([CatBreed]) -> Void) {
-        RemoteListLoader(request: CatAPIURLRequestFactory.makeURLRequest(from: catBreedListAPIbaseURL),
-                         client: client, mapper: CatListMapper.map)
-            .load { completion(self.makeCatBreed(from: $0)) }
+        CatBreedListLoader(client: client)
+            .load(requestBuilder: CatAPIURLRequestFactory.makeURLRequest) { completion(self.makeCatBreed(from: $0)) }
     }
 
     private func makeCatBreed(from result: Result<[Breed], Error>) -> [CatBreed] {

@@ -10,11 +10,8 @@ import Foundation
 
 final class ImageDataWebLoader {
     private let client: HTTPClient
-    private let queue: DispatchQueue
-    init(client: HTTPClient,
-         queue: DispatchQueue = DispatchQueue(label: "ImageDataWebLoader")) {
+    init(client: HTTPClient) {
         self.client = client
-        self.queue = queue
     }
 
     private final class Task: HTTPClientTask {
@@ -40,10 +37,8 @@ final class ImageDataWebLoader {
 
     func load(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask {
         let task = Task(completion)
-        task.wrapped = client.send(request: URLRequest(url: url)) { [weak self] data in
-            self?.queue.async {
-                completion(data)
-            }
+        task.wrapped = client.send(request: URLRequest(url: url)) { data in
+            completion(data)
         }
         return task
     }
