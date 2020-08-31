@@ -9,7 +9,6 @@ import Foundation
 
 final class RemoteImageListLoader<Resource, APIModel: Decodable> {
     let client: HTTPClient
-    let queue: DispatchQueue = DispatchQueue(label: "RemoteImageListLoaderQueue")
     let requestBuilder: (BreedType?) -> URLRequest
     let mapper: (APIModel) -> Result<Resource, Error>
 
@@ -22,20 +21,15 @@ final class RemoteImageListLoader<Resource, APIModel: Decodable> {
     }
 
     func load(of breedType: BreedType?, completion: @escaping (Result<Resource, Error>) -> Void) {
-        queue.async { [weak self] in
-            guard let self = self else {
+        call(self.requestBuilder(breedType)) { result in
+            if case .failure(let error) = result {
+                completion(.failure(error))
                 return
             }
-            self.call(self.requestBuilder(breedType)) { result in
-                if case .failure(let error) = result {
-                    completion(.failure(error))
-                    return
-                }
-                guard let apiModel = try? result.get() else {
-                    return
-                }
-                completion(self.mapper(apiModel))
+            guard let apiModel = try? result.get() else {
+                return
             }
+            completion(self.mapper(apiModel))
         }
     }
 

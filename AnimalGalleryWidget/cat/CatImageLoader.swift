@@ -210,22 +210,22 @@ extension CatImageListLoader {
         queryItems.append(URLQueryItem(name: "limit", value: "\(limit)"))
         components.queryItems = queryItems
 
-        queue.async { [weak self] in
-            guard let self = self,
-                  let url = components.url else {
+        guard let componentsUrl = components.url else {
+            return
+        }
+
+        call(URLRequest(url: componentsUrl)) { [weak self] result in
+            guard let self = self else {
                 return
             }
-
-            self.call(URLRequest(url: url)) { result in
-                if case .failure(let error) = result {
-                    completion(.failure(error))
-                    return
-                }
-                guard let apiModel = try? result.get() else {
-                    return
-                }
-                completion(self.mapper(apiModel))
+            if case .failure(let error) = result {
+                completion(.failure(error))
+                return
             }
+            guard let apiModel = try? result.get() else {
+                return
+            }
+            completion(self.mapper(apiModel))
         }
     }
 }

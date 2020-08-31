@@ -11,38 +11,30 @@ final class RemoteListLoader<Resource, APIModel: Decodable> {
     typealias Mapper = (APIModel) -> Result<Resource, Error>
     let url: URL
     let client: HTTPClient
-    let queue: DispatchQueue
     let mapper: Mapper
 
     init(
         url: URL,
         client: HTTPClient,
-        queue: DispatchQueue = DispatchQueue(label: "RemoteListLoaderQueue"),
         mapper: @escaping Mapper
     ) {
         self.url = url
         self.client = client
-        self.queue = queue
         self.mapper = mapper
     }
 
     func load(requestBuilder: @escaping (URL) -> URLRequest,
               completion: @escaping (Result<Resource, Error>) -> Void) {
-        queue.async { [weak self] in
-            guard let self = self else {
+        let request = requestBuilder(self.url)
+        call(request) { result in
+            if case .failure(let error) = result {
+                completion(.failure(error))
                 return
             }
-            let request = requestBuilder(self.url)
-            self.call(request) { result in
-                if case .failure(let error) = result {
-                    completion(.failure(error))
-                    return
-                }
-                guard let apiModel = try? result.get() else {
-                    return
-                }
-                completion(self.mapper(apiModel))
+            guard let apiModel = try? result.get() else {
+                return
             }
+            completion(self.mapper(apiModel))
         }
     }
 

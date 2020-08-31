@@ -17,21 +17,15 @@ extension DogBreedListLoader {
     }
 
     func load(completion: @escaping (Result<Resource, Error>) -> Void) {
-        queue.async { [weak self] in
-            guard let self = self else {
+        call(URLRequest(url: self.url)) { result in
+            if case .failure(let error) = result {
+                completion(.failure(error))
                 return
             }
-
-            self.call(URLRequest(url: self.url)) { result in
-                if case .failure(let error) = result {
-                    completion(.failure(error))
-                    return
-                }
-                guard let apiModel = try? result.get() else {
-                    return
-                }
-                completion(self.mapper(apiModel))
+            guard let apiModel = try? result.get() else {
+                return
             }
+            completion(self.mapper(apiModel))
         }
     }
 }

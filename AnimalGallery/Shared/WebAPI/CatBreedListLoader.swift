@@ -16,21 +16,19 @@ extension CatBreedListLoader {
     }
 
     func load(completion: @escaping (Result<Resource, Error>) -> Void) {
-        queue.async { [weak self] in
+        call(URLRequest(url: self.url)) { [weak self] result in
             guard let self = self else {
                 return
             }
 
-            self.call(URLRequest(url: self.url)) { result in
-                if case .failure(let error) = result {
-                    completion(.failure(error))
-                    return
-                }
-                guard let apiModel = try? result.get() else {
-                    return
-                }
-                completion(self.mapper(apiModel))
+            if case .failure(let error) = result {
+                completion(.failure(error))
+                return
             }
+            guard let apiModel = try? result.get() else {
+                return
+            }
+            completion(self.mapper(apiModel))
         }
     }
 }
