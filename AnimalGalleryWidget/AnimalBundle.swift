@@ -34,14 +34,9 @@ struct AnimalBundle: WidgetBundle {
     private var dogWidget: DogGalleryWidget {
         var widget = DogGalleryWidget()
         widget.imageLoader = DogImageLoader(
-            imageDataLoader: ImageDataLoader(load: ImageDataWebLoader(client: client).load(from:completion:)),
+            imageDataLoader: .init(client: client),
             imageURLListLoader: .init(client: client),
-            imageListLoader: .init(
-                client: client,
-                requestBuilder: { breedType in
-                    URLRequest(url: dogAPIbaseURL.appendingPathComponent("/breed/\(breedType!)/images"))
-                },
-                mapper: DogImageListMapper.map)
+            imageListLoader: .init(client: client)
         )
         return widget
     }

@@ -40,21 +40,3 @@ enum DogBreedListMapper {
         .success(apiModel.message.map { Breed(id: $0.key, name: $0.key) })
     }
 }
-
-enum DogImageListMapper {
-    struct APIModel: Decodable {
-        let message: [String]
-        let status: String
-    }
-
-    static func map(_ apiModel: APIModel) -> Result<[AnimalImage], Error> {
-        .success(
-            apiModel.message.compactMap { urlString -> AnimalImage? in
-                guard let url = URL(string: urlString) else {
-                    return nil
-                }
-                return AnimalImage(imageURL: url)
-            }
-        )
-    }
-}

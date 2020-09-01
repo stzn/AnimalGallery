@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct DogImageLoader {
-    private let imageDataLoader: ImageDataLoader
+    private let imageDataLoader: ImageDataWebLoader
     private let imageURLListLoader: DogImageURLListLoader
-    private let imageListLoader: RemoteImageListLoader<[AnimalImage], DogImageListMapper.APIModel>
+    private let imageListLoader: DogImageListLoader
 
     init(
-         imageDataLoader: ImageDataLoader,
+         imageDataLoader: ImageDataWebLoader,
          imageURLListLoader: DogImageURLListLoader,
-         imageListLoader: RemoteImageListLoader<[AnimalImage], DogImageListMapper.APIModel>) {
+         imageListLoader: DogImageListLoader) {
         self.imageDataLoader = imageDataLoader
         self.imageURLListLoader = imageURLListLoader
         self.imageListLoader = imageListLoader
@@ -91,7 +91,7 @@ struct DogImageLoader {
 
     private func loadDogImage(from url: URL,
                               completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        _ = imageDataLoader.load(url) { result in
+        _ = imageDataLoader.load(from: url) { result in
             if case .failure(let error) = result {
                 completion(.failure(error))
                 return
@@ -110,33 +110,5 @@ struct DogImageLoader {
 
     private func extractBreed(from url: URL) -> String {
         url.deletingLastPathComponent().lastPathComponent.firstLetterCapitalized
-    }
-}
-
-typealias DogImageURLListLoader = RemoteListLoader<[URL], DogImageURLListMapper.APIModel>
-
-extension DogImageURLListLoader {
-    convenience init(client: HTTPClient) {
-    self.init(url: dogAPIbaseURL,
-              client: client,
-              mapper: DogImageURLListMapper.map)
-    }
-
-    func loadRandom(
-        count: Int,
-        completion: @escaping (Result<[URL], Error>) -> Void) {
-            load(requestBuilder:  { URLRequest.init(url: $0.appendingPathComponent("breeds/image/random/\(count)")) },
-                  completion: completion)
-    }
-}
-
-enum DogImageURLListMapper {
-    struct APIModel: Decodable {
-        let message: [String]
-        let status: String
-    }
-
-    static func map(_ apiModel: APIModel) -> Result<[URL], Error> {
-        .success(apiModel.message.compactMap(URL.init(string:)))
     }
 }

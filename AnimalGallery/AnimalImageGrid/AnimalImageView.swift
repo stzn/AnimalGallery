@@ -16,8 +16,8 @@ final class AnimalImageViewModel: ObservableObject {
         cancel()
     }
 
-    func loadImageData(from url: URL, using loader: ImageDataLoader) {
-        task = loader.load(url) { result in
+    func loadImageData(from url: URL, using loader: ImageLoader) {
+        task = loader(url) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let data):

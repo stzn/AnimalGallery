@@ -13,11 +13,7 @@ final class RemoteListLoader<Resource, APIModel: Decodable> {
     let client: HTTPClient
     let mapper: Mapper
 
-    init(
-        url: URL,
-        client: HTTPClient,
-        mapper: @escaping Mapper
-    ) {
+    init(url: URL, client: HTTPClient, mapper: @escaping Mapper) {
         self.url = url
         self.client = client
         self.mapper = mapper

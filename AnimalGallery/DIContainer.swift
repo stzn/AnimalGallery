@@ -24,6 +24,7 @@ extension EnvironmentValues {
 
 typealias BreedListLoader = (@escaping (Result<[Breed], Error>) -> Void) -> Void
 typealias AnimalImageListLoader = (BreedType?, @escaping (Result<[AnimalImage], Error>) -> Void) -> Void
+typealias ImageLoader =  (URL, @escaping (Result<Data, Error>) -> Void) -> HTTPClientTask
 
 extension DIContainer {
     struct Loaders {
@@ -31,7 +32,7 @@ extension DIContainer {
         let catBreedListLoader: BreedListLoader
         let dogImageListLoader: AnimalImageListLoader
         let catImageListLoader: AnimalImageListLoader
-        let imageDataLoader: ImageDataLoader
+        let imageDataLoader: ImageLoader
 
         static var live: Self {
             let loaders = configureLoaders()
@@ -78,7 +79,7 @@ extension DIContainer {
                          catBreedListLoader: catListLoader.load(completion:),
                          dogImageListLoader: dogImageListLoader.load(of:completion:),
                          catImageListLoader: catImageListLoader.load(of:completion:),
-                         imageDataLoader: ImageDataLoader(load: imageWebLoader.load(from:completion:))
+                         imageDataLoader: imageWebLoader.load(from:completion:)
             )
         }
     }
@@ -97,7 +98,15 @@ extension DIContainer.Loaders {
               catImageListLoader: { _, callback in
                 callback(.success([.anyAnimalImage, .anyAnimalImage, .anyAnimalImage]))
               },
-              imageDataLoader: .stub)
+              imageDataLoader: { _, callback in
+                callback(.success(UIImage(systemName: "tray")!.pngData()!))
+                return StubTask()
+              })
+    }
+}
+
+final class StubTask: HTTPClientTask {
+    func cancel() {
     }
 }
 #endif
