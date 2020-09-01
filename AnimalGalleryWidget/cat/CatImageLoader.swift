@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct CatImageLoader: ImageLoadable {
+struct CatImageLoader {
     private let breedListLoader: CatBreedListLoader
     private let imageListLoader: CatImageListLoader
-    private let imageWebLoader: ImageDataWebLoader
+    private let imageDataLoader: ImageDataWebLoader
 
     init(breedListLoader: CatBreedListLoader,
          imageListLoader: CatImageListLoader,
-         imageWebLoader: ImageDataWebLoader) {
+         imageDataLoader: ImageDataWebLoader) {
         self.breedListLoader = breedListLoader
         self.imageListLoader = imageListLoader
-        self.imageWebLoader = imageWebLoader
+        self.imageDataLoader = imageDataLoader
     }
 
     func loadImage(for identifier: String,
@@ -133,7 +133,7 @@ struct CatImageLoader: ImageLoadable {
             case failToCreateImage
         }
 
-        _ = imageWebLoader.load(from: url) { result in
+        _ = imageDataLoader.load(from: url) { result in
             if case .failure(let error) = result {
                 completion(.failure(error))
                 return

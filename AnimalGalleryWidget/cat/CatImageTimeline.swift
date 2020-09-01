@@ -13,8 +13,8 @@ struct CatImageTimeline: IntentTimelineProvider {
     typealias Intent = DynamicCatBreedSelectionIntent
     typealias Entry = ImageEntry
 
-    private let imageLoader: ImageLoadable
-    init(imageLoader: ImageLoadable) {
+    private let imageLoader: CatImageLoader
+    init(imageLoader: CatImageLoader) {
         self.imageLoader = imageLoader
     }
 

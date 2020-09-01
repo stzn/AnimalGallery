@@ -7,18 +7,16 @@
 
 import SwiftUI
 
-struct DogImageLoader: ImageLoadable {
-    //private let webAPI: DogWebAPI
-    private let imageWebLoader: ImageDataWebLoader
+struct DogImageLoader {
+    private let imageDataLoader: ImageDataLoader
     private let imageURLListLoader: DogImageURLListLoader
     private let imageListLoader: RemoteImageListLoader<[AnimalImage], DogImageListMapper.APIModel>
 
-    init(//webAPI: DogWebAPI,
-         imageWebLoader: ImageDataWebLoader,
+    init(
+         imageDataLoader: ImageDataLoader,
          imageURLListLoader: DogImageURLListLoader,
          imageListLoader: RemoteImageListLoader<[AnimalImage], DogImageListMapper.APIModel>) {
-        //self.webAPI = webAPI
-        self.imageWebLoader = imageWebLoader
+        self.imageDataLoader = imageDataLoader
         self.imageURLListLoader = imageURLListLoader
         self.imageListLoader = imageListLoader
     }
@@ -93,7 +91,7 @@ struct DogImageLoader: ImageLoadable {
 
     private func loadDogImage(from url: URL,
                               completion: @escaping (Result<WidgetImage, Error>) -> Void) {
-        _ = imageWebLoader.load(from: url) { result in
+        _ = imageDataLoader.load(url) { result in
             if case .failure(let error) = result {
                 completion(.failure(error))
                 return

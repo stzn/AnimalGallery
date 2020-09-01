@@ -55,7 +55,6 @@
 		D669BA7E24B6E2AB00FCB69A /* ImageDataWebLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC324B00C6C00C6B27C /* ImageDataWebLoader.swift */; };
 		D669BA7F24B6E3DE00FCB69A /* ImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC724B00C6C00C6B27C /* ImageDataLoader.swift */; };
 		D669BA8024B6E3DF00FCB69A /* ImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B2CCC724B00C6C00C6B27C /* ImageDataLoader.swift */; };
-		D669BA8224B6F84F00FCB69A /* ImageLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D669BA8124B6F84F00FCB69A /* ImageLoadable.swift */; };
 		D67B138824B5073400A37BA9 /* CatGalleryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */; };
 		D67B138C24B5084D00A37BA9 /* CatImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */; };
 		D67B565B24B7C86A00FAD694 /* BubbleBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B565A24B7C86A00FAD694 /* BubbleBackground.swift */; };
@@ -170,7 +169,6 @@
 		D669BA6524B6B7FC00FCB69A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D669BA6724B6B88900FCB69A /* AnimalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalType.swift; sourceTree = "<group>"; };
 		D669BA6A24B6BF8C00FCB69A /* CatBreedListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedListLoader.swift; sourceTree = "<group>"; };
-		D669BA8124B6F84F00FCB69A /* ImageLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadable.swift; sourceTree = "<group>"; };
 		D67B138724B5073400A37BA9 /* CatGalleryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatGalleryWidget.swift; sourceTree = "<group>"; };
 		D67B138B24B5084D00A37BA9 /* CatImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatImageLoader.swift; sourceTree = "<group>"; };
 		D67B565A24B7C86A00FAD694 /* BubbleBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleBackground.swift; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 				D67B565A24B7C86A00FAD694 /* BubbleBackground.swift */,
 				D67B565C24B7C89A00FAD694 /* BubbleView.swift */,
 				D6982E6324B656FB0037305E /* ImageEntry.swift */,
-				D669BA8124B6F84F00FCB69A /* ImageLoadable.swift */,
 				D636CC6A24B14F60008B5685 /* LeftTimeTextView.swift */,
 				D6982E6724B65C3A0037305E /* WidgetEntryView.swift */,
 				D6982E6B24B65D3A0037305E /* WidgetImage.swift */,
@@ -608,7 +605,6 @@
 				D636CC6C24B15033008B5685 /* LeftTimeTextView.swift in Sources */,
 				D669BA7E24B6E2AB00FCB69A /* ImageDataWebLoader.swift in Sources */,
 				D636CC5B24B068A4008B5685 /* Breed.swift in Sources */,
-				D669BA8224B6F84F00FCB69A /* ImageLoadable.swift in Sources */,
 				D6982E6424B656FB0037305E /* ImageEntry.swift in Sources */,
 				D669BA8024B6E3DF00FCB69A /* ImageDataLoader.swift in Sources */,
 				D605CC8624B1D20E00C2DA6D /* DynamicDogBreedSelection.intentdefinition in Sources */,

@@ -14,3 +14,12 @@ struct ImageEntry: TimelineEntry {
     let images: [WidgetImage]
 }
 
+func makeEntry(from result: Result<[WidgetImage], Error>,
+                       entryDate: Date, refreshDate: Date) -> ImageEntry {
+    switch result {
+    case .success(let images):
+        return ImageEntry(date: entryDate, nextDate: refreshDate, images: images)
+    case .failure:
+        return ImageEntry(date: entryDate, nextDate: refreshDate, images: [errorImage])
+    }
+}

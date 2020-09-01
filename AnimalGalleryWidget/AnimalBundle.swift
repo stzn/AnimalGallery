@@ -27,14 +27,14 @@ struct AnimalBundle: WidgetBundle {
         widget.imageLoader = CatImageLoader(
             breedListLoader: CatBreedListLoader(client: client),
             imageListLoader: CatImageListLoader(client: client),
-            imageWebLoader: ImageDataWebLoader(client: client))
+            imageDataLoader: ImageDataWebLoader(client: client))
         return widget
     }
 
     private var dogWidget: DogGalleryWidget {
         var widget = DogGalleryWidget()
         widget.imageLoader = DogImageLoader(
-            imageWebLoader: .init(client: client),
+            imageDataLoader: ImageDataLoader(load: ImageDataWebLoader(client: client).load(from:completion:)),
             imageURLListLoader: .init(client: client),
             imageListLoader: .init(
                 client: client,

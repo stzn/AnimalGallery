@@ -13,8 +13,8 @@ struct DogImageTimeline: IntentTimelineProvider {
     typealias Intent = DynamicDogBreedSelectionIntent
     typealias Entry = ImageEntry
 
-    private let imageLoader: ImageLoadable
-    init(imageLoader: ImageLoadable) {
+    private let imageLoader: DogImageLoader
+    init(imageLoader: DogImageLoader) {
         self.imageLoader = imageLoader
     }
 
