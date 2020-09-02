@@ -39,10 +39,9 @@ struct AnimalImageGridView: View {
 
     var body: some View {
         ScrollView {
-// When scrolling quickly, the app craches.
-// LazyVGrid(columns: columns) {
-            VStack {
-                ForEach(model.images) {
+            LazyVGrid(columns: columns) {
+                // When fetch too many data, app craches.
+                ForEach(model.images.prefix(100)) {
                     AnimalImageView(image: $0)
                 }
             }
