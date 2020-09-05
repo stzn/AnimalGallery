@@ -43,3 +43,10 @@ class IntentHandler: INExtension, DynamicCatBreedSelectionIntentHandling {
         return self
     }
 }
+
+
+extension CatAPIURLRequestFactory {
+    static func makeURLRequest(_ url: URL) -> URLRequest {
+        return URLRequest(url: url)
+    }
+}
