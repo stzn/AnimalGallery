@@ -57,21 +57,9 @@ extension DIContainer {
 
             let catListLoader = CatBreedListLoader(client: client)
             
-            let dogImageListLoader = RemoteImageListLoader(
-                client: client,
-                requestBuilder: { breedType in
-                    URLRequest(url: dogAPIbaseURL.appendingPathComponent("/breed/\(breedType!)/images"))
-                },
-                mapper: DogImageListMapper.map)
+            let dogImageListLoader = DogImageListLoader(client: client)
 
-            let catImageListLoader = RemoteImageListLoader(
-                client: client,
-                requestBuilder: { breedType in
-                    CatAPIURLRequestFactory.makeURLRequest(
-                            from: catImageListAPIURL,
-                            queryItems: [URLQueryItem(name: "breed_id", value: breedType)])
-                },
-                mapper: CatImageListMapper.map)
+            let catImageListLoader = CatImageListLoader(client: client)
 
             let imageWebLoader = ImageDataWebLoader(client: client)
 
