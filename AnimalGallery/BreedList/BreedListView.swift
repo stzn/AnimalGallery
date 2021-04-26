@@ -5,15 +5,12 @@
 //  Created by Shinzan Takata on 2020/07/04.
 //
 
-import Combine
 import SwiftUI
 import WidgetKit
 
 final class BreedListViewModel: ObservableObject {
     @Published var breeds: [Breed] = []
     @Published var error: Error? = nil
-
-    private var cancellables = Set<AnyCancellable>()
 
     func loadBreeds(using loader: BreedListLoader) {
         loader { result in
